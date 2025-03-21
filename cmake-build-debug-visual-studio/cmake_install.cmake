@@ -2,7 +2,7 @@
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "C:/Program Files (x86)/MusicaLau")
+  set(CMAKE_INSTALL_PREFIX "C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -30,16 +30,6 @@ endif()
 # Is this installation the result of a crosscompile?
 if(NOT DEFINED CMAKE_CROSSCOMPILING)
   set(CMAKE_CROSSCOMPILING "FALSE")
-endif()
-
-if(NOT CMAKE_INSTALL_LOCAL_ONLY)
-  # Include the install script for the subdirectory.
-  include("C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/vendor/cmake_install.cmake")
-endif()
-
-if(NOT CMAKE_INSTALL_LOCAL_ONLY)
-  # Include the install script for the subdirectory.
-  include("C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/src/cmake_install.cmake")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT)

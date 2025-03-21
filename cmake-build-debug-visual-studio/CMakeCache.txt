@@ -20,6 +20,9 @@ BUILD_SHARED_LIBS:UNINITIALIZED=OFF
 //Path to a program.
 CMAKE_AR:FILEPATH=C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.37.32822/bin/Hostx64/x64/lib.exe
 
+//No help, variable specified on the command line.
+CMAKE_BUILD_TYPE:UNINITIALIZED=Debug
+
 //Enable colored diagnostics throughout.
 CMAKE_COLOR_DIAGNOSTICS:BOOL=ON
 
@@ -118,9 +121,6 @@ CMAKE_INSTALL_MANDIR:PATH=
 //C header files for non-gcc (/usr/include)
 CMAKE_INSTALL_OLDINCLUDEDIR:PATH=/usr/include
 
-//Install path prefix, prepended onto install directories.
-CMAKE_INSTALL_PREFIX:PATH=C:/Program Files (x86)/MusicaLau
-
 //Run-time variable data (LOCALSTATEDIR/run)
 CMAKE_INSTALL_RUNSTATEDIR:PATH=
 
@@ -166,7 +166,7 @@ CMAKE_PROJECT_DESCRIPTION:STATIC=
 CMAKE_PROJECT_HOMEPAGE_URL:STATIC=
 
 //Value Computed by CMake
-CMAKE_PROJECT_NAME:STATIC=MusicaLau
+CMAKE_PROJECT_NAME:STATIC=musicalau
 
 //Value Computed by CMake
 CMAKE_PROJECT_VERSION:STATIC=3.3.0
@@ -272,14 +272,17 @@ LibUSB_LINK_FLAGS:STRING=
 //Extra link libraries of LibUSB
 LibUSB_LINK_LIBRARIES:STRING=
 
-//Value Computed by CMake
-MusicaLau_BINARY_DIR:STATIC=C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio
+//Use vendored libraries
+MYGAME_VENDORED:BOOL=OFF
 
 //Value Computed by CMake
-MusicaLau_IS_TOP_LEVEL:STATIC=ON
+MusicaLau_BINARY_DIR:STATIC=C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/src
 
 //Value Computed by CMake
-MusicaLau_SOURCE_DIR:STATIC=C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau
+MusicaLau_IS_TOP_LEVEL:STATIC=OFF
+
+//Value Computed by CMake
+MusicaLau_SOURCE_DIR:STATIC=C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/src
 
 //Arguments to supply to pkg-config
 PKG_CONFIG_ARGN:STRING=
@@ -288,13 +291,16 @@ PKG_CONFIG_ARGN:STRING=
 PKG_CONFIG_EXECUTABLE:FILEPATH=PKG_CONFIG_EXECUTABLE-NOTFOUND
 
 //Value Computed by CMake
-SDL3_BINARY_DIR:STATIC=C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/vendor/SDL
+SDL3_BINARY_DIR:STATIC=C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/SDL
+
+//The directory containing a CMake configuration file for SDL3.
+SDL3_DIR:PATH=SDL3_DIR-NOTFOUND
 
 //Value Computed by CMake
 SDL3_IS_TOP_LEVEL:STATIC=OFF
 
 //Value Computed by CMake
-SDL3_SOURCE_DIR:STATIC=C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/vendor/SDL
+SDL3_SOURCE_DIR:STATIC=C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/SDL
 
 //Support the ALSA audio API
 SDL_ALSA:BOOL=OFF
@@ -394,6 +400,9 @@ SDL_DUMMYVIDEO:BOOL=ON
 
 //Build the examples directory
 SDL_EXAMPLES:BOOL=OFF
+
+//link examples to shared SDL library
+SDL_EXAMPLES_LINK_SHARED:BOOL=ON
 
 //number to use for magic foregrounding signal or 'OFF'
 SDL_FOREGROUNDING_SIGNAL:STRING=OFF
@@ -508,7 +517,7 @@ SDL_RPATH:BOOL=OFF
 SDL_SENSOR:BOOL=ON
 
 //Build a shared version of the library
-SDL_SHARED:BOOL=OFF
+SDL_SHARED:BOOL=ON
 
 //Support the sndio audio API
 SDL_SNDIO:BOOL=OFF
@@ -536,6 +545,9 @@ SDL_SYSTEM_ICONV:BOOL=OFF
 
 //Build the test directory
 SDL_TESTS:BOOL=OFF
+
+//link tests to shared SDL library
+SDL_TESTS_LINK_SHARED:BOOL=ON
 
 //Timeout multiplier to account for really slow machines
 SDL_TESTS_TIMEOUT_MULTIPLIER:STRING=1
@@ -572,6 +584,24 @@ SDL_X11:BOOL=OFF
 
 //Use Xinput for Windows
 SDL_XINPUT:BOOL=ON
+
+//Value Computed by CMake
+musicalau_BINARY_DIR:STATIC=C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio
+
+//Value Computed by CMake
+musicalau_IS_TOP_LEVEL:STATIC=ON
+
+//Value Computed by CMake
+musicalau_SOURCE_DIR:STATIC=C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau
+
+//Value Computed by CMake
+sdl-min_BINARY_DIR:STATIC=C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio
+
+//Value Computed by CMake
+sdl-min_IS_TOP_LEVEL:STATIC=ON
+
+//Value Computed by CMake
+sdl-min_SOURCE_DIR:STATIC=C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau
 
 
 ########################
@@ -667,6 +697,7 @@ CMAKE_INSTALL_LOCALSTATEDIR-ADVANCED:INTERNAL=1
 CMAKE_INSTALL_MANDIR-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_INSTALL_OLDINCLUDEDIR
 CMAKE_INSTALL_OLDINCLUDEDIR-ADVANCED:INTERNAL=1
+CMAKE_INSTALL_PREFIX:INTERNAL=C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio
 //ADVANCED property for variable: CMAKE_INSTALL_RUNSTATEDIR
 CMAKE_INSTALL_RUNSTATEDIR-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_INSTALL_SBINDIR
@@ -690,7 +721,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_MT
 CMAKE_MT-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=4
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=1
 //Platform information initialized
 CMAKE_PLATFORM_INFO_INITIALIZED:INTERNAL=1
 //noop for ranlib
@@ -1083,5 +1114,5 @@ SDL_CPU_CHECK_ALL:INTERNAL=TRUE
 //Have symbol _alloca
 _ALLOCA_IN_MALLOC_H:INTERNAL=
 //CMAKE_INSTALL_PREFIX during last run
-_GNUInstallDirs_LAST_CMAKE_INSTALL_PREFIX:INTERNAL=C:/Program Files (x86)/MusicaLau
+_GNUInstallDirs_LAST_CMAKE_INSTALL_PREFIX:INTERNAL=C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio
 

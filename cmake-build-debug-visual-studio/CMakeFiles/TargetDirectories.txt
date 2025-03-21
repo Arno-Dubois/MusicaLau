@@ -1,7 +1,8 @@
+C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/CMakeFiles/sdl-min.dir
 C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/CMakeFiles/ALL_BUILD.dir
 C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/CMakeFiles/ZERO_CHECK.dir
-C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/vendor/SDL/CMakeFiles/SDL3-static.dir
-C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/vendor/SDL/CMakeFiles/SDL3_test.dir
-C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/vendor/SDL/CMakeFiles/SDL_uclibc.dir
-C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/vendor/SDL/CMakeFiles/ALL_BUILD.dir
-C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/src/CMakeFiles/MusicaLau.dir
+C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/SDL/CMakeFiles/SDL3-shared.dir
+C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/SDL/CMakeFiles/SDL3-static.dir
+C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/SDL/CMakeFiles/SDL3_test.dir
+C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/SDL/CMakeFiles/SDL_uclibc.dir
+C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/SDL/CMakeFiles/ALL_BUILD.dir

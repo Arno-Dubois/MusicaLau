@@ -81,6 +81,7 @@
       <AdditionalIncludeDirectories>C:\Users\coren\OneDrive\Documents\A_CIR2\PROJET\PROJET1\MusicaLau\cmake-build-debug-visual-studio\vendor\SDL\include-config-debug\build_config;C:\Users\coren\OneDrive\Documents\A_CIR2\PROJET\PROJET1\MusicaLau\vendor\SDL\src;C:\Users\coren\OneDrive\Documents\A_CIR2\PROJET\PROJET1\MusicaLau\vendor\SDL\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>%(AdditionalOptions) /utf-8</AdditionalOptions>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <ExceptionHandling>
       </ExceptionHandling>
