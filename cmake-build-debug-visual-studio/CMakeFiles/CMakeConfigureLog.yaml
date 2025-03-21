@@ -1,0 +1,1102 @@
+
+---
+events:
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/JetBrains/CLion 2023.2.1/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeDetermineSystem.cmake:233 (message)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      The system is: Windows - 10.0.26100 - AMD64
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/JetBrains/CLion 2023.2.1/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/Program Files/JetBrains/CLion 2023.2.1/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Program Files/JetBrains/CLion 2023.2.1/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeDetermineCCompiler.cmake:123 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+      Compiler:  
+      Build flags: 
+      Id flags:  
+      
+      The output was:
+      0
+      Version MSBuild 17.7.2+d6990bcfa pour .NET Framework
+      La génération a démarré 21/03/2025 14:33:32.
+      
+      Projet "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\3.28.1\\CompilerIdC\\CompilerIdC.vcxproj" sur le noud 1 (cibles par défaut).
+      PrepareForBuild:
+        Création du répertoire "Debug\\".
+        Création du répertoire "Debug\\CompilerIdC.tlog\\".
+      InitializeBuildStatus:
+        Création de "Debug\\CompilerIdC.tlog\\unsuccessfulbuild", car "AlwaysCreate" a été spécifié.
+        Mise à jour de l'horodatage "Debug\\CompilerIdC.tlog\\unsuccessfulbuild".
+      ClCompile:
+        C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.37.32822\\bin\\HostX64\\x64\\CL.exe /c /nologo /W0 /WX- /diagnostics:column /Od /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\\\" /Fd"Debug\\vc143.pdb" /external:W0 /Gd /TC /FC /errorReport:queue CMakeCCompilerId.c
+        CMakeCCompilerId.c
+      Link:
+        C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.37.32822\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:".\\CompilerIdC.exe" /INCREMENTAL:NO /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /PDB:".\\CompilerIdC.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:".\\CompilerIdC.lib" /MACHINE:X64 Debug\\CMakeCCompilerId.obj
+        CompilerIdC.vcxproj -> C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\3.28.1\\CompilerIdC\\CompilerIdC.exe
+      PostBuildEvent:
+        for %%i in (cl.exe) do @echo CMAKE_C_COMPILER=%%~$PATH:i
+        :VCEnd
+        CMAKE_C_COMPILER=C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.37.32822\\bin\\Hostx64\\x64\\cl.exe
+      FinalizeBuildStatus:
+        Suppression du fichier "Debug\\CompilerIdC.tlog\\unsuccessfulbuild".
+        Mise à jour de l'horodatage "Debug\\CompilerIdC.tlog\\CompilerIdC.lastbuildstate".
+      Génération du projet "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\3.28.1\\CompilerIdC\\CompilerIdC.vcxproj" terminée (cibles par défaut).
+      
+      La génération a réussi.
+          0 Avertissement(s)
+          0 Erreur(s)
+      
+      Temps écoulé 00:00:00.86
+      
+      
+      Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CompilerIdC.exe"
+      
+      Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CompilerIdC.vcxproj"
+      
+      The C compiler identification is MSVC, found in:
+        C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/CMakeFiles/3.28.1/CompilerIdC/CompilerIdC.exe
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/JetBrains/CLion 2023.2.1/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/Program Files/JetBrains/CLion 2023.2.1/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Program Files/JetBrains/CLion 2023.2.1/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeDetermineCXXCompiler.cmake:126 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+      Compiler:  
+      Build flags: 
+      Id flags:  
+      
+      The output was:
+      0
+      Version MSBuild 17.7.2+d6990bcfa pour .NET Framework
+      La génération a démarré 21/03/2025 14:33:34.
+      
+      Projet "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\3.28.1\\CompilerIdCXX\\CompilerIdCXX.vcxproj" sur le noud 1 (cibles par défaut).
+      PrepareForBuild:
+        Création du répertoire "Debug\\".
+        Création du répertoire "Debug\\CompilerIdCXX.tlog\\".
+      InitializeBuildStatus:
+        Création de "Debug\\CompilerIdCXX.tlog\\unsuccessfulbuild", car "AlwaysCreate" a été spécifié.
+        Mise à jour de l'horodatage "Debug\\CompilerIdCXX.tlog\\unsuccessfulbuild".
+      ClCompile:
+        C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.37.32822\\bin\\HostX64\\x64\\CL.exe /c /nologo /W0 /WX- /diagnostics:column /Od /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\\\" /Fd"Debug\\vc143.pdb" /external:W0 /Gd /TP /FC /errorReport:queue CMakeCXXCompilerId.cpp
+        CMakeCXXCompilerId.cpp
+      Link:
+        C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.37.32822\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:".\\CompilerIdCXX.exe" /INCREMENTAL:NO /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /PDB:".\\CompilerIdCXX.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:".\\CompilerIdCXX.lib" /MACHINE:X64 Debug\\CMakeCXXCompilerId.obj
+        CompilerIdCXX.vcxproj -> C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\3.28.1\\CompilerIdCXX\\CompilerIdCXX.exe
+      PostBuildEvent:
+        for %%i in (cl.exe) do @echo CMAKE_CXX_COMPILER=%%~$PATH:i
+        :VCEnd
+        CMAKE_CXX_COMPILER=C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.37.32822\\bin\\Hostx64\\x64\\cl.exe
+      FinalizeBuildStatus:
+        Suppression du fichier "Debug\\CompilerIdCXX.tlog\\unsuccessfulbuild".
+        Mise à jour de l'horodatage "Debug\\CompilerIdCXX.tlog\\CompilerIdCXX.lastbuildstate".
+      Génération du projet "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\3.28.1\\CompilerIdCXX\\CompilerIdCXX.vcxproj" terminée (cibles par défaut).
+      
+      La génération a réussi.
+          0 Avertissement(s)
+          0 Erreur(s)
+      
+      Temps écoulé 00:00:00.59
+      
+      
+      Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CompilerIdCXX.exe"
+      
+      Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CompilerIdCXX.vcxproj"
+      
+      The CXX compiler identification is MSVC, found in:
+        C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/CMakeFiles/3.28.1/CompilerIdCXX/CompilerIdCXX.exe
+      
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/JetBrains/CLion 2023.2.1/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeDetermineCompilerABI.cmake:57 (try_compile)"
+      - "C:/Program Files/JetBrains/CLion 2023.2.1/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    checks:
+      - "Detecting C compiler ABI info"
+    directories:
+      source: "C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/CMakeFiles/CMakeScratch/TryCompile-h47t5y"
+      binary: "C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/CMakeFiles/CMakeScratch/TryCompile-h47t5y"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
+      CMAKE_C_FLAGS_DEBUG: "/Zi /Ob0 /Od /RTC1"
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+    buildResult:
+      variable: "CMAKE_C_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/CMakeFiles/CMakeScratch/TryCompile-h47t5y'
+        
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_9d043.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Version MSBuild 17.7.2+d6990bcfa pour .NET Framework
+        La génération a démarré 21/03/2025 14:33:35.
+        
+        Projet "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-h47t5y\\cmTC_9d043.vcxproj" sur le noud 1 (cibles par défaut).
+        PrepareForBuild:
+          Création du répertoire "cmTC_9d043.dir\\Debug\\".
+          Création du répertoire "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-h47t5y\\Debug\\".
+          Création du répertoire "cmTC_9d043.dir\\Debug\\cmTC_9d043.tlog\\".
+        InitializeBuildStatus:
+          Création de "cmTC_9d043.dir\\Debug\\cmTC_9d043.tlog\\unsuccessfulbuild", car "AlwaysCreate" a été spécifié.
+          Mise à jour de l'horodatage "cmTC_9d043.dir\\Debug\\cmTC_9d043.tlog\\unsuccessfulbuild".
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.37.32822\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_9d043.dir\\Debug\\\\" /Fd"cmTC_9d043.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Program Files\\JetBrains\\CLion 2023.2.1\\bin\\cmake\\win\\x64\\share\\cmake-3.28\\Modules\\CMakeCCompilerABI.c"
+          Compilateur d'optimisation Microsoft (R) C/C++ version 19.37.32822 pour x64
+          CMakeCCompilerABI.c
+          Copyright (C) Microsoft Corporation. Tous droits réservés.
+          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_9d043.dir\\Debug\\\\" /Fd"cmTC_9d043.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Program Files\\JetBrains\\CLion 2023.2.1\\bin\\cmake\\win\\x64\\share\\cmake-3.28\\Modules\\CMakeCCompilerABI.c"
+        Link:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.37.32822\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-h47t5y\\Debug\\cmTC_9d043.exe" /INCREMENTAL /ILK:"cmTC_9d043.dir\\Debug\\cmTC_9d043.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/CMakeFiles/CMakeScratch/TryCompile-h47t5y/Debug/cmTC_9d043.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/CMakeFiles/CMakeScratch/TryCompile-h47t5y/Debug/cmTC_9d043.lib" /MACHINE:X64  /machine:x64 cmTC_9d043.dir\\Debug\\CMakeCCompilerABI.obj
+          cmTC_9d043.vcxproj -> C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-h47t5y\\Debug\\cmTC_9d043.exe
+        FinalizeBuildStatus:
+          Suppression du fichier "cmTC_9d043.dir\\Debug\\cmTC_9d043.tlog\\unsuccessfulbuild".
+          Mise à jour de l'horodatage "cmTC_9d043.dir\\Debug\\cmTC_9d043.tlog\\cmTC_9d043.lastbuildstate".
+        Génération du projet "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-h47t5y\\cmTC_9d043.vcxproj" terminée (cibles par défaut).
+        
+        La génération a réussi.
+            0 Avertissement(s)
+            0 Erreur(s)
+        
+        Temps écoulé 00:00:00.56
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/JetBrains/CLion 2023.2.1/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeDetermineCompilerABI.cmake:57 (try_compile)"
+      - "C:/Program Files/JetBrains/CLion 2023.2.1/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    checks:
+      - "Detecting CXX compiler ABI info"
+    directories:
+      source: "C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/CMakeFiles/CMakeScratch/TryCompile-wobqdf"
+      binary: "C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/CMakeFiles/CMakeScratch/TryCompile-wobqdf"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: "/DWIN32 /D_WINDOWS /EHsc"
+      CMAKE_CXX_FLAGS_DEBUG: "/Zi /Ob0 /Od /RTC1"
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+    buildResult:
+      variable: "CMAKE_CXX_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/CMakeFiles/CMakeScratch/TryCompile-wobqdf'
+        
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_fa2ec.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Version MSBuild 17.7.2+d6990bcfa pour .NET Framework
+        La génération a démarré 21/03/2025 14:33:36.
+        
+        Projet "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-wobqdf\\cmTC_fa2ec.vcxproj" sur le noud 1 (cibles par défaut).
+        PrepareForBuild:
+          Création du répertoire "cmTC_fa2ec.dir\\Debug\\".
+          Création du répertoire "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-wobqdf\\Debug\\".
+          Création du répertoire "cmTC_fa2ec.dir\\Debug\\cmTC_fa2ec.tlog\\".
+        InitializeBuildStatus:
+          Création de "cmTC_fa2ec.dir\\Debug\\cmTC_fa2ec.tlog\\unsuccessfulbuild", car "AlwaysCreate" a été spécifié.
+          Mise à jour de l'horodatage "cmTC_fa2ec.dir\\Debug\\cmTC_fa2ec.tlog\\unsuccessfulbuild".
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.37.32822\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_fa2ec.dir\\Debug\\\\" /Fd"cmTC_fa2ec.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TP /errorReport:queue "C:\\Program Files\\JetBrains\\CLion 2023.2.1\\bin\\cmake\\win\\x64\\share\\cmake-3.28\\Modules\\CMakeCXXCompilerABI.cpp"
+          Compilateur d'optimisation Microsoft (R) C/C++ version 19.37.32822 pour x64
+          CMakeCXXCompilerABI.cpp
+          Copyright (C) Microsoft Corporation. Tous droits réservés.
+          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_fa2ec.dir\\Debug\\\\" /Fd"cmTC_fa2ec.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TP /errorReport:queue "C:\\Program Files\\JetBrains\\CLion 2023.2.1\\bin\\cmake\\win\\x64\\share\\cmake-3.28\\Modules\\CMakeCXXCompilerABI.cpp"
+        Link:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.37.32822\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-wobqdf\\Debug\\cmTC_fa2ec.exe" /INCREMENTAL /ILK:"cmTC_fa2ec.dir\\Debug\\cmTC_fa2ec.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/CMakeFiles/CMakeScratch/TryCompile-wobqdf/Debug/cmTC_fa2ec.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/CMakeFiles/CMakeScratch/TryCompile-wobqdf/Debug/cmTC_fa2ec.lib" /MACHINE:X64  /machine:x64 cmTC_fa2ec.dir\\Debug\\CMakeCXXCompilerABI.obj
+          cmTC_fa2ec.vcxproj -> C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-wobqdf\\Debug\\cmTC_fa2ec.exe
+        FinalizeBuildStatus:
+          Suppression du fichier "cmTC_fa2ec.dir\\Debug\\cmTC_fa2ec.tlog\\unsuccessfulbuild".
+          Mise à jour de l'horodatage "cmTC_fa2ec.dir\\Debug\\cmTC_fa2ec.tlog\\cmTC_fa2ec.lastbuildstate".
+        Génération du projet "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-wobqdf\\cmTC_fa2ec.vcxproj" terminée (cibles par défaut).
+        
+        La génération a réussi.
+            0 Avertissement(s)
+            0 Erreur(s)
+        
+        Temps écoulé 00:00:00.51
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "vendor/SDL/cmake/sdlcpu.cmake:93 (try_compile)"
+      - "vendor/SDL/CMakeLists.txt:81 (SDL_DetectTargetCPUArchitectures)"
+    directories:
+      source: "C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/vendor/SDL/CMakeFiles/CMakeTmp/SDL_detect_arch/CMakeFiles/CMakeTmp"
+      binary: "C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/vendor/SDL/CMakeFiles/CMakeTmp/SDL_detect_arch/CMakeFiles/CMakeTmp"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
+      CMAKE_C_FLAGS_DEBUG: "/Zi /Ob0 /Od /RTC1"
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      CMAKE_MODULE_PATH: "C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/vendor/SDL/cmake"
+    buildResult:
+      variable: "SDL_CPU_CHECK_ALL"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/vendor/SDL/CMakeFiles/CMakeTmp/SDL_detect_arch/CMakeFiles/CMakeTmp'
+        
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_7ed58.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Version MSBuild 17.7.2+d6990bcfa pour .NET Framework
+        La génération a démarré 21/03/2025 14:33:38.
+        
+        Projet "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\vendor\\SDL\\CMakeFiles\\CMakeTmp\\SDL_detect_arch\\CMakeFiles\\CMakeTmp\\cmTC_7ed58.vcxproj" sur le noud 1 (cibles par défaut).
+        PrepareForBuild:
+          Création du répertoire "cmTC_7ed58.dir\\Debug\\".
+          Création du répertoire "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\vendor\\SDL\\CMakeFiles\\CMakeTmp\\SDL_detect_arch\\CMakeFiles\\CMakeTmp\\Debug\\".
+          Création du répertoire "cmTC_7ed58.dir\\Debug\\cmTC_7ed58.tlog\\".
+        InitializeBuildStatus:
+          Création de "cmTC_7ed58.dir\\Debug\\cmTC_7ed58.tlog\\unsuccessfulbuild", car "AlwaysCreate" a été spécifié.
+          Mise à jour de l'horodatage "cmTC_7ed58.dir\\Debug\\cmTC_7ed58.tlog\\unsuccessfulbuild".
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.37.32822\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_7ed58.dir\\Debug\\\\" /Fd"C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\vendor\\SDL\\CMakeFiles\\CMakeTmp\\SDL_detect_arch\\CMakeFiles\\CMakeTmp\\Debug\\cmTC_7ed58.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\vendor\\SDL\\CMakeFiles\\CMakeTmp\\SDL_detect_arch.c"
+          Compilateur d'optimisation Microsoft (R) C/C++ version 19.37.32822 pour x64
+          SDL_detect_arch.c
+          Copyright (C) Microsoft Corporation. Tous droits réservés.
+          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_7ed58.dir\\Debug\\\\" /Fd"C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\vendor\\SDL\\CMakeFiles\\CMakeTmp\\SDL_detect_arch\\CMakeFiles\\CMakeTmp\\Debug\\cmTC_7ed58.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\vendor\\SDL\\CMakeFiles\\CMakeTmp\\SDL_detect_arch.c"
+        Lib:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.37.32822\\bin\\HostX64\\x64\\Lib.exe /OUT:"C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\vendor\\SDL\\CMakeFiles\\CMakeTmp\\SDL_detect_arch\\CMakeFiles\\CMakeTmp\\Debug\\cmTC_7ed58.lib" /NOLOGO /MACHINE:X64  /machine:x64 cmTC_7ed58.dir\\Debug\\SDL_detect_arch.obj
+          cmTC_7ed58.vcxproj -> C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\vendor\\SDL\\CMakeFiles\\CMakeTmp\\SDL_detect_arch\\CMakeFiles\\CMakeTmp\\Debug\\cmTC_7ed58.lib
+        FinalizeBuildStatus:
+          Suppression du fichier "cmTC_7ed58.dir\\Debug\\cmTC_7ed58.tlog\\unsuccessfulbuild".
+          Mise à jour de l'horodatage "cmTC_7ed58.dir\\Debug\\cmTC_7ed58.tlog\\cmTC_7ed58.lastbuildstate".
+        Génération du projet "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\vendor\\SDL\\CMakeFiles\\CMakeTmp\\SDL_detect_arch\\CMakeFiles\\CMakeTmp\\cmTC_7ed58.vcxproj" terminée (cibles par défaut).
+        
+        La génération a réussi.
+            0 Avertissement(s)
+            0 Erreur(s)
+        
+        Temps écoulé 00:00:00.43
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/JetBrains/CLion 2023.2.1/bin/cmake/win/x64/share/cmake-3.28/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/Program Files/JetBrains/CLion 2023.2.1/bin/cmake/win/x64/share/cmake-3.28/Modules/CheckCSourceCompiles.cmake:52 (cmake_check_source_compiles)"
+      - "vendor/SDL/CMakeLists.txt:654 (check_c_source_compiles)"
+    checks:
+      - "Performing Test COMPILER_SUPPORTS_MMX"
+    directories:
+      source: "C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/CMakeFiles/CMakeScratch/TryCompile-pxgzpf"
+      binary: "C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/CMakeFiles/CMakeScratch/TryCompile-pxgzpf"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
+      CMAKE_C_FLAGS_DEBUG: "/Zi /Ob0 /Od "
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      CMAKE_MODULE_PATH: "C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/vendor/SDL/cmake"
+    buildResult:
+      variable: "COMPILER_SUPPORTS_MMX"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/CMakeFiles/CMakeScratch/TryCompile-pxgzpf'
+        
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_baa07.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Version MSBuild 17.7.2+d6990bcfa pour .NET Framework
+        La génération a démarré 21/03/2025 14:33:39.
+        
+        Projet "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-pxgzpf\\cmTC_baa07.vcxproj" sur le noud 1 (cibles par défaut).
+        PrepareForBuild:
+          Création du répertoire "cmTC_baa07.dir\\Debug\\".
+          Création du répertoire "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-pxgzpf\\Debug\\".
+          Création du répertoire "cmTC_baa07.dir\\Debug\\cmTC_baa07.tlog\\".
+        InitializeBuildStatus:
+          Création de "cmTC_baa07.dir\\Debug\\cmTC_baa07.tlog\\unsuccessfulbuild", car "AlwaysCreate" a été spécifié.
+          Mise à jour de l'horodatage "cmTC_baa07.dir\\Debug\\cmTC_baa07.tlog\\unsuccessfulbuild".
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.37.32822\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _GNU_SOURCE=1 /D COMPILER_SUPPORTS_MMX /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_baa07.dir\\Debug\\\\" /Fd"cmTC_baa07.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-pxgzpf\\src.c"
+          Compilateur d'optimisation Microsoft (R) C/C++ version 19.37.32822 pour x64
+          src.c
+          Copyright (C) Microsoft Corporation. Tous droits réservés.
+          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _GNU_SOURCE=1 /D COMPILER_SUPPORTS_MMX /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_baa07.dir\\Debug\\\\" /Fd"cmTC_baa07.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-pxgzpf\\src.c"
+        C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-pxgzpf\\src.c(5,25): error C2440: '=' : impossible de convertir de 'int' en '__m64' [C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-pxgzpf\\cmTC_baa07.vcxproj]
+        Génération du projet "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-pxgzpf\\cmTC_baa07.vcxproj" terminée (cibles par défaut) -- ÉCHEC.
+        
+        ÉCHEC de la build.
+        
+        "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-pxgzpf\\cmTC_baa07.vcxproj" (cible par défaut) (1) ->
+        (ClCompile cible) -> 
+          C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-pxgzpf\\src.c(5,25): error C2440: '=' : impossible de convertir de 'int' en '__m64' [C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-pxgzpf\\cmTC_baa07.vcxproj]
+        
+            0 Avertissement(s)
+            1 Erreur(s)
+        
+        Temps écoulé 00:00:00.31
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/JetBrains/CLion 2023.2.1/bin/cmake/win/x64/share/cmake-3.28/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/Program Files/JetBrains/CLion 2023.2.1/bin/cmake/win/x64/share/cmake-3.28/Modules/CheckCSourceCompiles.cmake:52 (cmake_check_source_compiles)"
+      - "vendor/SDL/CMakeLists.txt:675 (check_c_source_compiles)"
+    checks:
+      - "Performing Test COMPILER_SUPPORTS_SSE"
+    directories:
+      source: "C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/CMakeFiles/CMakeScratch/TryCompile-j094u7"
+      binary: "C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/CMakeFiles/CMakeScratch/TryCompile-j094u7"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
+      CMAKE_C_FLAGS_DEBUG: "/Zi /Ob0 /Od "
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      CMAKE_MODULE_PATH: "C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/vendor/SDL/cmake"
+    buildResult:
+      variable: "COMPILER_SUPPORTS_SSE"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/CMakeFiles/CMakeScratch/TryCompile-j094u7'
+        
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_56bd5.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Version MSBuild 17.7.2+d6990bcfa pour .NET Framework
+        La génération a démarré 21/03/2025 14:33:40.
+        
+        Projet "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-j094u7\\cmTC_56bd5.vcxproj" sur le noud 1 (cibles par défaut).
+        PrepareForBuild:
+          Création du répertoire "cmTC_56bd5.dir\\Debug\\".
+          Création du répertoire "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-j094u7\\Debug\\".
+          Création du répertoire "cmTC_56bd5.dir\\Debug\\cmTC_56bd5.tlog\\".
+        InitializeBuildStatus:
+          Création de "cmTC_56bd5.dir\\Debug\\cmTC_56bd5.tlog\\unsuccessfulbuild", car "AlwaysCreate" a été spécifié.
+          Mise à jour de l'horodatage "cmTC_56bd5.dir\\Debug\\cmTC_56bd5.tlog\\unsuccessfulbuild".
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.37.32822\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _GNU_SOURCE=1 /D COMPILER_SUPPORTS_SSE /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_56bd5.dir\\Debug\\\\" /Fd"cmTC_56bd5.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-j094u7\\src.c"
+          Compilateur d'optimisation Microsoft (R) C/C++ version 19.37.32822 pour x64
+          src.c
+          Copyright (C) Microsoft Corporation. Tous droits réservés.
+          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _GNU_SOURCE=1 /D COMPILER_SUPPORTS_SSE /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_56bd5.dir\\Debug\\\\" /Fd"cmTC_56bd5.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-j094u7\\src.c"
+        Link:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.37.32822\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-j094u7\\Debug\\cmTC_56bd5.exe" /INCREMENTAL /ILK:"cmTC_56bd5.dir\\Debug\\cmTC_56bd5.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/CMakeFiles/CMakeScratch/TryCompile-j094u7/Debug/cmTC_56bd5.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/CMakeFiles/CMakeScratch/TryCompile-j094u7/Debug/cmTC_56bd5.lib" /MACHINE:X64  /machine:x64 cmTC_56bd5.dir\\Debug\\src.obj
+          cmTC_56bd5.vcxproj -> C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-j094u7\\Debug\\cmTC_56bd5.exe
+        FinalizeBuildStatus:
+          Suppression du fichier "cmTC_56bd5.dir\\Debug\\cmTC_56bd5.tlog\\unsuccessfulbuild".
+          Mise à jour de l'horodatage "cmTC_56bd5.dir\\Debug\\cmTC_56bd5.tlog\\cmTC_56bd5.lastbuildstate".
+        Génération du projet "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-j094u7\\cmTC_56bd5.vcxproj" terminée (cibles par défaut).
+        
+        La génération a réussi.
+            0 Avertissement(s)
+            0 Erreur(s)
+        
+        Temps écoulé 00:00:00.48
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/JetBrains/CLion 2023.2.1/bin/cmake/win/x64/share/cmake-3.28/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/Program Files/JetBrains/CLion 2023.2.1/bin/cmake/win/x64/share/cmake-3.28/Modules/CheckCSourceCompiles.cmake:52 (cmake_check_source_compiles)"
+      - "vendor/SDL/CMakeLists.txt:696 (check_c_source_compiles)"
+    checks:
+      - "Performing Test COMPILER_SUPPORTS_SSE2"
+    directories:
+      source: "C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/CMakeFiles/CMakeScratch/TryCompile-m5aul4"
+      binary: "C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/CMakeFiles/CMakeScratch/TryCompile-m5aul4"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
+      CMAKE_C_FLAGS_DEBUG: "/Zi /Ob0 /Od "
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      CMAKE_MODULE_PATH: "C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/vendor/SDL/cmake"
+    buildResult:
+      variable: "COMPILER_SUPPORTS_SSE2"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/CMakeFiles/CMakeScratch/TryCompile-m5aul4'
+        
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_6ede2.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Version MSBuild 17.7.2+d6990bcfa pour .NET Framework
+        La génération a démarré 21/03/2025 14:33:40.
+        
+        Projet "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-m5aul4\\cmTC_6ede2.vcxproj" sur le noud 1 (cibles par défaut).
+        PrepareForBuild:
+          Création du répertoire "cmTC_6ede2.dir\\Debug\\".
+          Création du répertoire "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-m5aul4\\Debug\\".
+          Création du répertoire "cmTC_6ede2.dir\\Debug\\cmTC_6ede2.tlog\\".
+        InitializeBuildStatus:
+          Création de "cmTC_6ede2.dir\\Debug\\cmTC_6ede2.tlog\\unsuccessfulbuild", car "AlwaysCreate" a été spécifié.
+          Mise à jour de l'horodatage "cmTC_6ede2.dir\\Debug\\cmTC_6ede2.tlog\\unsuccessfulbuild".
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.37.32822\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _GNU_SOURCE=1 /D COMPILER_SUPPORTS_SSE2 /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_6ede2.dir\\Debug\\\\" /Fd"cmTC_6ede2.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-m5aul4\\src.c"
+          Compilateur d'optimisation Microsoft (R) C/C++ version 19.37.32822 pour x64
+          src.c
+          Copyright (C) Microsoft Corporation. Tous droits réservés.
+          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _GNU_SOURCE=1 /D COMPILER_SUPPORTS_SSE2 /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_6ede2.dir\\Debug\\\\" /Fd"cmTC_6ede2.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-m5aul4\\src.c"
+        Link:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.37.32822\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-m5aul4\\Debug\\cmTC_6ede2.exe" /INCREMENTAL /ILK:"cmTC_6ede2.dir\\Debug\\cmTC_6ede2.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/CMakeFiles/CMakeScratch/TryCompile-m5aul4/Debug/cmTC_6ede2.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/CMakeFiles/CMakeScratch/TryCompile-m5aul4/Debug/cmTC_6ede2.lib" /MACHINE:X64  /machine:x64 cmTC_6ede2.dir\\Debug\\src.obj
+          cmTC_6ede2.vcxproj -> C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-m5aul4\\Debug\\cmTC_6ede2.exe
+        FinalizeBuildStatus:
+          Suppression du fichier "cmTC_6ede2.dir\\Debug\\cmTC_6ede2.tlog\\unsuccessfulbuild".
+          Mise à jour de l'horodatage "cmTC_6ede2.dir\\Debug\\cmTC_6ede2.tlog\\cmTC_6ede2.lastbuildstate".
+        Génération du projet "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-m5aul4\\cmTC_6ede2.vcxproj" terminée (cibles par défaut).
+        
+        La génération a réussi.
+            0 Avertissement(s)
+            0 Erreur(s)
+        
+        Temps écoulé 00:00:00.50
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/JetBrains/CLion 2023.2.1/bin/cmake/win/x64/share/cmake-3.28/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/Program Files/JetBrains/CLion 2023.2.1/bin/cmake/win/x64/share/cmake-3.28/Modules/CheckCSourceCompiles.cmake:52 (cmake_check_source_compiles)"
+      - "vendor/SDL/CMakeLists.txt:717 (check_c_source_compiles)"
+    checks:
+      - "Performing Test COMPILER_SUPPORTS_SSE3"
+    directories:
+      source: "C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/CMakeFiles/CMakeScratch/TryCompile-58mmh1"
+      binary: "C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/CMakeFiles/CMakeScratch/TryCompile-58mmh1"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
+      CMAKE_C_FLAGS_DEBUG: "/Zi /Ob0 /Od "
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      CMAKE_MODULE_PATH: "C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/vendor/SDL/cmake"
+    buildResult:
+      variable: "COMPILER_SUPPORTS_SSE3"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/CMakeFiles/CMakeScratch/TryCompile-58mmh1'
+        
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_b703e.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Version MSBuild 17.7.2+d6990bcfa pour .NET Framework
+        La génération a démarré 21/03/2025 14:33:41.
+        
+        Projet "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-58mmh1\\cmTC_b703e.vcxproj" sur le noud 1 (cibles par défaut).
+        PrepareForBuild:
+          Création du répertoire "cmTC_b703e.dir\\Debug\\".
+          Création du répertoire "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-58mmh1\\Debug\\".
+          Création du répertoire "cmTC_b703e.dir\\Debug\\cmTC_b703e.tlog\\".
+        InitializeBuildStatus:
+          Création de "cmTC_b703e.dir\\Debug\\cmTC_b703e.tlog\\unsuccessfulbuild", car "AlwaysCreate" a été spécifié.
+          Mise à jour de l'horodatage "cmTC_b703e.dir\\Debug\\cmTC_b703e.tlog\\unsuccessfulbuild".
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.37.32822\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _GNU_SOURCE=1 /D COMPILER_SUPPORTS_SSE3 /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_b703e.dir\\Debug\\\\" /Fd"cmTC_b703e.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-58mmh1\\src.c"
+          Compilateur d'optimisation Microsoft (R) C/C++ version 19.37.32822 pour x64
+          src.c
+          Copyright (C) Microsoft Corporation. Tous droits réservés.
+          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _GNU_SOURCE=1 /D COMPILER_SUPPORTS_SSE3 /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_b703e.dir\\Debug\\\\" /Fd"cmTC_b703e.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-58mmh1\\src.c"
+        Link:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.37.32822\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-58mmh1\\Debug\\cmTC_b703e.exe" /INCREMENTAL /ILK:"cmTC_b703e.dir\\Debug\\cmTC_b703e.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/CMakeFiles/CMakeScratch/TryCompile-58mmh1/Debug/cmTC_b703e.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/CMakeFiles/CMakeScratch/TryCompile-58mmh1/Debug/cmTC_b703e.lib" /MACHINE:X64  /machine:x64 cmTC_b703e.dir\\Debug\\src.obj
+          cmTC_b703e.vcxproj -> C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-58mmh1\\Debug\\cmTC_b703e.exe
+        FinalizeBuildStatus:
+          Suppression du fichier "cmTC_b703e.dir\\Debug\\cmTC_b703e.tlog\\unsuccessfulbuild".
+          Mise à jour de l'horodatage "cmTC_b703e.dir\\Debug\\cmTC_b703e.tlog\\cmTC_b703e.lastbuildstate".
+        Génération du projet "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-58mmh1\\cmTC_b703e.vcxproj" terminée (cibles par défaut).
+        
+        La génération a réussi.
+            0 Avertissement(s)
+            0 Erreur(s)
+        
+        Temps écoulé 00:00:00.51
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/JetBrains/CLion 2023.2.1/bin/cmake/win/x64/share/cmake-3.28/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/Program Files/JetBrains/CLion 2023.2.1/bin/cmake/win/x64/share/cmake-3.28/Modules/CheckCSourceCompiles.cmake:52 (cmake_check_source_compiles)"
+      - "vendor/SDL/CMakeLists.txt:738 (check_c_source_compiles)"
+    checks:
+      - "Performing Test COMPILER_SUPPORTS_SSE4_1"
+    directories:
+      source: "C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/CMakeFiles/CMakeScratch/TryCompile-mx6tlo"
+      binary: "C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/CMakeFiles/CMakeScratch/TryCompile-mx6tlo"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
+      CMAKE_C_FLAGS_DEBUG: "/Zi /Ob0 /Od "
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      CMAKE_MODULE_PATH: "C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/vendor/SDL/cmake"
+    buildResult:
+      variable: "COMPILER_SUPPORTS_SSE4_1"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/CMakeFiles/CMakeScratch/TryCompile-mx6tlo'
+        
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_dc01d.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Version MSBuild 17.7.2+d6990bcfa pour .NET Framework
+        La génération a démarré 21/03/2025 14:33:42.
+        
+        Projet "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-mx6tlo\\cmTC_dc01d.vcxproj" sur le noud 1 (cibles par défaut).
+        PrepareForBuild:
+          Création du répertoire "cmTC_dc01d.dir\\Debug\\".
+          Création du répertoire "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-mx6tlo\\Debug\\".
+          Création du répertoire "cmTC_dc01d.dir\\Debug\\cmTC_dc01d.tlog\\".
+        InitializeBuildStatus:
+          Création de "cmTC_dc01d.dir\\Debug\\cmTC_dc01d.tlog\\unsuccessfulbuild", car "AlwaysCreate" a été spécifié.
+          Mise à jour de l'horodatage "cmTC_dc01d.dir\\Debug\\cmTC_dc01d.tlog\\unsuccessfulbuild".
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.37.32822\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _GNU_SOURCE=1 /D COMPILER_SUPPORTS_SSE4_1 /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_dc01d.dir\\Debug\\\\" /Fd"cmTC_dc01d.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-mx6tlo\\src.c"
+          Compilateur d'optimisation Microsoft (R) C/C++ version 19.37.32822 pour x64
+          src.c
+          Copyright (C) Microsoft Corporation. Tous droits réservés.
+          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _GNU_SOURCE=1 /D COMPILER_SUPPORTS_SSE4_1 /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_dc01d.dir\\Debug\\\\" /Fd"cmTC_dc01d.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-mx6tlo\\src.c"
+        Link:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.37.32822\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-mx6tlo\\Debug\\cmTC_dc01d.exe" /INCREMENTAL /ILK:"cmTC_dc01d.dir\\Debug\\cmTC_dc01d.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/CMakeFiles/CMakeScratch/TryCompile-mx6tlo/Debug/cmTC_dc01d.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/CMakeFiles/CMakeScratch/TryCompile-mx6tlo/Debug/cmTC_dc01d.lib" /MACHINE:X64  /machine:x64 cmTC_dc01d.dir\\Debug\\src.obj
+          cmTC_dc01d.vcxproj -> C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-mx6tlo\\Debug\\cmTC_dc01d.exe
+        FinalizeBuildStatus:
+          Suppression du fichier "cmTC_dc01d.dir\\Debug\\cmTC_dc01d.tlog\\unsuccessfulbuild".
+          Mise à jour de l'horodatage "cmTC_dc01d.dir\\Debug\\cmTC_dc01d.tlog\\cmTC_dc01d.lastbuildstate".
+        Génération du projet "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-mx6tlo\\cmTC_dc01d.vcxproj" terminée (cibles par défaut).
+        
+        La génération a réussi.
+            0 Avertissement(s)
+            0 Erreur(s)
+        
+        Temps écoulé 00:00:00.48
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/JetBrains/CLion 2023.2.1/bin/cmake/win/x64/share/cmake-3.28/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/Program Files/JetBrains/CLion 2023.2.1/bin/cmake/win/x64/share/cmake-3.28/Modules/CheckCSourceCompiles.cmake:52 (cmake_check_source_compiles)"
+      - "vendor/SDL/CMakeLists.txt:759 (check_c_source_compiles)"
+    checks:
+      - "Performing Test COMPILER_SUPPORTS_SSE4_2"
+    directories:
+      source: "C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/CMakeFiles/CMakeScratch/TryCompile-6vk1ty"
+      binary: "C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/CMakeFiles/CMakeScratch/TryCompile-6vk1ty"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
+      CMAKE_C_FLAGS_DEBUG: "/Zi /Ob0 /Od "
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      CMAKE_MODULE_PATH: "C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/vendor/SDL/cmake"
+    buildResult:
+      variable: "COMPILER_SUPPORTS_SSE4_2"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/CMakeFiles/CMakeScratch/TryCompile-6vk1ty'
+        
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_d3520.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Version MSBuild 17.7.2+d6990bcfa pour .NET Framework
+        La génération a démarré 21/03/2025 14:33:43.
+        
+        Projet "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-6vk1ty\\cmTC_d3520.vcxproj" sur le noud 1 (cibles par défaut).
+        PrepareForBuild:
+          Création du répertoire "cmTC_d3520.dir\\Debug\\".
+          Création du répertoire "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-6vk1ty\\Debug\\".
+          Création du répertoire "cmTC_d3520.dir\\Debug\\cmTC_d3520.tlog\\".
+        InitializeBuildStatus:
+          Création de "cmTC_d3520.dir\\Debug\\cmTC_d3520.tlog\\unsuccessfulbuild", car "AlwaysCreate" a été spécifié.
+          Mise à jour de l'horodatage "cmTC_d3520.dir\\Debug\\cmTC_d3520.tlog\\unsuccessfulbuild".
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.37.32822\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _GNU_SOURCE=1 /D COMPILER_SUPPORTS_SSE4_2 /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_d3520.dir\\Debug\\\\" /Fd"cmTC_d3520.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-6vk1ty\\src.c"
+          Compilateur d'optimisation Microsoft (R) C/C++ version 19.37.32822 pour x64
+          src.c
+          Copyright (C) Microsoft Corporation. Tous droits réservés.
+          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _GNU_SOURCE=1 /D COMPILER_SUPPORTS_SSE4_2 /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_d3520.dir\\Debug\\\\" /Fd"cmTC_d3520.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-6vk1ty\\src.c"
+        Link:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.37.32822\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-6vk1ty\\Debug\\cmTC_d3520.exe" /INCREMENTAL /ILK:"cmTC_d3520.dir\\Debug\\cmTC_d3520.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/CMakeFiles/CMakeScratch/TryCompile-6vk1ty/Debug/cmTC_d3520.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/CMakeFiles/CMakeScratch/TryCompile-6vk1ty/Debug/cmTC_d3520.lib" /MACHINE:X64  /machine:x64 cmTC_d3520.dir\\Debug\\src.obj
+          cmTC_d3520.vcxproj -> C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-6vk1ty\\Debug\\cmTC_d3520.exe
+        FinalizeBuildStatus:
+          Suppression du fichier "cmTC_d3520.dir\\Debug\\cmTC_d3520.tlog\\unsuccessfulbuild".
+          Mise à jour de l'horodatage "cmTC_d3520.dir\\Debug\\cmTC_d3520.tlog\\cmTC_d3520.lastbuildstate".
+        Génération du projet "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-6vk1ty\\cmTC_d3520.vcxproj" terminée (cibles par défaut).
+        
+        La génération a réussi.
+            0 Avertissement(s)
+            0 Erreur(s)
+        
+        Temps écoulé 00:00:00.49
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/JetBrains/CLion 2023.2.1/bin/cmake/win/x64/share/cmake-3.28/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/Program Files/JetBrains/CLion 2023.2.1/bin/cmake/win/x64/share/cmake-3.28/Modules/CheckCSourceCompiles.cmake:52 (cmake_check_source_compiles)"
+      - "vendor/SDL/CMakeLists.txt:782 (check_c_source_compiles)"
+    checks:
+      - "Performing Test COMPILER_SUPPORTS_AVX"
+    directories:
+      source: "C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/CMakeFiles/CMakeScratch/TryCompile-3okucw"
+      binary: "C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/CMakeFiles/CMakeScratch/TryCompile-3okucw"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
+      CMAKE_C_FLAGS_DEBUG: "/Zi /Ob0 /Od "
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      CMAKE_MODULE_PATH: "C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/vendor/SDL/cmake"
+    buildResult:
+      variable: "COMPILER_SUPPORTS_AVX"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/CMakeFiles/CMakeScratch/TryCompile-3okucw'
+        
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_cc8b0.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Version MSBuild 17.7.2+d6990bcfa pour .NET Framework
+        La génération a démarré 21/03/2025 14:33:44.
+        
+        Projet "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-3okucw\\cmTC_cc8b0.vcxproj" sur le noud 1 (cibles par défaut).
+        PrepareForBuild:
+          Création du répertoire "cmTC_cc8b0.dir\\Debug\\".
+          Création du répertoire "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-3okucw\\Debug\\".
+          Création du répertoire "cmTC_cc8b0.dir\\Debug\\cmTC_cc8b0.tlog\\".
+        InitializeBuildStatus:
+          Création de "cmTC_cc8b0.dir\\Debug\\cmTC_cc8b0.tlog\\unsuccessfulbuild", car "AlwaysCreate" a été spécifié.
+          Mise à jour de l'horodatage "cmTC_cc8b0.dir\\Debug\\cmTC_cc8b0.tlog\\unsuccessfulbuild".
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.37.32822\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _GNU_SOURCE=1 /D COMPILER_SUPPORTS_AVX /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_cc8b0.dir\\Debug\\\\" /Fd"cmTC_cc8b0.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-3okucw\\src.c"
+          Compilateur d'optimisation Microsoft (R) C/C++ version 19.37.32822 pour x64
+          src.c
+          Copyright (C) Microsoft Corporation. Tous droits réservés.
+          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _GNU_SOURCE=1 /D COMPILER_SUPPORTS_AVX /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_cc8b0.dir\\Debug\\\\" /Fd"cmTC_cc8b0.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-3okucw\\src.c"
+        Link:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.37.32822\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-3okucw\\Debug\\cmTC_cc8b0.exe" /INCREMENTAL /ILK:"cmTC_cc8b0.dir\\Debug\\cmTC_cc8b0.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/CMakeFiles/CMakeScratch/TryCompile-3okucw/Debug/cmTC_cc8b0.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/CMakeFiles/CMakeScratch/TryCompile-3okucw/Debug/cmTC_cc8b0.lib" /MACHINE:X64  /machine:x64 cmTC_cc8b0.dir\\Debug\\src.obj
+          cmTC_cc8b0.vcxproj -> C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-3okucw\\Debug\\cmTC_cc8b0.exe
+        FinalizeBuildStatus:
+          Suppression du fichier "cmTC_cc8b0.dir\\Debug\\cmTC_cc8b0.tlog\\unsuccessfulbuild".
+          Mise à jour de l'horodatage "cmTC_cc8b0.dir\\Debug\\cmTC_cc8b0.tlog\\cmTC_cc8b0.lastbuildstate".
+        Génération du projet "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-3okucw\\cmTC_cc8b0.vcxproj" terminée (cibles par défaut).
+        
+        La génération a réussi.
+            0 Avertissement(s)
+            0 Erreur(s)
+        
+        Temps écoulé 00:00:00.53
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/JetBrains/CLion 2023.2.1/bin/cmake/win/x64/share/cmake-3.28/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/Program Files/JetBrains/CLion 2023.2.1/bin/cmake/win/x64/share/cmake-3.28/Modules/CheckCSourceCompiles.cmake:52 (cmake_check_source_compiles)"
+      - "vendor/SDL/CMakeLists.txt:803 (check_c_source_compiles)"
+    checks:
+      - "Performing Test COMPILER_SUPPORTS_AVX2"
+    directories:
+      source: "C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/CMakeFiles/CMakeScratch/TryCompile-we61lh"
+      binary: "C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/CMakeFiles/CMakeScratch/TryCompile-we61lh"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
+      CMAKE_C_FLAGS_DEBUG: "/Zi /Ob0 /Od "
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      CMAKE_MODULE_PATH: "C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/vendor/SDL/cmake"
+    buildResult:
+      variable: "COMPILER_SUPPORTS_AVX2"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/CMakeFiles/CMakeScratch/TryCompile-we61lh'
+        
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_1aeb9.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Version MSBuild 17.7.2+d6990bcfa pour .NET Framework
+        La génération a démarré 21/03/2025 14:33:45.
+        
+        Projet "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-we61lh\\cmTC_1aeb9.vcxproj" sur le noud 1 (cibles par défaut).
+        PrepareForBuild:
+          Création du répertoire "cmTC_1aeb9.dir\\Debug\\".
+          Création du répertoire "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-we61lh\\Debug\\".
+          Création du répertoire "cmTC_1aeb9.dir\\Debug\\cmTC_1aeb9.tlog\\".
+        InitializeBuildStatus:
+          Création de "cmTC_1aeb9.dir\\Debug\\cmTC_1aeb9.tlog\\unsuccessfulbuild", car "AlwaysCreate" a été spécifié.
+          Mise à jour de l'horodatage "cmTC_1aeb9.dir\\Debug\\cmTC_1aeb9.tlog\\unsuccessfulbuild".
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.37.32822\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _GNU_SOURCE=1 /D COMPILER_SUPPORTS_AVX2 /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_1aeb9.dir\\Debug\\\\" /Fd"cmTC_1aeb9.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-we61lh\\src.c"
+          Compilateur d'optimisation Microsoft (R) C/C++ version 19.37.32822 pour x64
+          src.c
+          Copyright (C) Microsoft Corporation. Tous droits réservés.
+          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _GNU_SOURCE=1 /D COMPILER_SUPPORTS_AVX2 /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_1aeb9.dir\\Debug\\\\" /Fd"cmTC_1aeb9.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-we61lh\\src.c"
+        Link:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.37.32822\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-we61lh\\Debug\\cmTC_1aeb9.exe" /INCREMENTAL /ILK:"cmTC_1aeb9.dir\\Debug\\cmTC_1aeb9.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/CMakeFiles/CMakeScratch/TryCompile-we61lh/Debug/cmTC_1aeb9.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/CMakeFiles/CMakeScratch/TryCompile-we61lh/Debug/cmTC_1aeb9.lib" /MACHINE:X64  /machine:x64 cmTC_1aeb9.dir\\Debug\\src.obj
+          cmTC_1aeb9.vcxproj -> C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-we61lh\\Debug\\cmTC_1aeb9.exe
+        FinalizeBuildStatus:
+          Suppression du fichier "cmTC_1aeb9.dir\\Debug\\cmTC_1aeb9.tlog\\unsuccessfulbuild".
+          Mise à jour de l'horodatage "cmTC_1aeb9.dir\\Debug\\cmTC_1aeb9.tlog\\cmTC_1aeb9.lastbuildstate".
+        Génération du projet "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-we61lh\\cmTC_1aeb9.vcxproj" terminée (cibles par défaut).
+        
+        La génération a réussi.
+            0 Avertissement(s)
+            0 Erreur(s)
+        
+        Temps écoulé 00:00:00.54
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/JetBrains/CLion 2023.2.1/bin/cmake/win/x64/share/cmake-3.28/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/Program Files/JetBrains/CLion 2023.2.1/bin/cmake/win/x64/share/cmake-3.28/Modules/CheckCSourceCompiles.cmake:52 (cmake_check_source_compiles)"
+      - "vendor/SDL/CMakeLists.txt:824 (check_c_source_compiles)"
+    checks:
+      - "Performing Test COMPILER_SUPPORTS_AVX512F"
+    directories:
+      source: "C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/CMakeFiles/CMakeScratch/TryCompile-g1ql8l"
+      binary: "C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/CMakeFiles/CMakeScratch/TryCompile-g1ql8l"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
+      CMAKE_C_FLAGS_DEBUG: "/Zi /Ob0 /Od "
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      CMAKE_MODULE_PATH: "C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/vendor/SDL/cmake"
+    buildResult:
+      variable: "COMPILER_SUPPORTS_AVX512F"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/CMakeFiles/CMakeScratch/TryCompile-g1ql8l'
+        
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_cc693.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Version MSBuild 17.7.2+d6990bcfa pour .NET Framework
+        La génération a démarré 21/03/2025 14:33:46.
+        
+        Projet "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-g1ql8l\\cmTC_cc693.vcxproj" sur le noud 1 (cibles par défaut).
+        PrepareForBuild:
+          Création du répertoire "cmTC_cc693.dir\\Debug\\".
+          Création du répertoire "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-g1ql8l\\Debug\\".
+          Création du répertoire "cmTC_cc693.dir\\Debug\\cmTC_cc693.tlog\\".
+        InitializeBuildStatus:
+          Création de "cmTC_cc693.dir\\Debug\\cmTC_cc693.tlog\\unsuccessfulbuild", car "AlwaysCreate" a été spécifié.
+          Mise à jour de l'horodatage "cmTC_cc693.dir\\Debug\\cmTC_cc693.tlog\\unsuccessfulbuild".
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.37.32822\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _GNU_SOURCE=1 /D COMPILER_SUPPORTS_AVX512F /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_cc693.dir\\Debug\\\\" /Fd"cmTC_cc693.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-g1ql8l\\src.c"
+          Compilateur d'optimisation Microsoft (R) C/C++ version 19.37.32822 pour x64
+          src.c
+          Copyright (C) Microsoft Corporation. Tous droits réservés.
+          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _GNU_SOURCE=1 /D COMPILER_SUPPORTS_AVX512F /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_cc693.dir\\Debug\\\\" /Fd"cmTC_cc693.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-g1ql8l\\src.c"
+        Link:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.37.32822\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-g1ql8l\\Debug\\cmTC_cc693.exe" /INCREMENTAL /ILK:"cmTC_cc693.dir\\Debug\\cmTC_cc693.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/CMakeFiles/CMakeScratch/TryCompile-g1ql8l/Debug/cmTC_cc693.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/CMakeFiles/CMakeScratch/TryCompile-g1ql8l/Debug/cmTC_cc693.lib" /MACHINE:X64  /machine:x64 cmTC_cc693.dir\\Debug\\src.obj
+          cmTC_cc693.vcxproj -> C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-g1ql8l\\Debug\\cmTC_cc693.exe
+        FinalizeBuildStatus:
+          Suppression du fichier "cmTC_cc693.dir\\Debug\\cmTC_cc693.tlog\\unsuccessfulbuild".
+          Mise à jour de l'horodatage "cmTC_cc693.dir\\Debug\\cmTC_cc693.tlog\\cmTC_cc693.lastbuildstate".
+        Génération du projet "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-g1ql8l\\cmTC_cc693.vcxproj" terminée (cibles par défaut).
+        
+        La génération a réussi.
+            0 Avertissement(s)
+            0 Erreur(s)
+        
+        Temps écoulé 00:00:00.53
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/JetBrains/CLion 2023.2.1/bin/cmake/win/x64/share/cmake-3.28/Modules/CheckIncludeFile.cmake:90 (try_compile)"
+      - "vendor/SDL/CMakeLists.txt:967 (check_include_file)"
+    checks:
+      - "Looking for malloc.h"
+    directories:
+      source: "C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/CMakeFiles/CMakeScratch/TryCompile-rvxcbf"
+      binary: "C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/CMakeFiles/CMakeScratch/TryCompile-rvxcbf"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
+      CMAKE_C_FLAGS_DEBUG: "/Zi /Ob0 /Od "
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      CMAKE_MODULE_PATH: "C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/vendor/SDL/cmake"
+    buildResult:
+      variable: "HAVE_MALLOC_H"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/CMakeFiles/CMakeScratch/TryCompile-rvxcbf'
+        
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_d315b.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Version MSBuild 17.7.2+d6990bcfa pour .NET Framework
+        La génération a démarré 21/03/2025 14:33:47.
+        
+        Projet "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-rvxcbf\\cmTC_d315b.vcxproj" sur le noud 1 (cibles par défaut).
+        PrepareForBuild:
+          Création du répertoire "cmTC_d315b.dir\\Debug\\".
+          Création du répertoire "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-rvxcbf\\Debug\\".
+          Création du répertoire "cmTC_d315b.dir\\Debug\\cmTC_d315b.tlog\\".
+        InitializeBuildStatus:
+          Création de "cmTC_d315b.dir\\Debug\\cmTC_d315b.tlog\\unsuccessfulbuild", car "AlwaysCreate" a été spécifié.
+          Mise à jour de l'horodatage "cmTC_d315b.dir\\Debug\\cmTC_d315b.tlog\\unsuccessfulbuild".
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.37.32822\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _GNU_SOURCE=1 /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_d315b.dir\\Debug\\\\" /Fd"cmTC_d315b.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-rvxcbf\\CheckIncludeFile.c"
+          Compilateur d'optimisation Microsoft (R) C/C++ version 19.37.32822 pour x64
+          CheckIncludeFile.c
+          Copyright (C) Microsoft Corporation. Tous droits réservés.
+          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _GNU_SOURCE=1 /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_d315b.dir\\Debug\\\\" /Fd"cmTC_d315b.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-rvxcbf\\CheckIncludeFile.c"
+        Link:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.37.32822\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-rvxcbf\\Debug\\cmTC_d315b.exe" /INCREMENTAL /ILK:"cmTC_d315b.dir\\Debug\\cmTC_d315b.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/CMakeFiles/CMakeScratch/TryCompile-rvxcbf/Debug/cmTC_d315b.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/CMakeFiles/CMakeScratch/TryCompile-rvxcbf/Debug/cmTC_d315b.lib" /MACHINE:X64  /machine:x64 cmTC_d315b.dir\\Debug\\CheckIncludeFile.obj
+          cmTC_d315b.vcxproj -> C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-rvxcbf\\Debug\\cmTC_d315b.exe
+        FinalizeBuildStatus:
+          Suppression du fichier "cmTC_d315b.dir\\Debug\\cmTC_d315b.tlog\\unsuccessfulbuild".
+          Mise à jour de l'horodatage "cmTC_d315b.dir\\Debug\\cmTC_d315b.tlog\\cmTC_d315b.lastbuildstate".
+        Génération du projet "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-rvxcbf\\cmTC_d315b.vcxproj" terminée (cibles par défaut).
+        
+        La génération a réussi.
+            0 Avertissement(s)
+            0 Erreur(s)
+        
+        Temps écoulé 00:00:00.48
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/JetBrains/CLion 2023.2.1/bin/cmake/win/x64/share/cmake-3.28/Modules/CheckSymbolExists.cmake:140 (try_compile)"
+      - "C:/Program Files/JetBrains/CLion 2023.2.1/bin/cmake/win/x64/share/cmake-3.28/Modules/CheckSymbolExists.cmake:66 (__CHECK_SYMBOL_EXISTS_IMPL)"
+      - "vendor/SDL/CMakeLists.txt:1048 (check_symbol_exists)"
+    checks:
+      - "Looking for _copysign"
+    directories:
+      source: "C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/CMakeFiles/CMakeScratch/TryCompile-rjb849"
+      binary: "C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/CMakeFiles/CMakeScratch/TryCompile-rjb849"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
+      CMAKE_C_FLAGS_DEBUG: "/Zi /Ob0 /Od "
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      CMAKE_MODULE_PATH: "C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/vendor/SDL/cmake"
+    buildResult:
+      variable: "LIBC_HAS__COPYSIGN"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/CMakeFiles/CMakeScratch/TryCompile-rjb849'
+        
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_37b38.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Version MSBuild 17.7.2+d6990bcfa pour .NET Framework
+        La génération a démarré 21/03/2025 14:33:47.
+        
+        Projet "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-rjb849\\cmTC_37b38.vcxproj" sur le noud 1 (cibles par défaut).
+        PrepareForBuild:
+          Création du répertoire "cmTC_37b38.dir\\Debug\\".
+          Création du répertoire "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-rjb849\\Debug\\".
+          Création du répertoire "cmTC_37b38.dir\\Debug\\cmTC_37b38.tlog\\".
+        InitializeBuildStatus:
+          Création de "cmTC_37b38.dir\\Debug\\cmTC_37b38.tlog\\unsuccessfulbuild", car "AlwaysCreate" a été spécifié.
+          Mise à jour de l'horodatage "cmTC_37b38.dir\\Debug\\cmTC_37b38.tlog\\unsuccessfulbuild".
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.37.32822\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _GNU_SOURCE=1 /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_37b38.dir\\Debug\\\\" /Fd"cmTC_37b38.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-rjb849\\CheckSymbolExists.c"
+          Compilateur d'optimisation Microsoft (R) C/C++ version 19.37.32822 pour x64
+          CheckSymbolExists.c
+          Copyright (C) Microsoft Corporation. Tous droits réservés.
+          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _GNU_SOURCE=1 /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_37b38.dir\\Debug\\\\" /Fd"cmTC_37b38.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-rjb849\\CheckSymbolExists.c"
+        Link:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.37.32822\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-rjb849\\Debug\\cmTC_37b38.exe" /INCREMENTAL /ILK:"cmTC_37b38.dir\\Debug\\cmTC_37b38.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/CMakeFiles/CMakeScratch/TryCompile-rjb849/Debug/cmTC_37b38.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/CMakeFiles/CMakeScratch/TryCompile-rjb849/Debug/cmTC_37b38.lib" /MACHINE:X64  /machine:x64 cmTC_37b38.dir\\Debug\\CheckSymbolExists.obj
+          cmTC_37b38.vcxproj -> C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-rjb849\\Debug\\cmTC_37b38.exe
+        FinalizeBuildStatus:
+          Suppression du fichier "cmTC_37b38.dir\\Debug\\cmTC_37b38.tlog\\unsuccessfulbuild".
+          Mise à jour de l'horodatage "cmTC_37b38.dir\\Debug\\cmTC_37b38.tlog\\cmTC_37b38.lastbuildstate".
+        Génération du projet "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-rjb849\\cmTC_37b38.vcxproj" terminée (cibles par défaut).
+        
+        La génération a réussi.
+            0 Avertissement(s)
+            0 Erreur(s)
+        
+        Temps écoulé 00:00:00.60
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/JetBrains/CLion 2023.2.1/bin/cmake/win/x64/share/cmake-3.28/Modules/CheckSymbolExists.cmake:140 (try_compile)"
+      - "C:/Program Files/JetBrains/CLion 2023.2.1/bin/cmake/win/x64/share/cmake-3.28/Modules/CheckSymbolExists.cmake:66 (__CHECK_SYMBOL_EXISTS_IMPL)"
+      - "vendor/SDL/CMakeLists.txt:1048 (check_symbol_exists)"
+    checks:
+      - "Looking for _fseeki64"
+    directories:
+      source: "C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/CMakeFiles/CMakeScratch/TryCompile-2938e6"
+      binary: "C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/CMakeFiles/CMakeScratch/TryCompile-2938e6"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
+      CMAKE_C_FLAGS_DEBUG: "/Zi /Ob0 /Od "
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      CMAKE_MODULE_PATH: "C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/vendor/SDL/cmake"
+    buildResult:
+      variable: "LIBC_HAS__FSEEKI64"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/CMakeFiles/CMakeScratch/TryCompile-2938e6'
+        
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_bbe83.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Version MSBuild 17.7.2+d6990bcfa pour .NET Framework
+        La génération a démarré 21/03/2025 14:33:48.
+        
+        Projet "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-2938e6\\cmTC_bbe83.vcxproj" sur le noud 1 (cibles par défaut).
+        PrepareForBuild:
+          Création du répertoire "cmTC_bbe83.dir\\Debug\\".
+          Création du répertoire "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-2938e6\\Debug\\".
+          Création du répertoire "cmTC_bbe83.dir\\Debug\\cmTC_bbe83.tlog\\".
+        InitializeBuildStatus:
+          Création de "cmTC_bbe83.dir\\Debug\\cmTC_bbe83.tlog\\unsuccessfulbuild", car "AlwaysCreate" a été spécifié.
+          Mise à jour de l'horodatage "cmTC_bbe83.dir\\Debug\\cmTC_bbe83.tlog\\unsuccessfulbuild".
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.37.32822\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _GNU_SOURCE=1 /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_bbe83.dir\\Debug\\\\" /Fd"cmTC_bbe83.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-2938e6\\CheckSymbolExists.c"
+          Compilateur d'optimisation Microsoft (R) C/C++ version 19.37.32822 pour x64
+          CheckSymbolExists.c
+          Copyright (C) Microsoft Corporation. Tous droits réservés.
+          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _GNU_SOURCE=1 /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_bbe83.dir\\Debug\\\\" /Fd"cmTC_bbe83.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-2938e6\\CheckSymbolExists.c"
+        Link:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.37.32822\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-2938e6\\Debug\\cmTC_bbe83.exe" /INCREMENTAL /ILK:"cmTC_bbe83.dir\\Debug\\cmTC_bbe83.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/CMakeFiles/CMakeScratch/TryCompile-2938e6/Debug/cmTC_bbe83.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/CMakeFiles/CMakeScratch/TryCompile-2938e6/Debug/cmTC_bbe83.lib" /MACHINE:X64  /machine:x64 cmTC_bbe83.dir\\Debug\\CheckSymbolExists.obj
+          cmTC_bbe83.vcxproj -> C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-2938e6\\Debug\\cmTC_bbe83.exe
+        FinalizeBuildStatus:
+          Suppression du fichier "cmTC_bbe83.dir\\Debug\\cmTC_bbe83.tlog\\unsuccessfulbuild".
+          Mise à jour de l'horodatage "cmTC_bbe83.dir\\Debug\\cmTC_bbe83.tlog\\cmTC_bbe83.lastbuildstate".
+        Génération du projet "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-2938e6\\cmTC_bbe83.vcxproj" terminée (cibles par défaut).
+        
+        La génération a réussi.
+            0 Avertissement(s)
+            0 Erreur(s)
+        
+        Temps écoulé 00:00:00.55
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/JetBrains/CLion 2023.2.1/bin/cmake/win/x64/share/cmake-3.28/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/Program Files/JetBrains/CLion 2023.2.1/bin/cmake/win/x64/share/cmake-3.28/Modules/CheckCSourceCompiles.cmake:52 (cmake_check_source_compiles)"
+      - "vendor/SDL/CMakeLists.txt:1969 (check_c_source_compiles)"
+    checks:
+      - "Performing Test HAVE_GAMEINPUT_H"
+    directories:
+      source: "C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/CMakeFiles/CMakeScratch/TryCompile-fgqmrs"
+      binary: "C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/CMakeFiles/CMakeScratch/TryCompile-fgqmrs"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
+      CMAKE_C_FLAGS_DEBUG: "/Zi /Ob0 /Od "
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      CMAKE_MODULE_PATH: "C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/vendor/SDL/cmake"
+    buildResult:
+      variable: "HAVE_GAMEINPUT_H"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/CMakeFiles/CMakeScratch/TryCompile-fgqmrs'
+        
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_2ab77.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Version MSBuild 17.7.2+d6990bcfa pour .NET Framework
+        La génération a démarré 21/03/2025 14:33:49.
+        
+        Projet "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-fgqmrs\\cmTC_2ab77.vcxproj" sur le noud 1 (cibles par défaut).
+        PrepareForBuild:
+          Création du répertoire "cmTC_2ab77.dir\\Debug\\".
+          Création du répertoire "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-fgqmrs\\Debug\\".
+          Création du répertoire "cmTC_2ab77.dir\\Debug\\cmTC_2ab77.tlog\\".
+        InitializeBuildStatus:
+          Création de "cmTC_2ab77.dir\\Debug\\cmTC_2ab77.tlog\\unsuccessfulbuild", car "AlwaysCreate" a été spécifié.
+          Mise à jour de l'horodatage "cmTC_2ab77.dir\\Debug\\cmTC_2ab77.tlog\\unsuccessfulbuild".
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.37.32822\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _GNU_SOURCE=1 /D HAVE_GAMEINPUT_H /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_2ab77.dir\\Debug\\\\" /Fd"cmTC_2ab77.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-fgqmrs\\src.c"
+          Compilateur d'optimisation Microsoft (R) C/C++ version 19.37.32822 pour x64
+          src.c
+          Copyright (C) Microsoft Corporation. Tous droits réservés.
+          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _GNU_SOURCE=1 /D HAVE_GAMEINPUT_H /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_2ab77.dir\\Debug\\\\" /Fd"cmTC_2ab77.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-fgqmrs\\src.c"
+        C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-fgqmrs\\src.c(4,14): fatal  error C1083: Impossible d'ouvrir le fichier include : 'gameinput.h' : No such file or directory [C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-fgqmrs\\cmTC_2ab77.vcxproj]
+        Génération du projet "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-fgqmrs\\cmTC_2ab77.vcxproj" terminée (cibles par défaut) -- ÉCHEC.
+        
+        ÉCHEC de la build.
+        
+        "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-fgqmrs\\cmTC_2ab77.vcxproj" (cible par défaut) (1) ->
+        (ClCompile cible) -> 
+          C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-fgqmrs\\src.c(4,14): fatal  error C1083: Impossible d'ouvrir le fichier include : 'gameinput.h' : No such file or directory [C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-fgqmrs\\cmTC_2ab77.vcxproj]
+        
+            0 Avertissement(s)
+            1 Erreur(s)
+        
+        Temps écoulé 00:00:00.39
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/JetBrains/CLion 2023.2.1/bin/cmake/win/x64/share/cmake-3.28/Modules/CheckIncludeFile.cmake:90 (try_compile)"
+      - "vendor/SDL/CMakeLists.txt:1975 (check_include_file)"
+    checks:
+      - "Looking for dxgi1_6.h"
+    directories:
+      source: "C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/CMakeFiles/CMakeScratch/TryCompile-z8mlhp"
+      binary: "C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/CMakeFiles/CMakeScratch/TryCompile-z8mlhp"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
+      CMAKE_C_FLAGS_DEBUG: "/Zi /Ob0 /Od "
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      CMAKE_MODULE_PATH: "C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/vendor/SDL/cmake"
+    buildResult:
+      variable: "HAVE_DXGI1_6_H"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/CMakeFiles/CMakeScratch/TryCompile-z8mlhp'
+        
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_ae29e.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Version MSBuild 17.7.2+d6990bcfa pour .NET Framework
+        La génération a démarré 21/03/2025 14:33:50.
+        
+        Projet "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-z8mlhp\\cmTC_ae29e.vcxproj" sur le noud 1 (cibles par défaut).
+        PrepareForBuild:
+          Création du répertoire "cmTC_ae29e.dir\\Debug\\".
+          Création du répertoire "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-z8mlhp\\Debug\\".
+          Création du répertoire "cmTC_ae29e.dir\\Debug\\cmTC_ae29e.tlog\\".
+        InitializeBuildStatus:
+          Création de "cmTC_ae29e.dir\\Debug\\cmTC_ae29e.tlog\\unsuccessfulbuild", car "AlwaysCreate" a été spécifié.
+          Mise à jour de l'horodatage "cmTC_ae29e.dir\\Debug\\cmTC_ae29e.tlog\\unsuccessfulbuild".
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.37.32822\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _GNU_SOURCE=1 /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_ae29e.dir\\Debug\\\\" /Fd"cmTC_ae29e.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-z8mlhp\\CheckIncludeFile.c"
+          Compilateur d'optimisation Microsoft (R) C/C++ version 19.37.32822 pour x64
+          CheckIncludeFile.c
+          Copyright (C) Microsoft Corporation. Tous droits réservés.
+          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _GNU_SOURCE=1 /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_ae29e.dir\\Debug\\\\" /Fd"cmTC_ae29e.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-z8mlhp\\CheckIncludeFile.c"
+        Link:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.37.32822\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-z8mlhp\\Debug\\cmTC_ae29e.exe" /INCREMENTAL /ILK:"cmTC_ae29e.dir\\Debug\\cmTC_ae29e.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/CMakeFiles/CMakeScratch/TryCompile-z8mlhp/Debug/cmTC_ae29e.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/CMakeFiles/CMakeScratch/TryCompile-z8mlhp/Debug/cmTC_ae29e.lib" /MACHINE:X64  /machine:x64 cmTC_ae29e.dir\\Debug\\CheckIncludeFile.obj
+          cmTC_ae29e.vcxproj -> C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-z8mlhp\\Debug\\cmTC_ae29e.exe
+        FinalizeBuildStatus:
+          Suppression du fichier "cmTC_ae29e.dir\\Debug\\cmTC_ae29e.tlog\\unsuccessfulbuild".
+          Mise à jour de l'horodatage "cmTC_ae29e.dir\\Debug\\cmTC_ae29e.tlog\\cmTC_ae29e.lastbuildstate".
+        Génération du projet "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-z8mlhp\\cmTC_ae29e.vcxproj" terminée (cibles par défaut).
+        
+        La génération a réussi.
+            0 Avertissement(s)
+            0 Erreur(s)
+        
+        Temps écoulé 00:00:00.82
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/JetBrains/CLion 2023.2.1/bin/cmake/win/x64/share/cmake-3.28/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/Program Files/JetBrains/CLion 2023.2.1/bin/cmake/win/x64/share/cmake-3.28/Modules/CheckCSourceCompiles.cmake:52 (cmake_check_source_compiles)"
+      - "vendor/SDL/CMakeLists.txt:1982 (check_c_source_compiles)"
+    checks:
+      - "Performing Test HAVE_MFAPI_H"
+    directories:
+      source: "C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/CMakeFiles/CMakeScratch/TryCompile-j37wuv"
+      binary: "C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/CMakeFiles/CMakeScratch/TryCompile-j37wuv"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
+      CMAKE_C_FLAGS_DEBUG: "/Zi /Ob0 /Od "
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      CMAKE_MODULE_PATH: "C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/vendor/SDL/cmake"
+    buildResult:
+      variable: "HAVE_MFAPI_H"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/CMakeFiles/CMakeScratch/TryCompile-j37wuv'
+        
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_f3df2.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Version MSBuild 17.7.2+d6990bcfa pour .NET Framework
+        La génération a démarré 21/03/2025 14:33:51.
+        
+        Projet "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-j37wuv\\cmTC_f3df2.vcxproj" sur le noud 1 (cibles par défaut).
+        PrepareForBuild:
+          Création du répertoire "cmTC_f3df2.dir\\Debug\\".
+          Création du répertoire "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-j37wuv\\Debug\\".
+          Création du répertoire "cmTC_f3df2.dir\\Debug\\cmTC_f3df2.tlog\\".
+        InitializeBuildStatus:
+          Création de "cmTC_f3df2.dir\\Debug\\cmTC_f3df2.tlog\\unsuccessfulbuild", car "AlwaysCreate" a été spécifié.
+          Mise à jour de l'horodatage "cmTC_f3df2.dir\\Debug\\cmTC_f3df2.tlog\\unsuccessfulbuild".
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.37.32822\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _GNU_SOURCE=1 /D HAVE_MFAPI_H /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_f3df2.dir\\Debug\\\\" /Fd"cmTC_f3df2.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-j37wuv\\src.c"
+          Compilateur d'optimisation Microsoft (R) C/C++ version 19.37.32822 pour x64
+          Copyright (C) Microsoft Corporation. Tous droits réservés.
+          src.c
+          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _GNU_SOURCE=1 /D HAVE_MFAPI_H /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_f3df2.dir\\Debug\\\\" /Fd"cmTC_f3df2.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-j37wuv\\src.c"
+        Link:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.37.32822\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-j37wuv\\Debug\\cmTC_f3df2.exe" /INCREMENTAL /ILK:"cmTC_f3df2.dir\\Debug\\cmTC_f3df2.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/CMakeFiles/CMakeScratch/TryCompile-j37wuv/Debug/cmTC_f3df2.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/CMakeFiles/CMakeScratch/TryCompile-j37wuv/Debug/cmTC_f3df2.lib" /MACHINE:X64  /machine:x64 cmTC_f3df2.dir\\Debug\\src.obj
+          cmTC_f3df2.vcxproj -> C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-j37wuv\\Debug\\cmTC_f3df2.exe
+        FinalizeBuildStatus:
+          Suppression du fichier "cmTC_f3df2.dir\\Debug\\cmTC_f3df2.tlog\\unsuccessfulbuild".
+          Mise à jour de l'horodatage "cmTC_f3df2.dir\\Debug\\cmTC_f3df2.tlog\\cmTC_f3df2.lastbuildstate".
+        Génération du projet "C:\\Users\\coren\\OneDrive\\Documents\\A_CIR2\\PROJET\\PROJET1\\MusicaLau\\cmake-build-debug-visual-studio\\CMakeFiles\\CMakeScratch\\TryCompile-j37wuv\\cmTC_f3df2.vcxproj" terminée (cibles par défaut).
+        
+        La génération a réussi.
+            0 Avertissement(s)
+            0 Erreur(s)
+        
+        Temps écoulé 00:00:00.77
+        
+      exitCode: 0
+...

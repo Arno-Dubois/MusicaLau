@@ -1,0 +1,51 @@
+# CMake generation dependency list for this directory.
+C:/Program Files/JetBrains/CLion 2023.2.1/bin/cmake/win/x64/share/cmake-3.28/Modules/BasicConfigVersion-AnyNewerVersion.cmake.in
+C:/Program Files/JetBrains/CLion 2023.2.1/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeCheckCompilerFlagCommonPatterns.cmake
+C:/Program Files/JetBrains/CLion 2023.2.1/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeDependentOption.cmake
+C:/Program Files/JetBrains/CLion 2023.2.1/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakePackageConfigHelpers.cmake
+C:/Program Files/JetBrains/CLion 2023.2.1/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeParseArguments.cmake
+C:/Program Files/JetBrains/CLion 2023.2.1/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakePushCheckState.cmake
+C:/Program Files/JetBrains/CLion 2023.2.1/bin/cmake/win/x64/share/cmake-3.28/Modules/CheckCCompilerFlag.cmake
+C:/Program Files/JetBrains/CLion 2023.2.1/bin/cmake/win/x64/share/cmake-3.28/Modules/CheckCSourceCompiles.cmake
+C:/Program Files/JetBrains/CLion 2023.2.1/bin/cmake/win/x64/share/cmake-3.28/Modules/CheckCSourceRuns.cmake
+C:/Program Files/JetBrains/CLion 2023.2.1/bin/cmake/win/x64/share/cmake-3.28/Modules/CheckCXXCompilerFlag.cmake
+C:/Program Files/JetBrains/CLion 2023.2.1/bin/cmake/win/x64/share/cmake-3.28/Modules/CheckCXXSourceCompiles.cmake
+C:/Program Files/JetBrains/CLion 2023.2.1/bin/cmake/win/x64/share/cmake-3.28/Modules/CheckIncludeFile.cmake
+C:/Program Files/JetBrains/CLion 2023.2.1/bin/cmake/win/x64/share/cmake-3.28/Modules/CheckLanguage.cmake
+C:/Program Files/JetBrains/CLion 2023.2.1/bin/cmake/win/x64/share/cmake-3.28/Modules/CheckLibraryExists.cmake
+C:/Program Files/JetBrains/CLion 2023.2.1/bin/cmake/win/x64/share/cmake-3.28/Modules/CheckLinkerFlag.cmake
+C:/Program Files/JetBrains/CLion 2023.2.1/bin/cmake/win/x64/share/cmake-3.28/Modules/CheckSourceCompiles.cmake
+C:/Program Files/JetBrains/CLion 2023.2.1/bin/cmake/win/x64/share/cmake-3.28/Modules/CheckStructHasMember.cmake
+C:/Program Files/JetBrains/CLion 2023.2.1/bin/cmake/win/x64/share/cmake-3.28/Modules/CheckSymbolExists.cmake
+C:/Program Files/JetBrains/CLion 2023.2.1/bin/cmake/win/x64/share/cmake-3.28/Modules/FindGit.cmake
+C:/Program Files/JetBrains/CLion 2023.2.1/bin/cmake/win/x64/share/cmake-3.28/Modules/FindPackageHandleStandardArgs.cmake
+C:/Program Files/JetBrains/CLion 2023.2.1/bin/cmake/win/x64/share/cmake-3.28/Modules/FindPackageMessage.cmake
+C:/Program Files/JetBrains/CLion 2023.2.1/bin/cmake/win/x64/share/cmake-3.28/Modules/FindPkgConfig.cmake
+C:/Program Files/JetBrains/CLion 2023.2.1/bin/cmake/win/x64/share/cmake-3.28/Modules/GNUInstallDirs.cmake
+C:/Program Files/JetBrains/CLion 2023.2.1/bin/cmake/win/x64/share/cmake-3.28/Modules/Internal/CheckCompilerFlag.cmake
+C:/Program Files/JetBrains/CLion 2023.2.1/bin/cmake/win/x64/share/cmake-3.28/Modules/Internal/CheckFlagCommonConfig.cmake
+C:/Program Files/JetBrains/CLion 2023.2.1/bin/cmake/win/x64/share/cmake-3.28/Modules/Internal/CheckLinkerFlag.cmake
+C:/Program Files/JetBrains/CLion 2023.2.1/bin/cmake/win/x64/share/cmake-3.28/Modules/Internal/CheckSourceCompiles.cmake
+C:/Program Files/JetBrains/CLion 2023.2.1/bin/cmake/win/x64/share/cmake-3.28/Modules/Internal/CheckSourceRuns.cmake
+C:/Program Files/JetBrains/CLion 2023.2.1/bin/cmake/win/x64/share/cmake-3.28/Modules/WriteBasicConfigVersionFile.cmake
+C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/.git/modules/vendor/SDL/HEAD
+C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/.git/modules/vendor/SDL/refs/heads/main
+C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/vendor/SDL/CMakeFiles/SDL_build_config.h.intermediate
+C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/cmake-build-debug-visual-studio/vendor/SDL/CMakeFiles/git-data/grabRef.cmake
+C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/vendor/SDL/CMakeLists.txt
+C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/vendor/SDL/cmake/3rdparty.cmake
+C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/vendor/SDL/cmake/FindLibUSB.cmake
+C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/vendor/SDL/cmake/GetGitRevisionDescription.cmake
+C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/vendor/SDL/cmake/GetGitRevisionDescription.cmake.in
+C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/vendor/SDL/cmake/PreseedEmscriptenCache.cmake
+C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/vendor/SDL/cmake/PreseedMSVCCache.cmake
+C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/vendor/SDL/cmake/SDL3Config.cmake.in
+C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/vendor/SDL/cmake/macros.cmake
+C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/vendor/SDL/cmake/sdlchecks.cmake
+C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/vendor/SDL/cmake/sdlcompilers.cmake
+C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/vendor/SDL/cmake/sdlcpu.cmake
+C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/vendor/SDL/cmake/sdlmanpages.cmake
+C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/vendor/SDL/cmake/sdlplatform.cmake
+C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/vendor/SDL/cmake/sdltargets.cmake
+C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/vendor/SDL/include/build_config/SDL_build_config.h.cmake
+C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/vendor/SDL/include/build_config/SDL_revision.h.cmake

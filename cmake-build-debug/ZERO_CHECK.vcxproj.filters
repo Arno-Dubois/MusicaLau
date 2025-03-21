@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\coren\OneDrive\Documents\A_CIR2\PROJET\PROJET1\MusicaLau\cmake-build-debug\CMakeFiles\5c0c0a310b83135f33ce4363c175a0dc\generate.stamp.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{87E54BC1-5E30-3BB2-8FC4-445390A98092}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
