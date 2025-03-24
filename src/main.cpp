@@ -1,379 +1,279 @@
-/*
- * Logic implementation of the Snake game. It is designed to efficiently
- * represent the state of the game in memory.
- *
- * This code is public domain. Feel free to use it for any purpose!
- */
-
-#define SDL_MAIN_USE_CALLBACKS 1 /* use the callbacks instead of main() */
-
 #include <SDL3/SDL.h>
-#include <SDL3/SDL_main.h>
+#include <SDL3/SDL_render.h>
+#include <SDL3/SDL_ttf.h>
+#include <iostream>
+#include <vector>
+#include <string>
 
-#define STEP_RATE_IN_MILLISECONDS  125
-#define SNAKE_BLOCK_SIZE_IN_PIXELS 24
-#define SDL_WINDOW_WIDTH           (SNAKE_BLOCK_SIZE_IN_PIXELS * SNAKE_GAME_WIDTH)
-#define SDL_WINDOW_HEIGHT          (SNAKE_BLOCK_SIZE_IN_PIXELS * SNAKE_GAME_HEIGHT)
+// Structure pour stocker les informations des boutons
+struct Button {
+    SDL_FRect rect;
+    std::string text;
+    SDL_Color color;
+    SDL_Color textColor;
+    SDL_Texture *iconTexture;
+    bool isIcon;
+};
 
-#define SNAKE_GAME_WIDTH  24U
-#define SNAKE_GAME_HEIGHT 18U
-#define SNAKE_MATRIX_SIZE (SNAKE_GAME_WIDTH * SNAKE_GAME_HEIGHT)
+// Couleurs utilisées dans l'application
+const SDL_Color DARK_BROWN = {60, 40, 40, 255};
+const SDL_Color LIGHT_BLUE = {173, 216, 230, 255};
+const SDL_Color DARK_GRAY = {40, 40, 40, 255};
+const SDL_Color WHITE = {255, 255, 255, 255};
+const SDL_Color RED = {255, 50, 50, 255};
 
-#define THREE_BITS  0x7U /* ~CHAR_MAX >> (CHAR_BIT - SNAKE_CELL_MAX_BITS) */
-#define SHIFT(x, y) (((x) + ((y) * SNAKE_GAME_WIDTH)) * SNAKE_CELL_MAX_BITS)
+// Fonction pour créer une texture à partir d'un texte
+SDL_Texture *createTextTexture(SDL_Renderer *renderer, TTF_Font *font, const std::string &text, SDL_Color color) {
+    // SDL3 nécessite toujours la longueur du texte
+    SDL_Surface *surface = TTF_RenderText_Blended(font, text.c_str(), text.length(), color);
+    if (!surface) {
+        std::cerr << "TTF_RenderText_Blended Error: " << SDL_GetError() << std::endl;
+        return nullptr;
+    }
 
-static SDL_Joystick *joystick = NULL;
-
-typedef enum {
-    SNAKE_CELL_NOTHING = 0U,
-    SNAKE_CELL_SRIGHT = 1U,
-    SNAKE_CELL_SUP = 2U,
-    SNAKE_CELL_SLEFT = 3U,
-    SNAKE_CELL_SDOWN = 4U,
-    SNAKE_CELL_FOOD = 5U
-} SnakeCell;
-
-#define SNAKE_CELL_MAX_BITS 3U /* floor(log2(SNAKE_CELL_FOOD)) + 1 */
-
-typedef enum {
-    SNAKE_DIR_RIGHT,
-    SNAKE_DIR_UP,
-    SNAKE_DIR_LEFT,
-    SNAKE_DIR_DOWN
-} SnakeDirection;
-
-typedef struct {
-    unsigned char cells[(SNAKE_MATRIX_SIZE * SNAKE_CELL_MAX_BITS) / 8U];
-    char head_xpos;
-    char head_ypos;
-    char tail_xpos;
-    char tail_ypos;
-    char next_dir;
-    char inhibit_tail_step;
-    unsigned occupied_cells;
-} SnakeContext;
-
-typedef struct {
-    SDL_Window *window;
-    SDL_Renderer *renderer;
-    SnakeContext snake_ctx;
-    Uint64 last_step;
-} AppState;
-
-SnakeCell snake_cell_at(const SnakeContext *ctx, char x, char y) {
-    const int shift = SHIFT(x, y);
-    unsigned short range;
-    SDL_memcpy(&range, ctx->cells + (shift / 8), sizeof(range));
-    return (SnakeCell) ((range >> (shift % 8)) & THREE_BITS);
+    SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer, surface);
+    SDL_DestroySurface(surface);
+    return texture;
 }
 
-static void set_rect_xy_(SDL_FRect *r, short x, short y) {
-    r->x = (float) (x * SNAKE_BLOCK_SIZE_IN_PIXELS);
-    r->y = (float) (y * SNAKE_BLOCK_SIZE_IN_PIXELS);
+// Fonction pour obtenir les dimensions d'une texture
+bool getTextureSize(SDL_Texture *texture, int *width, int *height) {
+    SDL_PropertiesID props = SDL_GetTextureProperties(texture);
+    if (props) {
+        *width = (int) SDL_GetNumberProperty(props, SDL_PROP_TEXTURE_WIDTH_NUMBER, 0);
+        *height = (int) SDL_GetNumberProperty(props, SDL_PROP_TEXTURE_HEIGHT_NUMBER, 0);
+        return true;
+    }
+    return false;
 }
 
-static void put_cell_at_(SnakeContext *ctx, char x, char y, SnakeCell ct) {
-    const int shift = SHIFT(x, y);
-    const int adjust = shift % 8;
-    unsigned char *const pos = ctx->cells + (shift / 8);
-    unsigned short range;
-    SDL_memcpy(&range, pos, sizeof(range));
-    range &= ~(THREE_BITS << adjust); /* clear bits */
-    range |= (ct & THREE_BITS) << adjust;
-    SDL_memcpy(pos, &range, sizeof(range));
-}
+// Fonction pour dessiner un bouton
+void drawButton(SDL_Renderer *renderer, const Button &button, TTF_Font *font) {
+    // Dessiner le fond du bouton
+    SDL_SetRenderDrawColor(renderer,
+                           button.color.r,
+                           button.color.g,
+                           button.color.b,
+                           button.color.a);
+    SDL_RenderFillRect(renderer, &button.rect);
 
-static int are_cells_full_(SnakeContext *ctx) {
-    return ctx->occupied_cells == SNAKE_GAME_WIDTH * SNAKE_GAME_HEIGHT;
-}
+    // Dessiner le texte ou l'icône
+    if (button.isIcon && button.iconTexture) {
+        // Si c'est une icône, dessiner la texture de l'icône
+        int iconWidth, iconHeight;
+        if (getTextureSize(button.iconTexture, &iconWidth, &iconHeight)) {
+            SDL_FRect iconRect = {
+                    button.rect.x + (button.rect.w - iconWidth) / 2,
+                    button.rect.y + (button.rect.h - iconHeight) / 2,
+                    (float) iconWidth,
+                    (float) iconHeight
+            };
 
-static void new_food_pos_(SnakeContext *ctx) {
-    while (true) {
-        const char x = (char) SDL_rand(SNAKE_GAME_WIDTH);
-        const char y = (char) SDL_rand(SNAKE_GAME_HEIGHT);
-        if (snake_cell_at(ctx, x, y) == SNAKE_CELL_NOTHING) {
-            put_cell_at_(ctx, x, y, SNAKE_CELL_FOOD);
-            break;
+            SDL_RenderTexture(renderer, button.iconTexture, nullptr, &iconRect);
         }
-    }
-}
+    } else {
+        // Si c'est du texte, créer et dessiner la texture du texte
+        SDL_Texture *textTexture = createTextTexture(renderer, font, button.text, button.textColor);
+        if (textTexture) {
+            int textWidth, textHeight;
+            if (getTextureSize(textTexture, &textWidth, &textHeight)) {
+                SDL_FRect textRect = {
+                        button.rect.x + (button.rect.w - textWidth) / 2,
+                        button.rect.y + (button.rect.h - textHeight) / 2,
+                        (float) textWidth,
+                        (float) textHeight
+                };
 
-void snake_initialize(SnakeContext *ctx) {
-    int i;
-    SDL_zeroa(ctx->cells);
-    ctx->head_xpos = ctx->tail_xpos = SNAKE_GAME_WIDTH / 2;
-    ctx->head_ypos = ctx->tail_ypos = SNAKE_GAME_HEIGHT / 2;
-    ctx->next_dir = SNAKE_DIR_RIGHT;
-    ctx->inhibit_tail_step = ctx->occupied_cells = 4;
-    --ctx->occupied_cells;
-    put_cell_at_(ctx, ctx->tail_xpos, ctx->tail_ypos, SNAKE_CELL_SRIGHT);
-    for (i = 0; i < 4; i++) {
-        new_food_pos_(ctx);
-        ++ctx->occupied_cells;
-    }
-}
-
-void snake_redir(SnakeContext *ctx, SnakeDirection dir) {
-    SnakeCell ct = snake_cell_at(ctx, ctx->head_xpos, ctx->head_ypos);
-    if ((dir == SNAKE_DIR_RIGHT && ct != SNAKE_CELL_SLEFT) ||
-        (dir == SNAKE_DIR_UP && ct != SNAKE_CELL_SDOWN) ||
-        (dir == SNAKE_DIR_LEFT && ct != SNAKE_CELL_SRIGHT) ||
-        (dir == SNAKE_DIR_DOWN && ct != SNAKE_CELL_SUP)) {
-        ctx->next_dir = dir;
-    }
-}
-
-static void wrap_around_(char *val, char max) {
-    if (*val < 0) {
-        *val = max - 1;
-    } else if (*val > max - 1) {
-        *val = 0;
-    }
-}
-
-void snake_step(SnakeContext *ctx) {
-    const SnakeCell dir_as_cell = (SnakeCell) (ctx->next_dir + 1);
-    SnakeCell ct;
-    char prev_xpos;
-    char prev_ypos;
-    /* Move tail forward */
-    if (--ctx->inhibit_tail_step == 0) {
-        ++ctx->inhibit_tail_step;
-        ct = snake_cell_at(ctx, ctx->tail_xpos, ctx->tail_ypos);
-        put_cell_at_(ctx, ctx->tail_xpos, ctx->tail_ypos, SNAKE_CELL_NOTHING);
-        switch (ct) {
-            case SNAKE_CELL_SRIGHT:
-                ctx->tail_xpos++;
-                break;
-            case SNAKE_CELL_SUP:
-                ctx->tail_ypos--;
-                break;
-            case SNAKE_CELL_SLEFT:
-                ctx->tail_xpos--;
-                break;
-            case SNAKE_CELL_SDOWN:
-                ctx->tail_ypos++;
-                break;
-            default:
-                break;
-        }
-        wrap_around_(&ctx->tail_xpos, SNAKE_GAME_WIDTH);
-        wrap_around_(&ctx->tail_ypos, SNAKE_GAME_HEIGHT);
-    }
-    /* Move head forward */
-    prev_xpos = ctx->head_xpos;
-    prev_ypos = ctx->head_ypos;
-    switch (ctx->next_dir) {
-        case SNAKE_DIR_RIGHT:
-            ++ctx->head_xpos;
-            break;
-        case SNAKE_DIR_UP:
-            --ctx->head_ypos;
-            break;
-        case SNAKE_DIR_LEFT:
-            --ctx->head_xpos;
-            break;
-        case SNAKE_DIR_DOWN:
-            ++ctx->head_ypos;
-            break;
-        default:
-            break;
-    }
-    wrap_around_(&ctx->head_xpos, SNAKE_GAME_WIDTH);
-    wrap_around_(&ctx->head_ypos, SNAKE_GAME_HEIGHT);
-    /* Collisions */
-    ct = snake_cell_at(ctx, ctx->head_xpos, ctx->head_ypos);
-    if (ct != SNAKE_CELL_NOTHING && ct != SNAKE_CELL_FOOD) {
-        snake_initialize(ctx);
-        return;
-    }
-    put_cell_at_(ctx, prev_xpos, prev_ypos, dir_as_cell);
-    put_cell_at_(ctx, ctx->head_xpos, ctx->head_ypos, dir_as_cell);
-    if (ct == SNAKE_CELL_FOOD) {
-        if (are_cells_full_(ctx)) {
-            snake_initialize(ctx);
-            return;
-        }
-        new_food_pos_(ctx);
-        ++ctx->inhibit_tail_step;
-        ++ctx->occupied_cells;
-    }
-}
-
-static SDL_AppResult handle_key_event_(SnakeContext *ctx, SDL_Scancode key_code) {
-    switch (key_code) {
-        /* Quit. */
-        case SDL_SCANCODE_ESCAPE:
-        case SDL_SCANCODE_Q:
-            return SDL_APP_SUCCESS;
-            /* Restart the game as if the program was launched. */
-        case SDL_SCANCODE_R:
-            snake_initialize(ctx);
-            break;
-            /* Decide new direction of the snake. */
-        case SDL_SCANCODE_RIGHT:
-            snake_redir(ctx, SNAKE_DIR_RIGHT);
-            break;
-        case SDL_SCANCODE_UP:
-            snake_redir(ctx, SNAKE_DIR_UP);
-            break;
-        case SDL_SCANCODE_LEFT:
-            snake_redir(ctx, SNAKE_DIR_LEFT);
-            break;
-        case SDL_SCANCODE_DOWN:
-            snake_redir(ctx, SNAKE_DIR_DOWN);
-            break;
-        default:
-            break;
-    }
-    return SDL_APP_CONTINUE;
-}
-
-static SDL_AppResult handle_hat_event_(SnakeContext *ctx, Uint8 hat) {
-    switch (hat) {
-        case SDL_HAT_RIGHT:
-            snake_redir(ctx, SNAKE_DIR_RIGHT);
-            break;
-        case SDL_HAT_UP:
-            snake_redir(ctx, SNAKE_DIR_UP);
-            break;
-        case SDL_HAT_LEFT:
-            snake_redir(ctx, SNAKE_DIR_LEFT);
-            break;
-        case SDL_HAT_DOWN:
-            snake_redir(ctx, SNAKE_DIR_DOWN);
-            break;
-        default:
-            break;
-    }
-    return SDL_APP_CONTINUE;
-}
-
-SDL_AppResult SDL_AppIterate(void *appstate) {
-    AppState *as = (AppState *) appstate;
-    SnakeContext *ctx = &as->snake_ctx;
-    const Uint64 now = SDL_GetTicks();
-    SDL_FRect r;
-    unsigned i;
-    unsigned j;
-    int ct;
-
-    // run game logic if we're at or past the time to run it.
-    // if we're _really_ behind the time to run it, run it
-    // several times.
-    while ((now - as->last_step) >= STEP_RATE_IN_MILLISECONDS) {
-        snake_step(ctx);
-        as->last_step += STEP_RATE_IN_MILLISECONDS;
-    }
-
-    r.w = r.h = SNAKE_BLOCK_SIZE_IN_PIXELS;
-    SDL_SetRenderDrawColor(as->renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
-    SDL_RenderClear(as->renderer);
-    for (i = 0; i < SNAKE_GAME_WIDTH; i++) {
-        for (j = 0; j < SNAKE_GAME_HEIGHT; j++) {
-            ct = snake_cell_at(ctx, i, j);
-            if (ct == SNAKE_CELL_NOTHING)
-                continue;
-            set_rect_xy_(&r, i, j);
-            if (ct == SNAKE_CELL_FOOD)
-                SDL_SetRenderDrawColor(as->renderer, 80, 80, 255, SDL_ALPHA_OPAQUE);
-            else /* body */
-                SDL_SetRenderDrawColor(as->renderer, 0, 128, 0, SDL_ALPHA_OPAQUE);
-            SDL_RenderFillRect(as->renderer, &r);
-        }
-    }
-    SDL_SetRenderDrawColor(as->renderer, 255, 255, 0, SDL_ALPHA_OPAQUE); /*head*/
-    set_rect_xy_(&r, ctx->head_xpos, ctx->head_ypos);
-    SDL_RenderFillRect(as->renderer, &r);
-    SDL_RenderPresent(as->renderer);
-    return SDL_APP_CONTINUE;
-}
-
-static const struct {
-    const char *key;
-    const char *value;
-} extended_metadata[] =
-        {
-                {SDL_PROP_APP_METADATA_URL_STRING,       "https://examples.libsdl.org/SDL3/demo/01-snake/"},
-                {SDL_PROP_APP_METADATA_CREATOR_STRING,   "SDL team"},
-                {SDL_PROP_APP_METADATA_COPYRIGHT_STRING, "Placed in the public domain"},
-                {SDL_PROP_APP_METADATA_TYPE_STRING,      "game"}
-        };
-
-SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[]) {
-    size_t i;
-
-    if (!SDL_SetAppMetadata("Example Snake game", "1.0", "com.example.Snake")) {
-        return SDL_APP_FAILURE;
-    }
-
-    for (i = 0; i < SDL_arraysize(extended_metadata); i++) {
-        if (!SDL_SetAppMetadataProperty(extended_metadata[i].key, extended_metadata[i].value)) {
-            return SDL_APP_FAILURE;
-        }
-    }
-
-    if (!SDL_Init(SDL_INIT_VIDEO | SDL_INIT_JOYSTICK)) {
-        SDL_Log("Couldn't initialize SDL: %s", SDL_GetError());
-        return SDL_APP_FAILURE;
-    }
-
-    AppState *as = (AppState *) SDL_calloc(1, sizeof(AppState));
-    if (!as) {
-        return SDL_APP_FAILURE;
-    }
-
-    *appstate = as;
-
-    if (!SDL_CreateWindowAndRenderer("examples/demo/snake", SDL_WINDOW_WIDTH, SDL_WINDOW_HEIGHT, 0, &as->window,
-                                     &as->renderer)) {
-        return SDL_APP_FAILURE;
-    }
-
-    snake_initialize(&as->snake_ctx);
-
-    as->last_step = SDL_GetTicks();
-
-    return SDL_APP_CONTINUE;
-}
-
-SDL_AppResult SDL_AppEvent(void *appstate, SDL_Event *event) {
-    SnakeContext *ctx = &((AppState *) appstate)->snake_ctx;
-    switch (event->type) {
-        case SDL_EVENT_QUIT:
-            return SDL_APP_SUCCESS;
-        case SDL_EVENT_JOYSTICK_ADDED:
-            if (joystick == NULL) {
-                joystick = SDL_OpenJoystick(event->jdevice.which);
-                if (!joystick) {
-                    SDL_Log("Failed to open joystick ID %u: %s", (unsigned int) event->jdevice.which, SDL_GetError());
-                }
+                SDL_RenderTexture(renderer, textTexture, nullptr, &textRect);
             }
-            break;
-        case SDL_EVENT_JOYSTICK_REMOVED:
-            if (joystick && (SDL_GetJoystickID(joystick) == event->jdevice.which)) {
-                SDL_CloseJoystick(joystick);
-                joystick = NULL;
-            }
-            break;
-        case SDL_EVENT_JOYSTICK_HAT_MOTION:
-            return handle_hat_event_(ctx, event->jhat.value);
-        case SDL_EVENT_KEY_DOWN:
-            return handle_key_event_(ctx, event->key.scancode);
-        default:
-            break;
+            SDL_DestroyTexture(textTexture);
+        }
     }
-    return SDL_APP_CONTINUE;
 }
 
-void SDL_AppQuit(void *appstate, SDL_AppResult result) {
-    if (joystick) {
-        SDL_CloseJoystick(joystick);
+// Fonction principale
+int main(int argc, char *argv[]) {
+    // Initialiser SDL
+    if (SDL_Init(SDL_INIT_VIDEO) != 0) {
+        std::cerr << "SDL_Init Error: " << SDL_GetError() << std::endl;
+        return 1;
     }
-    if (appstate != NULL) {
-        AppState *as = (AppState *) appstate;
-        SDL_DestroyRenderer(as->renderer);
-        SDL_DestroyWindow(as->window);
-        SDL_free(as);
+
+    // Initialiser SDL_ttf
+    if (TTF_Init() != 0) {
+        std::cerr << "TTF_Init Error: " << SDL_GetError() << std::endl;
+        SDL_Quit();
+        return 1;
     }
+
+    // Créer la fenêtre avec les dimensions spécifiées
+    SDL_Window *window = SDL_CreateWindow("Application Musicale", 1440, 1024, SDL_WINDOW_RESIZABLE);
+    if (!window) {
+        std::cerr << "SDL_CreateWindow Error: " << SDL_GetError() << std::endl;
+        TTF_Quit();
+        SDL_Quit();
+        return 1;
+    }
+
+    // Créer le renderer (avec la nouvelle signature de SDL3)
+    SDL_Renderer *renderer = SDL_CreateRenderer(window, NULL);
+    if (!renderer) {
+        std::cerr << "SDL_CreateRenderer Error: " << SDL_GetError() << std::endl;
+        SDL_DestroyWindow(window);
+        TTF_Quit();
+        SDL_Quit();
+        return 1;
+    }
+
+    // Charger la police
+    TTF_Font *font = TTF_OpenFont("arial.ttf", 16); // Remplacez par le chemin de votre police
+    if (!font) {
+        std::cerr << "TTF_OpenFont Error: " << SDL_GetError() << std::endl;
+        SDL_DestroyRenderer(renderer);
+        SDL_DestroyWindow(window);
+        TTF_Quit();
+        SDL_Quit();
+        return 1;
+    }
+
+    // Définir les boutons de la barre d'outils
+    std::vector<Button> buttons;
+
+    // Bouton Select
+    buttons.push_back({
+                              {64, 60, 85, 35},  // x, y, width, height
+                              "Select",
+                              DARK_GRAY,
+                              WHITE,
+                              nullptr,
+                              false
+                      });
+
+    // Bouton Remove Octave
+    buttons.push_back({
+                              {173, 60, 85, 35},
+                              "Remove Octave",
+                              DARK_GRAY,
+                              WHITE,
+                              nullptr,
+                              false
+                      });
+
+    // Bouton Add Octave
+    buttons.push_back({
+                              {282, 60, 85, 35},
+                              "Add Octave",
+                              DARK_GRAY,
+                              WHITE,
+                              nullptr,
+                              false
+                      });
+
+    // Bouton Import File
+    buttons.push_back({
+                              {391, 60, 85, 35},
+                              "Import File",
+                              DARK_GRAY,
+                              WHITE,
+                              nullptr,
+                              false
+                      });
+
+    // Bouton Play Song
+    buttons.push_back({
+                              {500, 60, 85, 35},
+                              "Play Song",
+                              DARK_GRAY,
+                              WHITE,
+                              nullptr,
+                              false
+                      });
+
+    // Bouton Start Recording
+    buttons.push_back({
+                              {609, 60, 85, 35},
+                              "Start Recording",
+                              DARK_GRAY,
+                              RED,
+                              nullptr,
+                              false
+                      });
+
+    // Bouton Export
+    buttons.push_back({
+                              {718, 60, 85, 35},
+                              "Export",
+                              DARK_GRAY,
+                              RED,
+                              nullptr,
+                              false
+                      });
+
+    // Bouton Finish Recording
+    buttons.push_back({
+                              {827, 60, 85, 35},
+                              "Finish Recording",
+                              DARK_GRAY,
+                              RED,
+                              nullptr,
+                              false
+                      });
+
+    // Créer le panneau d'instrument
+    SDL_FRect instrumentPanel = {100, 220, 1240, 50};
+
+    // Boucle principale
+    bool quit = false;
+    SDL_Event event;
+
+    while (!quit) {
+        // Gérer les événements
+        while (SDL_PollEvent(&event)) {
+            if (event.type == SDL_EVENT_QUIT) {
+                quit = true;
+            }
+        }
+
+        // Effacer l'écran
+        SDL_SetRenderDrawColor(renderer, DARK_BROWN.r, DARK_BROWN.g, DARK_BROWN.b, DARK_BROWN.a);
+        SDL_RenderClear(renderer);
+
+        // Dessiner les boutons
+        for (const auto &button: buttons) {
+            drawButton(renderer, button, font);
+        }
+
+        // Dessiner le panneau d'instrument
+        SDL_SetRenderDrawColor(renderer, LIGHT_BLUE.r, LIGHT_BLUE.g, LIGHT_BLUE.b, LIGHT_BLUE.a);
+        SDL_RenderFillRect(renderer, &instrumentPanel);
+
+        // Dessiner le texte "INSTRUMENT ACTUEL (PIANO)"
+        SDL_Texture *instrumentText = createTextTexture(renderer, font, "INSTRUMENT ACTUEL (PIANO)", DARK_GRAY);
+        if (instrumentText) {
+            int textWidth, textHeight;
+            if (getTextureSize(instrumentText, &textWidth, &textHeight)) {
+                SDL_FRect textRect = {
+                        instrumentPanel.x + (instrumentPanel.w - textWidth) / 2,
+                        instrumentPanel.y + (instrumentPanel.h - textHeight) / 2,
+                        (float) textWidth,
+                        (float) textHeight
+                };
+
+                SDL_RenderTexture(renderer, instrumentText, nullptr, &textRect);
+            }
+            SDL_DestroyTexture(instrumentText);
+        }
+
+        // Afficher le rendu
+        SDL_RenderPresent(renderer);
+    }
+
+    // Nettoyer et quitter
+    TTF_CloseFont(font);
+    SDL_DestroyRenderer(renderer);
+    SDL_DestroyWindow(window);
+    TTF_Quit();
+    SDL_Quit();
+
+    return 0;
 }

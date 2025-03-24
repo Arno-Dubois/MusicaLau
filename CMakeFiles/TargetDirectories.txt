@@ -1,0 +1,3 @@
+C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/CMakeFiles/MusicaLau.dir
+C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/CMakeFiles/ALL_BUILD.dir
+C:/Users/coren/OneDrive/Documents/A_CIR2/PROJET/PROJET1/MusicaLau/CMakeFiles/ZERO_CHECK.dir
