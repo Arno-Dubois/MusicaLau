@@ -21,6 +21,8 @@ namespace Core {
  * Concrete instrument classes will derive from this and implement the playNote method.
  */
 class Instrument {
+protected:
+    std::string name_;
 public:
     virtual ~Instrument() = default; // Important for proper cleanup of derived classes
 
@@ -28,7 +30,14 @@ public:
      * @brief Gets the name of the instrument.
      * @return The name of the instrument.
      */
-    virtual std::string getName() const = 0;
+    std::string getName() const {
+        return name_;
+    }
+
+    void setName(const std::string &name)  {
+        name_ = name;
+    }
+
 
     /**
      * @brief Plays a given note using the specified audio engine.

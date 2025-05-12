@@ -4,13 +4,9 @@ namespace MusicApp {
 namespace Instruments {
 
 // Constructor
-XylophoneInstrument::XylophoneInstrument()
-    : name_("Xylophone") {}
-
-// Gets the name of the instrument
-std::string XylophoneInstrument::getName() const {
-    return name_;
-}
+    XylophoneInstrument::XylophoneInstrument(){
+        setName("Xylophone");
+    }
 
 // Plays a note using the provided audio engine
 void XylophoneInstrument::playNote(

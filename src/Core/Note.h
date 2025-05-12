@@ -1,45 +1,29 @@
 #ifndef MUSICAPP_CORE_NOTE_H
 #define MUSICAPP_CORE_NOTE_H
 
-#include <string> // For pitch name
-#include <utility> // For std::move
+#include <string> // For pitch name, or use int for MIDI value
 
 namespace MusicApp {
 namespace Core {
 
 /**
- * @brief Represents a musical note with pitch and duration.
+ * @brief Represents a musical note.
+ *
+ * This could be expanded to include duration, velocity, etc.
+ * For now, it's a simple representation of pitch.
  */
 struct Note {
-    std::string pitchName;  // Example: "C4", "G#5", or "0" for silence
-    float durationSeconds;  // Duration of the note in seconds
+    // Example: "C4", "G#5", or a MIDI note number
+    std::string pitchName;
+    // Or use an integer for MIDI note value:
+    // int midiValue;
 
-    /**
-     * @brief Default constructor.
-     */
-    Note() : pitchName("0"), durationSeconds(0.0f) {}
+    // Optional: duration in milliseconds
+    // int durationMs;
 
-    /**
-     * @brief Constructs a Note with specified pitch name and duration.
-     *
-     * @param pName The pitch name (e.g., "C4", "G#5"). Can be "0" or "Unknown" for silence.
-     * @param durSeconds The duration of the note in seconds.
-     */
-    explicit Note(std::string pName, float durSeconds)
-        : pitchName(std::move(pName)), durationSeconds(durSeconds) {
-        // Treat "Unknown" from file as silence (pitchName "0")
-        if (this->pitchName == "Unknown") {
-            this->pitchName = "0";
-        }
-    }
-
-    // Optional: A constructor for only pitch name, with a default duration (though less used now)
-    explicit Note(std::string pName) 
-        : pitchName(std::move(pName)), durationSeconds(0.5f) { // Default duration if not specified
-        if (this->pitchName == "Unknown") {
-            this->pitchName = "0";
-        }
-    }
+    // Constructor
+    explicit Note(std::string pName) : pitchName(std::move(pName)) {}
+    // explicit Note(int mValue) : midiValue(mValue) {}
 };
 
 } // namespace Core

@@ -4,12 +4,8 @@ namespace MusicApp {
 namespace Instruments {
 
 // Constructor
-GuitarInstrument::GuitarInstrument()
-    : name_("Guitar") {}
-
-// Gets the name of the instrument
-std::string GuitarInstrument::getName() const {
-    return name_;
+GuitarInstrument::GuitarInstrument() {
+    setName("Guitar");
 }
 
 // Plays a note using the provided audio engine

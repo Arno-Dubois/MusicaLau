@@ -1,12 +1,8 @@
 #include "SimpleSynthInstrument.h"
 
 // Constructor
-MusicApp::Instruments::SimpleSynthInstrument::SimpleSynthInstrument()
-    : name_("SimpleSynth") {}
-
-// Gets the name of the instrument
-std::string MusicApp::Instruments::SimpleSynthInstrument::getName() const {
-    return name_;
+MusicApp::Instruments::SimpleSynthInstrument::SimpleSynthInstrument(){
+    setName("Synth");
 }
 
 // Plays a note using the provided audio engine

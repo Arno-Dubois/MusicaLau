@@ -19,14 +19,9 @@ public:
     GuitarInstrument();
     ~GuitarInstrument() override = default;
 
-    std::string getName() const override;
 
     void playNote(const Core::Note& note, Audio::AudioEngine& audioEngine) const override;
-
-private:
-    std::string name_;
 };
-
 } // namespace Instruments
 } // namespace MusicApp
 
