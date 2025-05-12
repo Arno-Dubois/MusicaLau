@@ -7,7 +7,8 @@ Application::Application(int width, int height)
           mainController(nullptr),
           windowWidth(width),
           windowHeight(height),
-          initialized(false) {
+          initialized(false),
+          currentInstrument(InstrumentType::PIANO) {
 }
 
 Application::~Application() {
@@ -21,7 +22,7 @@ bool Application::initialize() {
         return false;
     }
 
-    window = SDL_CreateWindow("Piano Interface", windowWidth, windowHeight, SDL_WINDOW_RESIZABLE);
+    window = SDL_CreateWindow("MusicaLau - Instrument Interface", windowWidth, windowHeight, SDL_WINDOW_RESIZABLE);
     if (!window) {
         SDL_Log("Window could not be created! SDL_Error: %s\n", SDL_GetError());
         SDL_Quit();
@@ -36,11 +37,31 @@ bool Application::initialize() {
         return false;
     }
 
-    // Créer le contrôleur principal
-    mainController = new PianoAppController(windowWidth, windowHeight);
+    // Créer le contrôleur par défaut (Piano)
+    setInstrument(currentInstrument);
 
     initialized = true;
     return true;
+}
+
+void Application::setInstrument(InstrumentType instrument) {
+    // Nettoyer le contrôleur existant
+    delete mainController;
+
+    // Créer le nouveau contrôleur
+    switch (instrument) {
+        case InstrumentType::PIANO:
+            mainController = new PianoAppController(windowWidth, windowHeight);
+            break;
+        case InstrumentType::XYLOPHONE:
+            mainController = new XylophoneAppController(windowWidth, windowHeight);
+            break;
+        case InstrumentType::VIDEO_GAME:
+            mainController = new VideoGameAppController(windowWidth, windowHeight);
+            break;
+    }
+
+    currentInstrument = instrument;
 }
 
 bool Application::run() {
@@ -61,16 +82,26 @@ bool Application::run() {
             } else if (event.type == SDL_EVENT_KEY_DOWN) {
                 if (event.key.key == SDLK_ESCAPE) {
                     quit = true;
+                } else if (event.key.key == SDLK_1) {
+                    setInstrument(InstrumentType::PIANO);
+                } else if (event.key.key == SDLK_2) {
+                    setInstrument(InstrumentType::XYLOPHONE);
+                } else if (event.key.key == SDLK_3) {
+                    setInstrument(InstrumentType::VIDEO_GAME);
                 }
             } else if (event.type == SDL_EVENT_MOUSE_BUTTON_DOWN) {
                 float mouseX, mouseY;
                 SDL_GetMouseState(&mouseX, &mouseY);
 
-                // Cast vers PianoAppController pour accéder à la méthode processButtonAction
-                PianoAppController *pianoController = dynamic_cast<PianoAppController *>(mainController);
-                if (pianoController) {
-                    int buttonClicked = pianoController->handleButtonClick(mouseX, mouseY);
+                // Gestion des clics de bouton selon le contrôleur actif
+                int buttonClicked = mainController->handleButtonClick(mouseX, mouseY);
+
+                if (PianoAppController *pianoController = dynamic_cast<PianoAppController *>(mainController)) {
                     pianoController->processButtonAction(buttonClicked);
+                } else if (XylophoneAppController *xylophoneController = dynamic_cast<XylophoneAppController *>(mainController)) {
+                    xylophoneController->processButtonAction(buttonClicked);
+                } else if (VideoGameAppController *videoGameController = dynamic_cast<VideoGameAppController *>(mainController)) {
+                    videoGameController->processButtonAction(buttonClicked);
                 }
             }
         }
@@ -79,7 +110,7 @@ bool Application::run() {
         SDL_SetRenderDrawColor(renderer, 32, 32, 32, 255);
         SDL_RenderClear(renderer);
 
-        // Rendre l'interface utilisateur et le piano
+        // Rendre l'interface utilisateur et l'instrument actif
         mainController->render(renderer, windowWidth, windowHeight);
 
         // Présenter le rendu
@@ -92,6 +123,7 @@ bool Application::run() {
 
 void Application::cleanup() {
     delete mainController;
+    mainController = nullptr;
 
     if (renderer) {
         SDL_DestroyRenderer(renderer);

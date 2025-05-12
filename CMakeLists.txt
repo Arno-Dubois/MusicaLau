@@ -31,6 +31,8 @@ set(LIB_SOURCES
         src/controllers/InstrumentController.cpp
         src/controllers/ScoreController.cpp
         src/controllers/PianoAppController.cpp
+        src/controllers/XylophoneAppController.cpp
+        src/controllers/VideoGameAppController.cpp
 
         # Application
         src/Application.cpp
@@ -65,6 +67,8 @@ set(LIB_HEADERS
         include/controllers/InstrumentController.h
         include/controllers/ScoreController.h
         include/controllers/PianoAppController.h
+        include/controllers/XylophoneAppController.h
+        include/controllers/VideoGameAppController.h
 
         # Application
         include/Application.h

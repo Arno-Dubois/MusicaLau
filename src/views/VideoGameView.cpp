@@ -3,23 +3,31 @@
 //
 
 #include "../../include/views/VideoGameView.h"
-
+#include "../../include/models/VideoGame.h"
 #include <SDL3/SDL.h>
 
-void drawVideoGameInstrument(SDL_Renderer* renderer, float x, float y, float w, float h) {
-    int numKeys = 16;
+VideoGameView::VideoGameView(VideoGame *videoGame) : videoGame(videoGame) {
+}
+
+void VideoGameView::render(SDL_Renderer *renderer) {
+    float x = videoGame->getX();
+    float y = videoGame->getY();
+    float w = videoGame->getWidth();
+    float h = videoGame->getHeight();
+    int numKeys = videoGame->getKeys();
+
     float keyWidth = w / numKeys;
     float keyHeight = h * 0.8f;
 
     SDL_Color colors[] = {
-            {255, 0, 0, 255},
-            {255, 165, 0, 255},
-            {255, 255, 0, 255},
-            {0, 255, 0, 255},
-            {0, 255, 255, 255},
-            {0, 0, 255, 255},
-            {128, 0, 128, 255},
-            {255, 0, 255, 255},
+            {255, 0,   0,   255},       // Rouge
+            {255, 165, 0,   255},     // Orange
+            {255, 255, 0,   255},     // Jaune
+            {0,   255, 0,   255},       // Vert
+            {0,   255, 255, 255},     // Cyan
+            {0,   0,   255, 255},       // Bleu
+            {128, 0,   128, 255},     // Violet
+            {255, 0,   255, 255},     // Magenta
     };
 
     for (int i = 0; i < numKeys; i++) {

@@ -3,6 +3,14 @@
 #include <SDL3/SDL.h>
 #include "controllers/Controller.h"
 #include "controllers/PianoAppController.h"
+#include "controllers/XylophoneAppController.h"
+#include "controllers/VideoGameAppController.h"
+
+enum class InstrumentType {
+    PIANO,
+    XYLOPHONE,
+    VIDEO_GAME
+};
 
 class Application {
 private:
@@ -12,6 +20,7 @@ private:
     int windowWidth;
     int windowHeight;
     bool initialized;
+    InstrumentType currentInstrument;
 
 public:
     Application(int width = 1440, int height = 1024);
@@ -23,4 +32,6 @@ public:
     bool run();
 
     void cleanup();
+
+    void setInstrument(InstrumentType instrument);
 };

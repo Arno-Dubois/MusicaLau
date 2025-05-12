@@ -1,14 +1,16 @@
-//
-// Created by coren on 24/03/2025.
-//
+#pragma once
 
-#ifndef MUSIC_TEST_VIDEOGAMEVIEW_H
-#define MUSIC_TEST_VIDEOGAMEVIEW_H
+#include <SDL3/SDL.h>
 
+// Déclaration anticipée
+class VideoGame;
 
 class VideoGameView {
+private:
+    VideoGame *videoGame;
 
+public:
+    VideoGameView(VideoGame *videoGame);
+
+    void render(SDL_Renderer *renderer);
 };
-
-
-#endif //MUSIC_TEST_VIDEOGAMEVIEW_H
