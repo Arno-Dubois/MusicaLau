@@ -155,7 +155,10 @@ bool Application::run() {
                     }
                 }
             } else if (event.type == SDL_EVENT_MOUSE_MOTION) {
-                // Vous pouvez ajouter ici une logique pour la surbrillance des éléments du menu au survol
+                // Gérer l'effet de survol pour les éléments du menu
+                float mouseX, mouseY;
+                SDL_GetMouseState(&mouseX, &mouseY);
+                instrumentMenu->updateHoverState(mouseX, mouseY);
             }
         }
 

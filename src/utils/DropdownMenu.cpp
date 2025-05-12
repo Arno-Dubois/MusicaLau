@@ -10,6 +10,7 @@ DropdownMenu::DropdownMenu(float x, float y, float width, float height, const st
     textColor = {0, 0, 0, 255}; // Noir
     itemColor = {220, 220, 220, 255}; // Gris clair
     hoverColor = {150, 190, 220, 255}; // Bleu plus foncé
+    darkBlue = {100, 150, 200, 255};
 
     // Ajouter le label d'en-tête
     itemLabels.push_back(headerLabel);
@@ -40,7 +41,6 @@ void DropdownMenu::render(SDL_Renderer *renderer) {
     SDL_RenderRect(renderer, &headerRect);
 
     // Dessiner un indicateur visuel pour le titre - une petite barre plus foncée
-    SDL_Color darkBlue = {100, 150, 200, 255};
     SDL_SetRenderDrawColor(renderer, darkBlue.r, darkBlue.g, darkBlue.b, darkBlue.a);
     SDL_FRect titleBar = {
             headerRect.x + 10,  // Un peu d'espace à gauche
@@ -63,27 +63,35 @@ void DropdownMenu::render(SDL_Renderer *renderer) {
         SDL_RenderFillRect(renderer, &textRect);
     }
 
-    // Dessiner un triangle vers le bas pour indiquer que c'est un menu déroulant
+    // Positionnement et dimensions pour l'indicateur de menu déroulant 
     float triangleSize = headerRect.h * 0.3f;
-    float triangleX = headerRect.x + headerRect.w - triangleSize - 20;
-    float triangleY = headerRect.y + (headerRect.h - triangleSize) / 2;
+    float indicatorX = headerRect.x + headerRect.w - triangleSize * 3;
+    float indicatorY = headerRect.y + (headerRect.h - triangleSize) / 2;
 
-    // Dessiner un petit cercle autour du triangle
-    float circleRadius = triangleSize * 1.5f;
+    // Dessiner un petit cercle pour le fond de l'indicateur
+    float circleSize = triangleSize * 2.0f;
     SDL_FRect circleRect = {
-            triangleX - circleRadius / 2,
-            triangleY - circleRadius / 2,
-            circleRadius,
-            circleRadius
+            indicatorX - triangleSize / 2,
+            headerRect.y + (headerRect.h - circleSize) / 2,
+            circleSize,
+            circleSize
     };
     SDL_SetRenderDrawColor(renderer, darkBlue.r, darkBlue.g, darkBlue.b, darkBlue.a);
-    // On simule un cercle avec un rectangle arrondi pour simplifier
     SDL_RenderFillRect(renderer, &circleRect);
 
+    // Centre exact du cercle
+    float circleCenterX = circleRect.x + circleRect.w / 2;
+    float circleCenterY = circleRect.y + circleRect.h / 2;
+
+    // Dessiner le triangle centré dans le carré
+    float triangleLeft = circleCenterX - triangleSize / 2;
+    float triangleTop = circleCenterY - triangleSize / 2;
+
+    // Points du triangle
     SDL_FPoint points[3];
-    points[0] = {triangleX, triangleY};
-    points[1] = {triangleX + triangleSize, triangleY};
-    points[2] = {triangleX + triangleSize / 2, triangleY + triangleSize};
+    points[0] = {triangleLeft, triangleTop};
+    points[1] = {triangleLeft + triangleSize, triangleTop};
+    points[2] = {triangleLeft + triangleSize / 2, triangleTop + triangleSize};
 
     // On trace un triangle en blanc
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
@@ -123,22 +131,19 @@ void DropdownMenu::render(SDL_Renderer *renderer) {
             }
 
             // Simuler l'affichage du texte pour chaque élément
-            if (i < itemLabels.size()) {
+            if (i < itemRects.size() && i + 1 < itemLabels.size()) {
                 SDL_SetRenderDrawColor(renderer, 40, 40, 40, 255);
                 float textX = itemRects[i].x + 50; // Aligner avec le texte principal
                 float textY = itemRects[i].y + itemRects[i].h / 2 - 5; // Centré verticalement
 
                 // Dessiner un rectangle pour simuler le texte
-                // Utiliser i+1 uniquement si l'index est dans les limites (on vérifie qu'il y a plus d'éléments que i+1)
-                size_t textIndex = (i + 1 < itemLabels.size()) ? i + 1 : 0;
-                int textLength = itemLabels[textIndex].length() * 10;
+                int textLength = itemLabels[i + 1].length() * 10;
                 SDL_FRect textRect = {textX, textY, static_cast<float>(textLength), 10};
                 SDL_RenderFillRect(renderer, &textRect);
             }
 
             // Ajouter un indicateur de sélection pour l'élément actif
-            if (i < itemLabels.size() && itemLabels.size() > 0 && i + 1 < itemLabels.size() &&
-                itemLabels[i + 1] == itemLabels[0]) {
+            if (i < itemRects.size() && i + 1 < itemLabels.size() && itemLabels[i + 1] == itemLabels[0]) {
                 SDL_SetRenderDrawColor(renderer, darkBlue.r, darkBlue.g, darkBlue.b, darkBlue.a);
                 SDL_FRect activeIndicator = {
                         itemRects[i].x + 10,
@@ -148,6 +153,20 @@ void DropdownMenu::render(SDL_Renderer *renderer) {
                 };
                 SDL_RenderFillRect(renderer, &activeIndicator);
             }
+        }
+    }
+}
+
+void DropdownMenu::updateHoverState(float x, float y) {
+    selectedIndex = -1;
+
+    if (!isOpen) return;
+
+    for (size_t i = 0; i < itemRects.size(); ++i) {
+        if (x >= itemRects[i].x && x <= itemRects[i].x + itemRects[i].w &&
+            y >= itemRects[i].y && y <= itemRects[i].y + itemRects[i].h) {
+            selectedIndex = i;
+            break;
         }
     }
 }

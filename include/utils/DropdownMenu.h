@@ -17,6 +17,7 @@ private:
     SDL_Color textColor;
     SDL_Color itemColor;
     SDL_Color hoverColor;
+    SDL_Color darkBlue;
 
 public:
     DropdownMenu(float x, float y, float width, float height, const std::string &headerLabel);
@@ -32,4 +33,6 @@ public:
     bool isMenuOpen() const { return isOpen; }
 
     void closeMenu() { isOpen = false; }
+
+    void updateHoverState(float x, float y);
 };
