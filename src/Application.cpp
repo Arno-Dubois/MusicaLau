@@ -8,11 +8,60 @@ Application::Application(int width, int height)
           windowWidth(width),
           windowHeight(height),
           initialized(false),
-          currentInstrument(InstrumentType::PIANO) {
+          currentInstrument(InstrumentType::PIANO),
+          instrumentMenu(nullptr) {
 }
 
 Application::~Application() {
     cleanup();
+}
+
+void Application::initializeInstrumentMenu() {
+    // On utilise les mêmes valeurs que dans PianoAppController pour le positionnement
+    float toolbarY = 20.0f;
+    float buttonHeight = 90.0f;
+    float spacing = 30.0f;
+
+    // Position et dimensions exactes du rectangle bleu
+    float mainAreaX = 50.0f;
+    float mainAreaY = toolbarY + buttonHeight + spacing;
+    float mainAreaWidth = windowWidth - 100.0f;
+    float headerHeight = 50.0f;
+
+    // Créer le menu déroulant avec le nom de l'instrument actif
+    std::string headerLabel;
+    switch (currentInstrument) {
+        case InstrumentType::PIANO:
+            headerLabel = "Piano";
+            break;
+        case InstrumentType::XYLOPHONE:
+            headerLabel = "Xylophone";
+            break;
+        case InstrumentType::VIDEO_GAME:
+            headerLabel = "Jeu vidéo";
+            break;
+    }
+
+    instrumentMenu = new DropdownMenu(mainAreaX, mainAreaY, mainAreaWidth, headerHeight, headerLabel);
+
+    // Ajouter les éléments au menu
+    instrumentMenu->addItem("Piano", [this]() {
+        setInstrument(InstrumentType::PIANO);
+        // Mettre à jour le texte du menu après changement
+        initializeInstrumentMenu();
+    });
+
+    instrumentMenu->addItem("Xylophone", [this]() {
+        setInstrument(InstrumentType::XYLOPHONE);
+        // Mettre à jour le texte du menu après changement
+        initializeInstrumentMenu();
+    });
+
+    instrumentMenu->addItem("Jeu vidéo", [this]() {
+        setInstrument(InstrumentType::VIDEO_GAME);
+        // Mettre à jour le texte du menu après changement
+        initializeInstrumentMenu();
+    });
 }
 
 bool Application::initialize() {
@@ -36,6 +85,9 @@ bool Application::initialize() {
         SDL_Quit();
         return false;
     }
+
+    // Initialiser le menu déroulant
+    initializeInstrumentMenu();
 
     // Créer le contrôleur par défaut (Piano)
     setInstrument(currentInstrument);
@@ -82,27 +134,28 @@ bool Application::run() {
             } else if (event.type == SDL_EVENT_KEY_DOWN) {
                 if (event.key.key == SDLK_ESCAPE) {
                     quit = true;
-                } else if (event.key.key == SDLK_1) {
-                    setInstrument(InstrumentType::PIANO);
-                } else if (event.key.key == SDLK_2) {
-                    setInstrument(InstrumentType::XYLOPHONE);
-                } else if (event.key.key == SDLK_3) {
-                    setInstrument(InstrumentType::VIDEO_GAME);
                 }
             } else if (event.type == SDL_EVENT_MOUSE_BUTTON_DOWN) {
                 float mouseX, mouseY;
                 SDL_GetMouseState(&mouseX, &mouseY);
 
-                // Gestion des clics de bouton selon le contrôleur actif
-                int buttonClicked = mainController->handleButtonClick(mouseX, mouseY);
+                // Vérifier d'abord les clics sur le menu déroulant
+                bool clickHandled = instrumentMenu->handleClick(mouseX, mouseY);
 
-                if (PianoAppController *pianoController = dynamic_cast<PianoAppController *>(mainController)) {
-                    pianoController->processButtonAction(buttonClicked);
-                } else if (XylophoneAppController *xylophoneController = dynamic_cast<XylophoneAppController *>(mainController)) {
-                    xylophoneController->processButtonAction(buttonClicked);
-                } else if (VideoGameAppController *videoGameController = dynamic_cast<VideoGameAppController *>(mainController)) {
-                    videoGameController->processButtonAction(buttonClicked);
+                // Si le clic n'a pas été géré par le menu, le transmettre au contrôleur
+                if (!clickHandled && !instrumentMenu->isMenuOpen()) {
+                    int buttonClicked = mainController->handleButtonClick(mouseX, mouseY);
+
+                    if (PianoAppController *pianoController = dynamic_cast<PianoAppController *>(mainController)) {
+                        pianoController->processButtonAction(buttonClicked);
+                    } else if (XylophoneAppController *xylophoneController = dynamic_cast<XylophoneAppController *>(mainController)) {
+                        xylophoneController->processButtonAction(buttonClicked);
+                    } else if (VideoGameAppController *videoGameController = dynamic_cast<VideoGameAppController *>(mainController)) {
+                        videoGameController->processButtonAction(buttonClicked);
+                    }
                 }
+            } else if (event.type == SDL_EVENT_MOUSE_MOTION) {
+                // Vous pouvez ajouter ici une logique pour la surbrillance des éléments du menu au survol
             }
         }
 
@@ -112,6 +165,9 @@ bool Application::run() {
 
         // Rendre l'interface utilisateur et l'instrument actif
         mainController->render(renderer, windowWidth, windowHeight);
+
+        // Rendre le menu déroulant
+        instrumentMenu->render(renderer);
 
         // Présenter le rendu
         SDL_RenderPresent(renderer);
@@ -124,6 +180,9 @@ bool Application::run() {
 void Application::cleanup() {
     delete mainController;
     mainController = nullptr;
+
+    delete instrumentMenu;
+    instrumentMenu = nullptr;
 
     if (renderer) {
         SDL_DestroyRenderer(renderer);

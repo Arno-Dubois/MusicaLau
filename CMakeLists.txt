@@ -43,6 +43,8 @@ set(LIB_SOURCES
         src/utils/RandomMelodyGenerator.cpp
         src/utils/audio_utils.cpp
         src/utils/file_utils.cpp
+        src/utils/DropdownMenu.cpp
+        devfile.cpp
 )
 
 # Définir les en-têtes (headers) pour une meilleure visibilité dans l'IDE
@@ -79,7 +81,7 @@ set(LIB_HEADERS
         include/utils/RandomMelodyGenerator.h
         include/utils/audio_utils.h
         include/utils/file_utils.h
-        devfile.cpp
+        include/utils/DropdownMenu.h
 )
 
 # Ajouter les répertoires d'inclusion pour SDL3

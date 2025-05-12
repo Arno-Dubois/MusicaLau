@@ -5,6 +5,7 @@
 #include "controllers/PianoAppController.h"
 #include "controllers/XylophoneAppController.h"
 #include "controllers/VideoGameAppController.h"
+#include "utils/DropdownMenu.h"
 
 enum class InstrumentType {
     PIANO,
@@ -21,6 +22,9 @@ private:
     int windowHeight;
     bool initialized;
     InstrumentType currentInstrument;
+    DropdownMenu *instrumentMenu;
+
+    void initializeInstrumentMenu();
 
 public:
     Application(int width = 1440, int height = 1024);
