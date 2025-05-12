@@ -30,6 +30,10 @@ set(LIB_SOURCES
         src/controllers/Controller.cpp
         src/controllers/InstrumentController.cpp
         src/controllers/ScoreController.cpp
+        src/controllers/PianoAppController.cpp
+
+        # Application
+        src/Application.cpp
 
         # Utils
         src/utils/AudioGenerator.cpp
@@ -60,6 +64,10 @@ set(LIB_HEADERS
         include/controllers/Controller.h
         include/controllers/InstrumentController.h
         include/controllers/ScoreController.h
+        include/controllers/PianoAppController.h
+
+        # Application
+        include/Application.h
 
         # Utils
         include/utils/AudioGenerator.h
