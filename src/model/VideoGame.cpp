@@ -2,7 +2,7 @@
 // Created by coren on 24/03/2025.
 //
 
-#include "../../include/model/VideoGame.h"
+#include "../../include/Model/VideoGame.h"
 
 VideoGame::VideoGame(float x, float y, float width, float height, int keys)
         : x(x), y(y), width(width), height(height), keys(keys) {

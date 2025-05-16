@@ -12,27 +12,38 @@ include_directories(${PROJECT_SOURCE_DIR}/include/SDL3)
 # Définir les sources pour la bibliothèque (sans utiliser GLOB_RECURSE pour un meilleur contrôle)
 set(LIB_SOURCES
         # Models
-        src/model/Instrument.cpp
-        src/model/Piano.cpp
-        src/model/Xylophone.cpp
-        src/model/VideoGame.cpp
-        src/model/Score.cpp
-        src/model/Note.cpp
+        src/Model/Instrument.cpp
+        src/Model/Piano.cpp
+        src/Model/Xylophone.cpp
+        src/Model/VideoGame.cpp
+        src/Model/Score.cpp
+        src/Model/Note.cpp
 
         # Views
-        src/view/View.cpp
-        src/view/InstrumentSelectionView.cpp
-        src/view/PianoView.cpp
-        src/view/XylophoneView.cpp
-        src/view/VideoGameView.cpp
+        src/View/View.cpp
+        src/View/InstrumentSelectionView.cpp
+        src/View/PianoView.cpp
+        src/View/XylophoneView.cpp
+        src/View/VideoGameView.cpp
+        src/View/ConsoleView.cpp
 
         # Controllers
-        src/controller/Controller.cpp
-        src/controller/InstrumentController.cpp
-        src/controller/ScoreController.cpp
-        src/controller/PianoAppController.cpp
-        src/controller/XylophoneAppController.cpp
-        src/controller/VideoGameAppController.cpp
+        src/Controller/Controller.cpp
+        src/Controller/InstrumentController.cpp
+        src/Controller/ScoreController.cpp
+        src/Controller/PianoAppController.cpp
+        src/Controller/XylophoneAppController.cpp
+        src/Controller/VideoGameAppController.cpp
+        src/Controller/MusicController.cpp
+
+        # Audio
+        src/Audio/SDLAudioEngine.cpp
+
+        # Instruments
+        src/Instruments/SimpleSynthInstrument.cpp
+        src/Instruments/PianoInstrument.cpp
+        src/Instruments/GuitarInstrument.cpp
+        src/Instruments/XylophoneInstrument.cpp
 
         # Application
         src/Application.cpp
@@ -50,27 +61,39 @@ set(LIB_SOURCES
 # Définir les en-têtes (headers) pour une meilleure visibilité dans l'IDE
 set(LIB_HEADERS
         # Models
-        include/model/Instrument.h
-        include/model/Piano.h
-        include/model/Xylophone.h
-        include/model/VideoGame.h
-        include/model/Score.h
-        include/model/Note.h
+        include/Model/Instrument.h
+        include/Model/Piano.h
+        include/Model/Xylophone.h
+        include/Model/VideoGame.h
+        include/Model/Score.h
+        include/Model/Note.h
 
         # Views
-        include/view/View.h
-        include/view/InstrumentSelectionView.h
-        include/view/PianoView.h
-        include/view/XylophoneView.h
-        include/view/VideoGameView.h
+        include/View/View.h
+        include/View/InstrumentSelectionView.h
+        include/View/PianoView.h
+        include/View/XylophoneView.h
+        include/View/VideoGameView.h
+        include/View/ConsoleView.h
 
         # Controllers
-        include/controller/Controller.h
-        include/controller/InstrumentController.h
-        include/controller/ScoreController.h
-        include/controller/PianoAppController.h
-        include/controller/XylophoneAppController.h
-        include/controller/VideoGameAppController.h
+        include/Controller/Controller.h
+        include/Controller/InstrumentController.h
+        include/Controller/ScoreController.h
+        include/Controller/PianoAppController.h
+        include/Controller/XylophoneAppController.h
+        include/Controller/VideoGameAppController.h
+        include/Controller/MusicController.h
+
+        # Audio
+        include/Audio/AudioEngine.h
+        include/Audio/SDLAudioEngine.h
+
+        # Instruments
+        include/Instruments/SimpleSynthInstrument.h
+        include/Instruments/PianoInstrument.h
+        include/Instruments/GuitarInstrument.h
+        include/Instruments/XylophoneInstrument.h
 
         # Application
         include/Application.h
@@ -82,16 +105,18 @@ set(LIB_HEADERS
         include/utils/audio_utils.h
         include/utils/file_utils.h
         include/utils/DropdownMenu.h
-)
 
-# Ajouter les répertoires d'inclusion pour SDL3
-include_directories(${PROJECT_SOURCE_DIR}/include/SDL3)
+        #Core
+        include/Core/Note.h
+        include/Core/Instrument.h
+)
 
 # Ajouter les bibliothèques SDL3
 set(SDL3_LIBS
-        ${PROJECT_SOURCE_DIR}/lib/libSDL2_mixer.a
         ${PROJECT_SOURCE_DIR}/lib/libSDL3.dll.a
         ${PROJECT_SOURCE_DIR}/lib/libSDL3_ttf.dll.a
+        ${PROJECT_SOURCE_DIR}/lib/libSDL3_image.dll.a
+        ${PROJECT_SOURCE_DIR}/lib/libSDL2_mixer.dll.a
 )
 
 # Création de la bibliothèque
@@ -122,6 +147,13 @@ file(MAKE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/assets/scores)
 
 # Copier les ressources dans le répertoire de sortie
 file(COPY ${PROJECT_SOURCE_DIR}/assets DESTINATION ${CMAKE_BINARY_DIR})
+
+# Copier les DLLs SDL3 dans le répertoire de sortie
+file(COPY ${PROJECT_SOURCE_DIR}/lib/SDL3.dll DESTINATION ${PROJECT_SOURCE_DIR}/bin)
+file(COPY ${PROJECT_SOURCE_DIR}/lib/SDL3_ttf.dll DESTINATION ${PROJECT_SOURCE_DIR}/bin)
+file(COPY ${PROJECT_SOURCE_DIR}/lib/SDL3_image.dll DESTINATION ${PROJECT_SOURCE_DIR}/bin)
+# Pour SDL_mixer, nous utilisons la version SDL2 renommée en SDL3
+file(COPY ${PROJECT_SOURCE_DIR}/lib/SDL2_mixer.dll DESTINATION ${PROJECT_SOURCE_DIR}/bin/SDL3_mixer.dll)
 
 # Définir la sortie de l'exécutable
 set_target_properties(MusicaLau PROPERTIES

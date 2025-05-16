@@ -2,14 +2,14 @@
 // Created by coren on 24/03/2025.
 //
 
-#include "../../include/view/XylophoneView.h"
-#include "../../include/model/Xylophone.h"
+#include "../../include/View/XylophoneView.h"
+#include "../../include/Model/Xylophone.h"
 #include <SDL3/SDL.h>
 
 XylophoneView::XylophoneView(Xylophone *xylophone) : xylophone(xylophone) {
 }
 
-void XylophoneView::render(SDL_Renderer *renderer) {
+void XylophoneView::render(SDL_Renderer *renderer, int windowWidth, int windowHeight) {
     float x = xylophone->getX();
     float y = xylophone->getY();
     float w = xylophone->getWidth();

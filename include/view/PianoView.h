@@ -1,14 +1,15 @@
 #pragma once
 
-#include <SDL3/SDL.h>
-#include "../model/Piano.h"
+#include "SDL3/SDL.h"
+#include "../Model/Piano.h"
+#include "View.h"
 
-class PianoView {
+class PianoView : public View {
 private:
     Piano *piano;
 
 public:
-    PianoView(Piano *piano);
+    explicit PianoView(Piano *piano);
 
-    void render(SDL_Renderer *renderer);
+    void render(SDL_Renderer *renderer, int windowWidth = 0, int windowHeight = 0) override;
 };

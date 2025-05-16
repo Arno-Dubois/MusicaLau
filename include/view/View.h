@@ -1,5 +1,6 @@
 #pragma once
-#include <SDL3/SDL.h>
+
+#include "SDL3/SDL.h"
 #include <vector>
 #include <string>
 
@@ -7,7 +8,7 @@ struct Button {
     SDL_FRect rect;
     SDL_Color color;
     std::string name;
-    SDL_Texture* icon;  // Pour ajouter des icônes plus tard si nécessaire
+    SDL_Texture *icon;  // Pour ajouter des icônes plus tard si nécessaire
 };
 
 class View {
@@ -21,7 +22,8 @@ protected:
 
 public:
     virtual ~View() = default;
-    virtual void render(SDL_Renderer* renderer, int windowWidth, int windowHeight) = 0;
+
+    virtual void render(SDL_Renderer *renderer, int windowWidth = 0, int windowHeight = 0) = 0;
 
     // Méthode utilitaire pour dessiner les boutons
 };

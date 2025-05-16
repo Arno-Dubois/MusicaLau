@@ -1,9 +1,9 @@
-#include "../include/view/PianoView.h"
+#include "../include/View/PianoView.h"
 
 PianoView::PianoView(Piano *piano) : piano(piano) {
 }
 
-void PianoView::render(SDL_Renderer *renderer) {
+void PianoView::render(SDL_Renderer *renderer, int windowWidth, int windowHeight) {
     float x = piano->getX();
     float y = piano->getY();
     float w = piano->getWidth();

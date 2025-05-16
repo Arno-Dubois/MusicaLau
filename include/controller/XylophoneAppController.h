@@ -2,11 +2,8 @@
 
 #include <SDL3/SDL.h>
 #include "Controller.h"
-
-// Déclarations anticipées
-class Xylophone;
-
-class XylophoneView;
+#include "../Model/Xylophone.h"
+#include "../View/XylophoneView.h"
 
 class XylophoneAppController : public Controller {
 private:

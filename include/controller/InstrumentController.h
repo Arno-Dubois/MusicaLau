@@ -1,7 +1,7 @@
 #pragma once
 
 #include <SDL3/SDL.h>
-#include "../model/Instrument.h"
+#include "../Model/Instrument.h"
 #include <string>
 
 class InstrumentController {

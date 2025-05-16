@@ -1,16 +1,15 @@
 #pragma once
 
-#include <SDL3/SDL.h>
+#include "SDL3/SDL.h"
+#include "View.h"
+#include "../Model/VideoGame.h"
 
-// Déclaration anticipée
-class VideoGame;
-
-class VideoGameView {
+class VideoGameView : public View {
 private:
     VideoGame *videoGame;
 
 public:
-    VideoGameView(VideoGame *videoGame);
+    explicit VideoGameView(VideoGame *videoGame);
 
-    void render(SDL_Renderer *renderer);
+    void render(SDL_Renderer *renderer, int windowWidth = 0, int windowHeight = 0) override;
 };

@@ -2,8 +2,8 @@
 
 #include <SDL3/SDL.h>
 #include "Controller.h"
-#include "../model/Piano.h"
-#include "../view/PianoView.h"
+#include "../Model/Piano.h"
+#include "../View/PianoView.h"
 
 class PianoAppController : public Controller {
 private:

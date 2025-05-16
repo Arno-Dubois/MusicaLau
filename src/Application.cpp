@@ -66,7 +66,7 @@ void Application::initializeInstrumentMenu() {
 
 bool Application::initialize() {
     // Initializer SDL
-    if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS) < 0) {
+    if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS | SDL_INIT_AUDIO) < 0) {
         SDL_Log("SDL could not initialize! SDL_Error: %s\n", SDL_GetError());
         return false;
     }
@@ -87,10 +87,28 @@ bool Application::initialize() {
     }
 
     // Initialiser le menu déroulant
-    initializeInstrumentMenu();
+    try {
+        initializeInstrumentMenu();
+        if (!instrumentMenu) {
+            SDL_Log("Failed to initialize instrument menu!");
+            return false;
+        }
+    } catch (const std::exception &e) {
+        SDL_Log("Exception during menu initialization: %s", e.what());
+        return false;
+    }
 
     // Créer le contrôleur par défaut (Piano)
-    setInstrument(currentInstrument);
+    try {
+        setInstrument(currentInstrument);
+        if (!mainController) {
+            SDL_Log("Failed to create main controller!");
+            return false;
+        }
+    } catch (const std::exception &e) {
+        SDL_Log("Exception during controller creation: %s", e.what());
+        return false;
+    }
 
     initialized = true;
     return true;

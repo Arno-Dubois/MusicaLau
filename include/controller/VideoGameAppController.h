@@ -2,11 +2,8 @@
 
 #include <SDL3/SDL.h>
 #include "Controller.h"
-
-// Déclarations anticipées
-class VideoGame;
-
-class VideoGameView;
+#include "../Model/VideoGame.h"
+#include "../View/VideoGameView.h"
 
 class VideoGameAppController : public Controller {
 private:

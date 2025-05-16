@@ -1,4 +1,4 @@
-#include "../include/model/Piano.h"
+#include "../include/Model/Piano.h"
 
 Piano::Piano(float x, float y, float width, float height, int octaves)
         : x(x), y(y), width(width), height(height), octaves(octaves) {

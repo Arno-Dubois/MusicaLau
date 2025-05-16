@@ -1,6 +1,6 @@
 
 
-#include "../../include/model/Instrument.h"
+#include "../../include/Model/Instrument.h"
 
 Instrument::Instrument(const std::string &name, int id)
         : name(name), id(id) {

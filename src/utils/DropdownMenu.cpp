@@ -32,6 +32,8 @@ void DropdownMenu::addItem(const std::string &label, std::function<void()> actio
 }
 
 void DropdownMenu::render(SDL_Renderer *renderer) {
+    if (!renderer) return;
+
     // Dessiner l'en-tête
     SDL_SetRenderDrawColor(renderer, headerColor.r, headerColor.g, headerColor.b, headerColor.a);
     SDL_RenderFillRect(renderer, &headerRect);
@@ -187,7 +189,11 @@ bool DropdownMenu::handleClick(float x, float y) {
 
                 // Exécuter l'action associée à cet élément
                 if (i < itemActions.size() && itemActions[i]) {
-                    itemActions[i]();
+                    try {
+                        itemActions[i]();
+                    } catch (const std::exception &e) {
+                        SDL_Log("Exception in dropdown menu action: %s", e.what());
+                    }
                 }
 
                 // Fermer le menu après la sélection

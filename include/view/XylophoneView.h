@@ -1,16 +1,15 @@
 #pragma once
 
-#include <SDL3/SDL.h>
+#include "SDL3/SDL.h"
+#include "View.h"
+#include "../Model/Xylophone.h"
 
-// Déclaration anticipée
-class Xylophone;
-
-class XylophoneView {
+class XylophoneView : public View {
 private:
     Xylophone *xylophone;
 
 public:
-    XylophoneView(Xylophone *xylophone);
+    explicit XylophoneView(Xylophone *xylophone);
 
-    void render(SDL_Renderer *renderer);
+    void render(SDL_Renderer *renderer, int windowWidth = 0, int windowHeight = 0) override;
 };

@@ -2,7 +2,7 @@
 // Created by coren on 24/03/2025.
 //
 
-#include "../../include/controller/Controller.h"
+#include "../../include/Controller/Controller.h"
 
 Controller::Controller() {
     initializeButtons();
@@ -24,12 +24,12 @@ void Controller::initializeButtons() {
     // Créer les 8 boutons avec les bonnes dimensions et espacements
     SDL_Color darkGray = {46, 46, 46, 255};
     for (int i = 0; i < 8; i++) {
-        buttons.push_back({
-                                  {startX + i * (buttonWidth + buttonSpacing), toolbarY, buttonWidth, buttonHeight},
-                                  darkGray,
-                                  buttonNames[i],
-                                  nullptr
-                          });
+        Button btn;
+        btn.rect = {startX + i * (buttonWidth + buttonSpacing), toolbarY, buttonWidth, buttonHeight};
+        btn.color = darkGray;
+        btn.name = buttonNames[i];
+        btn.icon = nullptr;
+        buttons.push_back(btn);
     }
 }
 

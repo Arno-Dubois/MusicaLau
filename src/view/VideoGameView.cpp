@@ -2,14 +2,14 @@
 // Created by coren on 24/03/2025.
 //
 
-#include "../../include/view/VideoGameView.h"
-#include "../../include/model/VideoGame.h"
+#include "../../include/View/VideoGameView.h"
+#include "../../include/Model/VideoGame.h"
 #include <SDL3/SDL.h>
 
 VideoGameView::VideoGameView(VideoGame *videoGame) : videoGame(videoGame) {
 }
 
-void VideoGameView::render(SDL_Renderer *renderer) {
+void VideoGameView::render(SDL_Renderer *renderer, int windowWidth, int windowHeight) {
     float x = videoGame->getX();
     float y = videoGame->getY();
     float w = videoGame->getWidth();
