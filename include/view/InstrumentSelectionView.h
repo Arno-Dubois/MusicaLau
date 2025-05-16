@@ -1,0 +1,14 @@
+//
+// Created by coren on 24/03/2025.
+//
+
+#ifndef MUSIC_TEST_INSTRUMENTSELECTIONVIEW_H
+#define MUSIC_TEST_INSTRUMENTSELECTIONVIEW_H
+
+
+class InstrumentSelectionView {
+
+};
+
+
+#endif //MUSIC_TEST_INSTRUMENTSELECTIONVIEW_H
