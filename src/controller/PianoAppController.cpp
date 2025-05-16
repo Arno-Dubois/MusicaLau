@@ -1,4 +1,6 @@
-#include "../../include/controllers/PianoAppController.h"
+#include "../../include/controller/PianoAppController.h"
+#include "../../include/model/Piano.h"
+#include "../../include/view/PianoView.h"
 
 PianoAppController::PianoAppController(int windowWidth, int windowHeight) : Controller() {
     // Position et dimensions du piano

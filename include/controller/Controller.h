@@ -4,7 +4,7 @@
 #include <vector>
 #include <string>
 #include <cmath> // Pour M_PI
-#include "../views/View.h"
+#include "../view/View.h"
 
 class Controller {
 protected:

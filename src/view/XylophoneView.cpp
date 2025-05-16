@@ -2,8 +2,8 @@
 // Created by coren on 24/03/2025.
 //
 
-#include "../../include/views/XylophoneView.h"
-#include "../../include/models/Xylophone.h"
+#include "../../include/view/XylophoneView.h"
+#include "../../include/model/Xylophone.h"
 #include <SDL3/SDL.h>
 
 XylophoneView::XylophoneView(Xylophone *xylophone) : xylophone(xylophone) {

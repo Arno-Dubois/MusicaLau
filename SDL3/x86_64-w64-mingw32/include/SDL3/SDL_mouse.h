@@ -94,8 +94,7 @@ typedef struct SDL_Cursor SDL_Cursor;
  *
  * \since This enum is available since SDL 3.2.0.
  */
-typedef enum SDL_SystemCursor
-{
+typedef enum SDL_SystemCursor {
     SDL_SYSTEM_CURSOR_DEFAULT,      /**< Default cursor. Usually an arrow. */
     SDL_SYSTEM_CURSOR_TEXT,         /**< Text selection. Usually an I-beam. */
     SDL_SYSTEM_CURSOR_WAIT,         /**< Wait. Usually an hourglass or watch or spinning ball. */
@@ -124,8 +123,7 @@ typedef enum SDL_SystemCursor
  *
  * \since This enum is available since SDL 3.2.0.
  */
-typedef enum SDL_MouseWheelDirection
-{
+typedef enum SDL_MouseWheelDirection {
     SDL_MOUSEWHEEL_NORMAL,    /**< The scroll direction is normal */
     SDL_MOUSEWHEEL_FLIPPED    /**< The scroll direction is flipped / natural */
 } SDL_MouseWheelDirection;
@@ -180,7 +178,7 @@ extern SDL_DECLSPEC bool SDLCALL SDL_HasMouse(void);
  * Get a list of currently connected mice.
  *
  * Note that this will include any device or virtual driver that includes
- * mouse functionality, including some game controllers, KVM switches, etc.
+ * mouse functionality, including some game controller, KVM switches, etc.
  * You should wait for input from a device before you consider it actively in
  * use.
  *
@@ -197,7 +195,7 @@ extern SDL_DECLSPEC bool SDLCALL SDL_HasMouse(void);
  * \sa SDL_GetMouseNameForID
  * \sa SDL_HasMouse
  */
-extern SDL_DECLSPEC SDL_MouseID * SDLCALL SDL_GetMice(int *count);
+extern SDL_DECLSPEC SDL_MouseID *SDLCALL SDL_GetMice(int *count);
 
 /**
  * Get the name of a mouse.
@@ -214,7 +212,7 @@ extern SDL_DECLSPEC SDL_MouseID * SDLCALL SDL_GetMice(int *count);
  *
  * \sa SDL_GetMice
  */
-extern SDL_DECLSPEC const char * SDLCALL SDL_GetMouseNameForID(SDL_MouseID instance_id);
+extern SDL_DECLSPEC const char *SDLCALL SDL_GetMouseNameForID(SDL_MouseID instance_id);
 
 /**
  * Get the window which currently has mouse focus.
@@ -225,7 +223,7 @@ extern SDL_DECLSPEC const char * SDLCALL SDL_GetMouseNameForID(SDL_MouseID insta
  *
  * \since This function is available since SDL 3.2.0.
  */
-extern SDL_DECLSPEC SDL_Window * SDLCALL SDL_GetMouseFocus(void);
+extern SDL_DECLSPEC SDL_Window *SDLCALL SDL_GetMouseFocus(void);
 
 /**
  * Query SDL's cache for the synchronous mouse button state and the
@@ -354,7 +352,7 @@ extern SDL_DECLSPEC SDL_MouseButtonFlags SDLCALL SDL_GetRelativeMouseState(float
  * \sa SDL_WarpMouseGlobal
  */
 extern SDL_DECLSPEC void SDLCALL SDL_WarpMouseInWindow(SDL_Window *window,
-                                                   float x, float y);
+                                                       float x, float y);
 
 /**
  * Move the mouse to the given position in global screen space.
@@ -514,10 +512,10 @@ extern SDL_DECLSPEC bool SDLCALL SDL_CaptureMouse(bool enabled);
  * \sa SDL_DestroyCursor
  * \sa SDL_SetCursor
  */
-extern SDL_DECLSPEC SDL_Cursor * SDLCALL SDL_CreateCursor(const Uint8 *data,
-                                                     const Uint8 *mask,
-                                                     int w, int h, int hot_x,
-                                                     int hot_y);
+extern SDL_DECLSPEC SDL_Cursor *SDLCALL SDL_CreateCursor(const Uint8 *data,
+                                                         const Uint8 *mask,
+                                                         int w, int h, int hot_x,
+                                                         int hot_y);
 
 /**
  * Create a color cursor.
@@ -547,9 +545,9 @@ extern SDL_DECLSPEC SDL_Cursor * SDLCALL SDL_CreateCursor(const Uint8 *data,
  * \sa SDL_DestroyCursor
  * \sa SDL_SetCursor
  */
-extern SDL_DECLSPEC SDL_Cursor * SDLCALL SDL_CreateColorCursor(SDL_Surface *surface,
-                                                          int hot_x,
-                                                          int hot_y);
+extern SDL_DECLSPEC SDL_Cursor *SDLCALL SDL_CreateColorCursor(SDL_Surface *surface,
+                                                              int hot_x,
+                                                              int hot_y);
 
 /**
  * Create a system cursor.
@@ -564,7 +562,7 @@ extern SDL_DECLSPEC SDL_Cursor * SDLCALL SDL_CreateColorCursor(SDL_Surface *surf
  *
  * \sa SDL_DestroyCursor
  */
-extern SDL_DECLSPEC SDL_Cursor * SDLCALL SDL_CreateSystemCursor(SDL_SystemCursor id);
+extern SDL_DECLSPEC SDL_Cursor *SDLCALL SDL_CreateSystemCursor(SDL_SystemCursor id);
 
 /**
  * Set the active cursor.
@@ -600,7 +598,7 @@ extern SDL_DECLSPEC bool SDLCALL SDL_SetCursor(SDL_Cursor *cursor);
  *
  * \sa SDL_SetCursor
  */
-extern SDL_DECLSPEC SDL_Cursor * SDLCALL SDL_GetCursor(void);
+extern SDL_DECLSPEC SDL_Cursor *SDLCALL SDL_GetCursor(void);
 
 /**
  * Get the default cursor.
@@ -615,7 +613,7 @@ extern SDL_DECLSPEC SDL_Cursor * SDLCALL SDL_GetCursor(void);
  *
  * \since This function is available since SDL 3.2.0.
  */
-extern SDL_DECLSPEC SDL_Cursor * SDLCALL SDL_GetDefaultCursor(void);
+extern SDL_DECLSPEC SDL_Cursor *SDLCALL SDL_GetDefaultCursor(void);
 
 /**
  * Free a previously-created cursor.
@@ -684,6 +682,7 @@ extern SDL_DECLSPEC bool SDLCALL SDL_CursorVisible(void);
 #ifdef __cplusplus
 }
 #endif
+
 #include <SDL3/SDL_close_code.h>
 
 #endif /* SDL_mouse_h_ */

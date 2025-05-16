@@ -1,6 +1,6 @@
-#include "../../include/controllers/VideoGameAppController.h"
-#include "../../include/models/VideoGame.h"
-#include "../../include/views/VideoGameView.h"
+#include "../../include/controller/VideoGameAppController.h"
+#include "../../include/model/VideoGame.h"
+#include "../../include/view/VideoGameView.h"
 
 VideoGameAppController::VideoGameAppController(int windowWidth, int windowHeight) : Controller() {
     // Position et dimensions du VideoGame

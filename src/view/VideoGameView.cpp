@@ -2,8 +2,8 @@
 // Created by coren on 24/03/2025.
 //
 
-#include "../../include/views/VideoGameView.h"
-#include "../../include/models/VideoGame.h"
+#include "../../include/view/VideoGameView.h"
+#include "../../include/model/VideoGame.h"
 #include <SDL3/SDL.h>
 
 VideoGameView::VideoGameView(VideoGame *videoGame) : videoGame(videoGame) {

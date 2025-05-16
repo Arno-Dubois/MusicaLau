@@ -2,9 +2,9 @@
 // Created by coren on 24/03/2025.
 //
 
-#include "../../include/controllers/InstrumentController.h"
+#include "../../include/controller/InstrumentController.h"
 
-InstrumentController::InstrumentController(Instrument* instrument)
+InstrumentController::InstrumentController(Instrument *instrument)
         : instrument(instrument) {
 }
 
@@ -16,6 +16,6 @@ std::string InstrumentController::getInstrumentName() const {
     return instrument->getName();
 }
 
-void InstrumentController::setInstrumentName(const std::string& name) {
+void InstrumentController::setInstrumentName(const std::string &name) {
     instrument->setName(name);
 }

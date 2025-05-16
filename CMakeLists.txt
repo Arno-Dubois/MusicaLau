@@ -12,27 +12,27 @@ include_directories(${PROJECT_SOURCE_DIR}/include/SDL3)
 # Définir les sources pour la bibliothèque (sans utiliser GLOB_RECURSE pour un meilleur contrôle)
 set(LIB_SOURCES
         # Models
-        src/models/Instrument.cpp
-        src/models/Piano.cpp
-        src/models/Xylophone.cpp
-        src/models/VideoGame.cpp
-        src/models/Score.cpp
-        src/models/Note.cpp
+        src/model/Instrument.cpp
+        src/model/Piano.cpp
+        src/model/Xylophone.cpp
+        src/model/VideoGame.cpp
+        src/model/Score.cpp
+        src/model/Note.cpp
 
         # Views
-        src/views/View.cpp
-        src/views/InstrumentSelectionView.cpp
-        src/views/PianoView.cpp
-        src/views/XylophoneView.cpp
-        src/views/VideoGameView.cpp
+        src/view/View.cpp
+        src/view/InstrumentSelectionView.cpp
+        src/view/PianoView.cpp
+        src/view/XylophoneView.cpp
+        src/view/VideoGameView.cpp
 
         # Controllers
-        src/controllers/Controller.cpp
-        src/controllers/InstrumentController.cpp
-        src/controllers/ScoreController.cpp
-        src/controllers/PianoAppController.cpp
-        src/controllers/XylophoneAppController.cpp
-        src/controllers/VideoGameAppController.cpp
+        src/controller/Controller.cpp
+        src/controller/InstrumentController.cpp
+        src/controller/ScoreController.cpp
+        src/controller/PianoAppController.cpp
+        src/controller/XylophoneAppController.cpp
+        src/controller/VideoGameAppController.cpp
 
         # Application
         src/Application.cpp
@@ -50,27 +50,27 @@ set(LIB_SOURCES
 # Définir les en-têtes (headers) pour une meilleure visibilité dans l'IDE
 set(LIB_HEADERS
         # Models
-        include/models/Instrument.h
-        include/models/Piano.h
-        include/models/Xylophone.h
-        include/models/VideoGame.h
-        include/models/Score.h
-        include/models/Note.h
+        include/model/Instrument.h
+        include/model/Piano.h
+        include/model/Xylophone.h
+        include/model/VideoGame.h
+        include/model/Score.h
+        include/model/Note.h
 
         # Views
-        include/views/View.h
-        include/views/InstrumentSelectionView.h
-        include/views/PianoView.h
-        include/views/XylophoneView.h
-        include/views/VideoGameView.h
+        include/view/View.h
+        include/view/InstrumentSelectionView.h
+        include/view/PianoView.h
+        include/view/XylophoneView.h
+        include/view/VideoGameView.h
 
         # Controllers
-        include/controllers/Controller.h
-        include/controllers/InstrumentController.h
-        include/controllers/ScoreController.h
-        include/controllers/PianoAppController.h
-        include/controllers/XylophoneAppController.h
-        include/controllers/VideoGameAppController.h
+        include/controller/Controller.h
+        include/controller/InstrumentController.h
+        include/controller/ScoreController.h
+        include/controller/PianoAppController.h
+        include/controller/XylophoneAppController.h
+        include/controller/VideoGameAppController.h
 
         # Application
         include/Application.h

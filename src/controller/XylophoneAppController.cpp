@@ -1,6 +1,6 @@
-#include "../../include/controllers/XylophoneAppController.h"
-#include "../../include/models/Xylophone.h"
-#include "../../include/views/XylophoneView.h"
+#include "../../include/controller/XylophoneAppController.h"
+#include "../../include/model/Xylophone.h"
+#include "../../include/view/XylophoneView.h"
 
 XylophoneAppController::XylophoneAppController(int windowWidth, int windowHeight) : Controller() {
     // Position et dimensions du xylophone
