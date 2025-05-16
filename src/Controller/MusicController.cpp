@@ -1,4 +1,4 @@
-#include "MusicController.h"
+#include "../../include/Controller/MusicController.h"
 #include <algorithm> // For std::find_if
 
 namespace MusicApp {

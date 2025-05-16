@@ -1,7 +1,7 @@
 #ifndef MUSICAPP_CORE_INSTRUMENT_H
 #define MUSICAPP_CORE_INSTRUMENT_H
 
-#include "Note.h" // Definition of Note
+#include "Note.h"
 #include <string> // For instrument name
 
 // Forward declaration for AudioEngine to avoid circular dependency if Instrument needs it directly.

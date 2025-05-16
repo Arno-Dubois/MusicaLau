@@ -1,8 +1,8 @@
 #ifndef MUSICAPP_AUDIO_AUDIOENGINE_H
 #define MUSICAPP_AUDIO_AUDIOENGINE_H
 
-#include "../Core/Note.h" // For Note details, if needed directly by AudioEngine
-                         // Or more likely, specific sound parameters derived from Note
+#include "../Core/Note.h"
+// Or more likely, specific sound parameters derived from Note
 #include <string> // For instrument names or sound identifiers
 
 namespace MusicApp {

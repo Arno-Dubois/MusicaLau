@@ -1,4 +1,4 @@
-#include "XylophoneInstrument.h"
+#include "../../include/Instruments/XylophoneInstrument.h"
 
 namespace MusicApp {
 namespace Instruments {

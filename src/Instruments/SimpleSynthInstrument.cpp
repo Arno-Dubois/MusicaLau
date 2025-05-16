@@ -1,4 +1,4 @@
-#include "SimpleSynthInstrument.h"
+#include "../../include/Instruments/SimpleSynthInstrument.h"
 
 // Constructor
 MusicApp::Instruments::SimpleSynthInstrument::SimpleSynthInstrument(){

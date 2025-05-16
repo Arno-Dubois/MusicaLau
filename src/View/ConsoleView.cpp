@@ -1,5 +1,5 @@
-#include "ConsoleView.h"
-#include "../Core/Note.h"
+#include "../../include/View/ConsoleView.h"
+#include "../../Core/Note.h"
 #include <iostream>
 #include <string>
 #include <limits> // Required for std::numeric_limits

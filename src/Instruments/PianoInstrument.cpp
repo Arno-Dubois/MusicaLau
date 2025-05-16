@@ -1,4 +1,4 @@
-#include "PianoInstrument.h"
+#include "../../include/Instruments/PianoInstrument.h"
 
 namespace MusicApp {
 namespace Instruments {
