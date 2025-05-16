@@ -84,7 +84,7 @@ namespace MusicApp {
             SDL_zero(want); // Initialize want structure to zeros
 
             want.freq = 44100;          // Desired frequency (samples per second)
-            want.format = SDL_AUDIO_F32; // Desired format (float, system endianness)
+            want.format = SDL_AUDIO_S16; // Desired format (float, system endianness)
             want.channels = 2;          // Number of channels (1=mono, 2=stereo)
 
             // SDL_OpenAudioDevice opens a specific audio device.
@@ -133,9 +133,10 @@ namespace MusicApp {
     }
         }
 
-        float* generateWaveform(Instrument ins, float frequency, float durationSeconds, unsigned int sampleRate = 44100) {
-            const long long unsigned int sampleCount = (sampleRate * durationSeconds*1000);
-            float samples[sampleCount];
+        // Function to generate a waveform sample for a given instrument using int16_t
+        std::vector<int16_t> generateWaveform(Instrument ins, float frequency, float durationSeconds, unsigned int sampleRate = 44100) {
+            const std::size_t sampleCount = static_cast<std::size_t>(sampleRate * durationSeconds);
+            std::vector<int16_t> samples(sampleCount);
             const float twoPi = 6.283185307179586476925286766559f;
 
             for (std::size_t i = 0; i < sampleCount; ++i) {
@@ -163,7 +164,7 @@ namespace MusicApp {
                 }
 
                 // Scale to 16-bit integer range
-                samples[i] = SDL_sinf(value * 32767);
+                samples[i] = static_cast<int16_t>(value * 32767);
             }
             return samples;
         }
@@ -193,12 +194,19 @@ namespace MusicApp {
                 instrument = Instrument::SINE;
             }
 
+            std::cout << "generating wave";
+            // Generate waveform samples
+            std::vector<int16_t> samples = generateWaveform(instrument, frequency, 1);
+            std::cout << "wave :check: puting stream";
 
-            float* samples = generateWaveform(instrument, frequency, 100);
+            // Queue the audio data
+            int byteSize = samples.size() * sizeof(int16_t);
+            if (SDL_PutAudioStreamData(stream, samples.data(), byteSize) == false) {
+                std::cerr << "SDL_QueueAudio error: " << SDL_GetError() << std::endl;
+            }
 
-                /* feed the new data to the stream. It will queue at the end, and trickle out as the hardware needs more data. */
-                SDL_PutAudioStreamData(stream, samples, sizeof (samples));
-
+            // Wait for the duration of the audio plus a little extra time
+            SDL_Delay(static_cast<Uint32>(1 * 1000) + 100);
         }
     } // namespace Audio
 } // namespace MusicApp
