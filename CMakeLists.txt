@@ -12,76 +12,76 @@ include_directories(${PROJECT_SOURCE_DIR}/include/SDL3)
 # Définir les sources pour la bibliothèque (sans utiliser GLOB_RECURSE pour un meilleur contrôle)
 set(LIB_SOURCES
         # Models
-        src/models/Instrument.cpp
-        src/models/Piano.cpp
-        src/models/Xylophone.cpp
-        src/models/VideoGame.cpp
-        src/models/Score.cpp
-        src/models/Note.cpp
+        Src/Model/Instrument.cpp
+        Src/Model/Piano.cpp
+        Src/Model/Xylophone.cpp
+        Src/Model/VideoGame.cpp
+        Src/Model/Score.cpp
+        Src/Model/Note.cpp
 
         # Views
-        src/views/View.cpp
-        src/views/InstrumentSelectionView.cpp
-        src/views/PianoView.cpp
-        src/views/XylophoneView.cpp
-        src/views/VideoGameView.cpp
+        Src/View/View.cpp
+        Src/View/InstrumentSelectionView.cpp
+        Src/View/PianoView.cpp
+        Src/View/XylophoneView.cpp
+        Src/View/VideoGameView.cpp
 
         # Controllers
-        src/controllers/Controller.cpp
-        src/controllers/InstrumentController.cpp
-        src/controllers/ScoreController.cpp
-        src/controllers/PianoAppController.cpp
-        src/controllers/XylophoneAppController.cpp
-        src/controllers/VideoGameAppController.cpp
+        Src/Controller/Controller.cpp
+        Src/Controller/InstrumentController.cpp
+        Src/Controller/ScoreController.cpp
+        Src/Controller/PianoAppController.cpp
+        Src/Controller/XylophoneAppController.cpp
+        Src/Controller/VideoGameAppController.cpp
 
         # Application
-        src/Application.cpp
+        Src/Application.cpp
 
         # Utils
-        src/utils/AudioGenerator.cpp
-        src/utils/FileManager.cpp
-        src/utils/RandomMelodyGenerator.cpp
-        src/utils/audio_utils.cpp
-        src/utils/file_utils.cpp
-        src/utils/DropdownMenu.cpp
+        Src/Utils/AudioGenerator.cpp
+        Src/Utils/FileManager.cpp
+        Src/Utils/RandomMelodyGenerator.cpp
+        Src/Utils/audio_utils.cpp
+        Src/Utils/file_utils.cpp
+        Src/Utils/DropdownMenu.cpp
         devfile.cpp
 )
 
 # Définir les en-têtes (headers) pour une meilleure visibilité dans l'IDE
 set(LIB_HEADERS
         # Models
-        include/models/Instrument.h
-        include/models/Piano.h
-        include/models/Xylophone.h
-        include/models/VideoGame.h
-        include/models/Score.h
-        include/models/Note.h
+        include/Model/Instrument.h
+        include/Model/Piano.h
+        include/Model/Xylophone.h
+        include/Model/VideoGame.h
+        include/Model/Score.h
+        include/Model/Note.h
 
         # Views
-        include/views/View.h
-        include/views/InstrumentSelectionView.h
-        include/views/PianoView.h
-        include/views/XylophoneView.h
-        include/views/VideoGameView.h
+        include/View/View.h
+        include/View/InstrumentSelectionView.h
+        include/View/PianoView.h
+        include/View/XylophoneView.h
+        include/View/VideoGameView.h
 
         # Controllers
-        include/controllers/Controller.h
-        include/controllers/InstrumentController.h
-        include/controllers/ScoreController.h
-        include/controllers/PianoAppController.h
-        include/controllers/XylophoneAppController.h
-        include/controllers/VideoGameAppController.h
+        include/Controller/Controller.h
+        include/Controller/InstrumentController.h
+        include/Controller/ScoreController.h
+        include/Controller/PianoAppController.h
+        include/Controller/XylophoneAppController.h
+        include/Controller/VideoGameAppController.h
 
         # Application
         include/Application.h
 
         # Utils
-        include/utils/AudioGenerator.h
-        include/utils/FileManager.h
-        include/utils/RandomMelodyGenerator.h
-        include/utils/audio_utils.h
-        include/utils/file_utils.h
-        include/utils/DropdownMenu.h
+        include/Utils/AudioGenerator.h
+        include/Utils/FileManager.h
+        include/Utils/RandomMelodyGenerator.h
+        include/Utils/audio_utils.h
+        include/Utils/file_utils.h
+        include/Utils/DropdownMenu.h
 )
 
 # Ajouter les répertoires d'inclusion pour SDL3
@@ -98,7 +98,7 @@ set(SDL3_LIBS
 add_library(MusicaLauLib ${LIB_SOURCES} ${LIB_HEADERS})
 
 # Compilation de l'exécutable principal
-add_executable(MusicaLau src/main.cpp)
+add_executable(MusicaLau Src/main.cpp)
 target_link_libraries(MusicaLau MusicaLauLib ${SDL3_LIBS})
 
 # Configuration des tests

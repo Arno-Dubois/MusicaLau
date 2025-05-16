@@ -50,8 +50,7 @@ extern "C" {
  *
  * \since This enum is available since SDL 3.2.0.
  */
-typedef enum SDL_IOStatus
-{
+typedef enum SDL_IOStatus {
     SDL_IO_STATUS_READY,     /**< Everything is ready (no errors and not EOF). */
     SDL_IO_STATUS_ERROR,     /**< Read or write I/O error */
     SDL_IO_STATUS_EOF,       /**< End of file */
@@ -68,8 +67,7 @@ typedef enum SDL_IOStatus
  *
  * \since This enum is available since SDL 3.2.0.
  */
-typedef enum SDL_IOWhence
-{
+typedef enum SDL_IOWhence {
     SDL_IO_SEEK_SET,  /**< Seek from the beginning of data */
     SDL_IO_SEEK_CUR,  /**< Seek relative to current read point */
     SDL_IO_SEEK_END   /**< Seek relative to the end of data */
@@ -89,8 +87,7 @@ typedef enum SDL_IOWhence
  *
  * \sa SDL_INIT_INTERFACE
  */
-typedef struct SDL_IOStreamInterface
-{
+typedef struct SDL_IOStreamInterface {
     /* The version of this interface */
     Uint32 version;
 
@@ -145,7 +142,7 @@ typedef struct SDL_IOStreamInterface
     bool (SDLCALL *flush)(void *userdata, SDL_IOStatus *status);
 
     /**
-     *  Close and free any allocated resources.
+     *  Close and free any allocated Resources.
      *
      *  This does not guarantee file writes will sync to physical media; they
      *  can be in the system's file cache, waiting to go to disk.
@@ -166,8 +163,8 @@ typedef struct SDL_IOStreamInterface
  * the code using this interface should be updated to handle the old version.
  */
 SDL_COMPILE_TIME_ASSERT(SDL_IOStreamInterface_SIZE,
-    (sizeof(void *) == 4 && sizeof(SDL_IOStreamInterface) == 28) ||
-    (sizeof(void *) == 8 && sizeof(SDL_IOStreamInterface) == 56));
+                        (sizeof(void *) == 4 && sizeof(SDL_IOStreamInterface) == 28) ||
+                        (sizeof(void *) == 8 && sizeof(SDL_IOStreamInterface) == 56));
 
 /**
  * The read/write operation structure.
@@ -271,7 +268,7 @@ typedef struct SDL_IOStream SDL_IOStream;
  * \sa SDL_TellIO
  * \sa SDL_WriteIO
  */
-extern SDL_DECLSPEC SDL_IOStream * SDLCALL SDL_IOFromFile(const char *file, const char *mode);
+extern SDL_DECLSPEC SDL_IOStream *SDLCALL SDL_IOFromFile(const char *file, const char *mode);
 
 #define SDL_PROP_IOSTREAM_WINDOWS_HANDLE_POINTER    "SDL.iostream.windows.handle"
 #define SDL_PROP_IOSTREAM_STDIO_FILE_POINTER        "SDL.iostream.stdio.file"
@@ -317,7 +314,7 @@ extern SDL_DECLSPEC SDL_IOStream * SDLCALL SDL_IOFromFile(const char *file, cons
  * \sa SDL_TellIO
  * \sa SDL_WriteIO
  */
-extern SDL_DECLSPEC SDL_IOStream * SDLCALL SDL_IOFromMem(void *mem, size_t size);
+extern SDL_DECLSPEC SDL_IOStream *SDLCALL SDL_IOFromMem(void *mem, size_t size);
 
 #define SDL_PROP_IOSTREAM_MEMORY_POINTER "SDL.iostream.memory.base"
 #define SDL_PROP_IOSTREAM_MEMORY_SIZE_NUMBER  "SDL.iostream.memory.size"
@@ -361,7 +358,7 @@ extern SDL_DECLSPEC SDL_IOStream * SDLCALL SDL_IOFromMem(void *mem, size_t size)
  * \sa SDL_SeekIO
  * \sa SDL_TellIO
  */
-extern SDL_DECLSPEC SDL_IOStream * SDLCALL SDL_IOFromConstMem(const void *mem, size_t size);
+extern SDL_DECLSPEC SDL_IOStream *SDLCALL SDL_IOFromConstMem(const void *mem, size_t size);
 
 /**
  * Use this function to create an SDL_IOStream that is backed by dynamically
@@ -391,7 +388,7 @@ extern SDL_DECLSPEC SDL_IOStream * SDLCALL SDL_IOFromConstMem(const void *mem, s
  * \sa SDL_TellIO
  * \sa SDL_WriteIO
  */
-extern SDL_DECLSPEC SDL_IOStream * SDLCALL SDL_IOFromDynamicMem(void);
+extern SDL_DECLSPEC SDL_IOStream *SDLCALL SDL_IOFromDynamicMem(void);
 
 #define SDL_PROP_IOSTREAM_DYNAMIC_MEMORY_POINTER    "SDL.iostream.dynamic.memory"
 #define SDL_PROP_IOSTREAM_DYNAMIC_CHUNKSIZE_NUMBER  "SDL.iostream.dynamic.chunksize"
@@ -426,13 +423,13 @@ extern SDL_DECLSPEC SDL_IOStream * SDLCALL SDL_IOFromDynamicMem(void);
  * \sa SDL_IOFromFile
  * \sa SDL_IOFromMem
  */
-extern SDL_DECLSPEC SDL_IOStream * SDLCALL SDL_OpenIO(const SDL_IOStreamInterface *iface, void *userdata);
+extern SDL_DECLSPEC SDL_IOStream *SDLCALL SDL_OpenIO(const SDL_IOStreamInterface *iface, void *userdata);
 
 /**
  * Close and free an allocated SDL_IOStream structure.
  *
  * SDL_CloseIO() closes and cleans up the SDL_IOStream stream. It releases any
- * resources used by the stream and frees the SDL_IOStream itself. This
+ * Resources used by the stream and frees the SDL_IOStream itself. This
  * returns true on success, or false if the stream failed to flush to its
  * output (e.g. to disk).
  *
@@ -633,7 +630,8 @@ extern SDL_DECLSPEC size_t SDLCALL SDL_WriteIO(SDL_IOStream *context, const void
  * \sa SDL_IOvprintf
  * \sa SDL_WriteIO
  */
-extern SDL_DECLSPEC size_t SDLCALL SDL_IOprintf(SDL_IOStream *context, SDL_PRINTF_FORMAT_STRING const char *fmt, ...)  SDL_PRINTF_VARARG_FUNC(2);
+extern SDL_DECLSPEC size_t SDLCALL
+SDL_IOprintf(SDL_IOStream *context, SDL_PRINTF_FORMAT_STRING const char *fmt, ...)  SDL_PRINTF_VARARG_FUNC(2);
 
 /**
  * Print to an SDL_IOStream data stream.
@@ -653,7 +651,8 @@ extern SDL_DECLSPEC size_t SDLCALL SDL_IOprintf(SDL_IOStream *context, SDL_PRINT
  * \sa SDL_IOprintf
  * \sa SDL_WriteIO
  */
-extern SDL_DECLSPEC size_t SDLCALL SDL_IOvprintf(SDL_IOStream *context, SDL_PRINTF_FORMAT_STRING const char *fmt, va_list ap) SDL_PRINTF_VARARG_FUNCV(2);
+extern SDL_DECLSPEC size_t SDLCALL
+SDL_IOvprintf(SDL_IOStream *context, SDL_PRINTF_FORMAT_STRING const char *fmt, va_list ap) SDL_PRINTF_VARARG_FUNCV(2);
 
 /**
  * Flush any buffered data in the stream.
@@ -687,7 +686,7 @@ extern SDL_DECLSPEC bool SDLCALL SDL_FlushIO(SDL_IOStream *context);
  * \param src the SDL_IOStream to read all available data from.
  * \param datasize a pointer filled in with the number of bytes read, may be
  *                 NULL.
- * \param closeio if true, calls SDL_CloseIO() on `src` before returning, even
+ * \param closeio if true, calls SDL_CloseIO() on `Src` before returning, even
  *                in the case of an error.
  * \returns the data or NULL on failure; call SDL_GetError() for more
  *          information.
@@ -699,7 +698,7 @@ extern SDL_DECLSPEC bool SDLCALL SDL_FlushIO(SDL_IOStream *context);
  * \sa SDL_LoadFile
  * \sa SDL_SaveFile_IO
  */
-extern SDL_DECLSPEC void * SDLCALL SDL_LoadFile_IO(SDL_IOStream *src, size_t *datasize, bool closeio);
+extern SDL_DECLSPEC void *SDLCALL SDL_LoadFile_IO(SDL_IOStream *src, size_t *datasize, bool closeio);
 
 /**
  * Load all the data from a file path.
@@ -722,7 +721,7 @@ extern SDL_DECLSPEC void * SDLCALL SDL_LoadFile_IO(SDL_IOStream *src, size_t *da
  * \sa SDL_LoadFile_IO
  * \sa SDL_SaveFile
  */
-extern SDL_DECLSPEC void * SDLCALL SDL_LoadFile(const char *file, size_t *datasize);
+extern SDL_DECLSPEC void *SDLCALL SDL_LoadFile(const char *file, size_t *datasize);
 
 /**
  * Save all the data into an SDL data stream.
@@ -731,7 +730,7 @@ extern SDL_DECLSPEC void * SDLCALL SDL_LoadFile(const char *file, size_t *datasi
  * \param data the data to be written. If datasize is 0, may be NULL or a
  *             invalid pointer.
  * \param datasize the number of bytes to be written.
- * \param closeio if true, calls SDL_CloseIO() on `src` before returning, even
+ * \param closeio if true, calls SDL_CloseIO() on `Src` before returning, even
  *                in the case of an error.
  * \returns true on success or false on failure; call SDL_GetError() for more
  *          information.
@@ -1349,6 +1348,7 @@ extern SDL_DECLSPEC bool SDLCALL SDL_WriteS64BE(SDL_IOStream *dst, Sint64 value)
 #ifdef __cplusplus
 }
 #endif
+
 #include <SDL3/SDL_close_code.h>
 
 #endif /* SDL_iostream_h_ */

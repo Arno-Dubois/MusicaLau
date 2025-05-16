@@ -70,8 +70,7 @@ typedef Uint32 SDL_PropertiesID;
  *
  * \since This enum is available since SDL 3.2.0.
  */
-typedef enum SDL_PropertyType
-{
+typedef enum SDL_PropertyType {
     SDL_PROPERTY_TYPE_INVALID,
     SDL_PROPERTY_TYPE_POINTER,
     SDL_PROPERTY_TYPE_STRING,
@@ -163,9 +162,9 @@ extern SDL_DECLSPEC bool SDLCALL SDL_LockProperties(SDL_PropertiesID props);
 extern SDL_DECLSPEC void SDLCALL SDL_UnlockProperties(SDL_PropertiesID props);
 
 /**
- * A callback used to free resources when a property is deleted.
+ * A callback used to free Resources when a property is deleted.
  *
- * This should release any resources associated with `value` that are no
+ * This should release any Resources associated with `value` that are no
  * longer needed.
  *
  * This callback is set per-property. Different properties in the same group
@@ -215,7 +214,9 @@ typedef void (SDLCALL *SDL_CleanupPropertyCallback)(void *userdata, void *value)
  * \sa SDL_SetPointerProperty
  * \sa SDL_CleanupPropertyCallback
  */
-extern SDL_DECLSPEC bool SDLCALL SDL_SetPointerPropertyWithCleanup(SDL_PropertiesID props, const char *name, void *value, SDL_CleanupPropertyCallback cleanup, void *userdata);
+extern SDL_DECLSPEC bool SDLCALL
+SDL_SetPointerPropertyWithCleanup(SDL_PropertiesID props, const char *name, void *value,
+                                  SDL_CleanupPropertyCallback cleanup, void *userdata);
 
 /**
  * Set a pointer property in a group of properties.
@@ -373,7 +374,7 @@ extern SDL_DECLSPEC SDL_PropertyType SDLCALL SDL_GetPropertyType(SDL_PropertiesI
  * \sa SDL_HasProperty
  * \sa SDL_SetPointerProperty
  */
-extern SDL_DECLSPEC void * SDLCALL SDL_GetPointerProperty(SDL_PropertiesID props, const char *name, void *default_value);
+extern SDL_DECLSPEC void *SDLCALL SDL_GetPointerProperty(SDL_PropertiesID props, const char *name, void *default_value);
 
 /**
  * Get a string property from a group of properties.
@@ -397,7 +398,8 @@ extern SDL_DECLSPEC void * SDLCALL SDL_GetPointerProperty(SDL_PropertiesID props
  * \sa SDL_HasProperty
  * \sa SDL_SetStringProperty
  */
-extern SDL_DECLSPEC const char * SDLCALL SDL_GetStringProperty(SDL_PropertiesID props, const char *name, const char *default_value);
+extern SDL_DECLSPEC const char *
+SDLCALL SDL_GetStringProperty(SDL_PropertiesID props, const char *name, const char *default_value);
 
 /**
  * Get a number property from a group of properties.
@@ -419,7 +421,8 @@ extern SDL_DECLSPEC const char * SDLCALL SDL_GetStringProperty(SDL_PropertiesID 
  * \sa SDL_HasProperty
  * \sa SDL_SetNumberProperty
  */
-extern SDL_DECLSPEC Sint64 SDLCALL SDL_GetNumberProperty(SDL_PropertiesID props, const char *name, Sint64 default_value);
+extern SDL_DECLSPEC Sint64 SDLCALL
+SDL_GetNumberProperty(SDL_PropertiesID props, const char *name, Sint64 default_value);
 
 /**
  * Get a floating point property from a group of properties.
@@ -514,7 +517,8 @@ typedef void (SDLCALL *SDL_EnumeratePropertiesCallback)(void *userdata, SDL_Prop
  *
  * \since This function is available since SDL 3.2.0.
  */
-extern SDL_DECLSPEC bool SDLCALL SDL_EnumerateProperties(SDL_PropertiesID props, SDL_EnumeratePropertiesCallback callback, void *userdata);
+extern SDL_DECLSPEC bool SDLCALL
+SDL_EnumerateProperties(SDL_PropertiesID props, SDL_EnumeratePropertiesCallback callback, void *userdata);
 
 /**
  * Destroy a group of properties.
@@ -538,6 +542,7 @@ extern SDL_DECLSPEC void SDLCALL SDL_DestroyProperties(SDL_PropertiesID props);
 #ifdef __cplusplus
 }
 #endif
+
 #include <SDL3/SDL_close_code.h>
 
 #endif /* SDL_properties_h_ */

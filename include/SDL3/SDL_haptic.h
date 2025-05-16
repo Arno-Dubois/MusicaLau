@@ -543,8 +543,7 @@ typedef struct SDL_Haptic SDL_Haptic;
  * \sa SDL_HapticEffect
  * \sa SDL_GetNumHapticAxes
  */
-typedef struct SDL_HapticDirection
-{
+typedef struct SDL_HapticDirection {
     Uint8 type;         /**< The type of encoding. */
     Sint32 dir[3];      /**< The encoded direction. */
 } SDL_HapticDirection;
@@ -563,8 +562,7 @@ typedef struct SDL_HapticDirection
  * \sa SDL_HAPTIC_CONSTANT
  * \sa SDL_HapticEffect
  */
-typedef struct SDL_HapticConstant
-{
+typedef struct SDL_HapticConstant {
     /* Header */
     Uint16 type;            /**< SDL_HAPTIC_CONSTANT */
     SDL_HapticDirection direction;  /**< Direction of the effect. */
@@ -649,8 +647,7 @@ typedef struct SDL_HapticConstant
  * \sa SDL_HAPTIC_SAWTOOTHDOWN
  * \sa SDL_HapticEffect
  */
-typedef struct SDL_HapticPeriodic
-{
+typedef struct SDL_HapticPeriodic {
     /* Header */
     Uint16 type;        /**< SDL_HAPTIC_SINE, SDL_HAPTIC_SQUARE
                              SDL_HAPTIC_TRIANGLE, SDL_HAPTIC_SAWTOOTHUP or
@@ -705,8 +702,7 @@ typedef struct SDL_HapticPeriodic
  * \sa SDL_HAPTIC_FRICTION
  * \sa SDL_HapticEffect
  */
-typedef struct SDL_HapticCondition
-{
+typedef struct SDL_HapticCondition {
     /* Header */
     Uint16 type;            /**< SDL_HAPTIC_SPRING, SDL_HAPTIC_DAMPER,
                                  SDL_HAPTIC_INERTIA or SDL_HAPTIC_FRICTION */
@@ -744,8 +740,7 @@ typedef struct SDL_HapticCondition
  * \sa SDL_HAPTIC_RAMP
  * \sa SDL_HapticEffect
  */
-typedef struct SDL_HapticRamp
-{
+typedef struct SDL_HapticRamp {
     /* Header */
     Uint16 type;            /**< SDL_HAPTIC_RAMP */
     SDL_HapticDirection direction;  /**< Direction of the effect. */
@@ -775,7 +770,7 @@ typedef struct SDL_HapticRamp
  * This struct is exclusively for the SDL_HAPTIC_LEFTRIGHT effect.
  *
  * The Left/Right effect is used to explicitly control the large and small
- * motors, commonly found in modern game controllers. The small (right) motor
+ * motors, commonly found in modern game Controllers. The small (right) motor
  * is high frequency, and the large (left) motor is low frequency.
  *
  * \since This struct is available since SDL 3.2.0.
@@ -783,8 +778,7 @@ typedef struct SDL_HapticRamp
  * \sa SDL_HAPTIC_LEFTRIGHT
  * \sa SDL_HapticEffect
  */
-typedef struct SDL_HapticLeftRight
-{
+typedef struct SDL_HapticLeftRight {
     /* Header */
     Uint16 type;            /**< SDL_HAPTIC_LEFTRIGHT */
 
@@ -813,8 +807,7 @@ typedef struct SDL_HapticLeftRight
  * \sa SDL_HAPTIC_CUSTOM
  * \sa SDL_HapticEffect
  */
-typedef struct SDL_HapticCustom
-{
+typedef struct SDL_HapticCustom {
     /* Header */
     Uint16 type;            /**< SDL_HAPTIC_CUSTOM */
     SDL_HapticDirection direction;  /**< Direction of the effect. */
@@ -912,8 +905,7 @@ typedef struct SDL_HapticCustom
  * \sa SDL_HapticLeftRight
  * \sa SDL_HapticCustom
  */
-typedef union SDL_HapticEffect
-{
+typedef union SDL_HapticEffect {
     /* Common for all force feedback effects */
     Uint16 type;                    /**< Effect type. */
     SDL_HapticConstant constant;    /**< Constant effect. */
@@ -952,7 +944,7 @@ typedef Uint32 SDL_HapticID;
  *
  * \sa SDL_OpenHaptic
  */
-extern SDL_DECLSPEC SDL_HapticID * SDLCALL SDL_GetHaptics(int *count);
+extern SDL_DECLSPEC SDL_HapticID *SDLCALL SDL_GetHaptics(int *count);
 
 /**
  * Get the implementation dependent name of a haptic device.
@@ -969,7 +961,7 @@ extern SDL_DECLSPEC SDL_HapticID * SDLCALL SDL_GetHaptics(int *count);
  * \sa SDL_GetHapticName
  * \sa SDL_OpenHaptic
  */
-extern SDL_DECLSPEC const char * SDLCALL SDL_GetHapticNameForID(SDL_HapticID instance_id);
+extern SDL_DECLSPEC const char *SDLCALL SDL_GetHapticNameForID(SDL_HapticID instance_id);
 
 /**
  * Open a haptic device for use.
@@ -994,7 +986,7 @@ extern SDL_DECLSPEC const char * SDLCALL SDL_GetHapticNameForID(SDL_HapticID ins
  * \sa SDL_SetHapticAutocenter
  * \sa SDL_SetHapticGain
  */
-extern SDL_DECLSPEC SDL_Haptic * SDLCALL SDL_OpenHaptic(SDL_HapticID instance_id);
+extern SDL_DECLSPEC SDL_Haptic *SDLCALL SDL_OpenHaptic(SDL_HapticID instance_id);
 
 
 /**
@@ -1006,7 +998,7 @@ extern SDL_DECLSPEC SDL_Haptic * SDLCALL SDL_OpenHaptic(SDL_HapticID instance_id
  *
  * \since This function is available since SDL 3.2.0.
  */
-extern SDL_DECLSPEC SDL_Haptic * SDLCALL SDL_GetHapticFromID(SDL_HapticID instance_id);
+extern SDL_DECLSPEC SDL_Haptic *SDLCALL SDL_GetHapticFromID(SDL_HapticID instance_id);
 
 /**
  * Get the instance ID of an opened haptic device.
@@ -1031,7 +1023,7 @@ extern SDL_DECLSPEC SDL_HapticID SDLCALL SDL_GetHapticID(SDL_Haptic *haptic);
  *
  * \sa SDL_GetHapticNameForID
  */
-extern SDL_DECLSPEC const char * SDLCALL SDL_GetHapticName(SDL_Haptic *haptic);
+extern SDL_DECLSPEC const char *SDLCALL SDL_GetHapticName(SDL_Haptic *haptic);
 
 /**
  * Query whether or not the current mouse has haptic capabilities.
@@ -1055,7 +1047,7 @@ extern SDL_DECLSPEC bool SDLCALL SDL_IsMouseHaptic(void);
  * \sa SDL_CloseHaptic
  * \sa SDL_IsMouseHaptic
  */
-extern SDL_DECLSPEC SDL_Haptic * SDLCALL SDL_OpenHapticFromMouse(void);
+extern SDL_DECLSPEC SDL_Haptic *SDLCALL SDL_OpenHapticFromMouse(void);
 
 /**
  * Query if a joystick has haptic features.
@@ -1089,7 +1081,7 @@ extern SDL_DECLSPEC bool SDLCALL SDL_IsJoystickHaptic(SDL_Joystick *joystick);
  * \sa SDL_CloseHaptic
  * \sa SDL_IsJoystickHaptic
  */
-extern SDL_DECLSPEC SDL_Haptic * SDLCALL SDL_OpenHapticFromJoystick(SDL_Joystick *joystick);
+extern SDL_DECLSPEC SDL_Haptic *SDLCALL SDL_OpenHapticFromJoystick(SDL_Joystick *joystick);
 
 /**
  * Close a haptic device previously opened with SDL_OpenHaptic().
@@ -1436,6 +1428,7 @@ extern SDL_DECLSPEC bool SDLCALL SDL_StopHapticRumble(SDL_Haptic *haptic);
 #ifdef __cplusplus
 }
 #endif
+
 #include <SDL3/SDL_close_code.h>
 
 #endif /* SDL_haptic_h_ */

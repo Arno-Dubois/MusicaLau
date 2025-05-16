@@ -164,7 +164,7 @@ extern SDL_DECLSPEC SDL_FunctionPointer SDLCALL SDL_Vulkan_GetVkGetInstanceProcA
  *
  * Once the library has actually been unloaded, if any Vulkan instances
  * remain, they will likely crash the program. Clean up any existing Vulkan
- * resources, and destroy appropriate windows, renderers and GPU devices
+ * Resources, and destroy appropriate windows, renderers and GPU devices
  * before calling this function.
  *
  * \threadsafety This function is not thread safe.
@@ -197,7 +197,7 @@ extern SDL_DECLSPEC void SDLCALL SDL_Vulkan_UnloadLibrary(void);
  *
  * \sa SDL_Vulkan_CreateSurface
  */
-extern SDL_DECLSPEC char const * const * SDLCALL SDL_Vulkan_GetInstanceExtensions(Uint32 *count);
+extern SDL_DECLSPEC char const *const *SDLCALL SDL_Vulkan_GetInstanceExtensions(Uint32 *count);
 
 /**
  * Create a Vulkan rendering surface for a window.
@@ -224,9 +224,9 @@ extern SDL_DECLSPEC char const * const * SDLCALL SDL_Vulkan_GetInstanceExtension
  * \sa SDL_Vulkan_DestroySurface
  */
 extern SDL_DECLSPEC bool SDLCALL SDL_Vulkan_CreateSurface(SDL_Window *window,
-                                                              VkInstance instance,
-                                                              const struct VkAllocationCallbacks *allocator,
-                                                              VkSurfaceKHR *surface);
+                                                          VkInstance instance,
+                                                          const struct VkAllocationCallbacks *allocator,
+                                                          VkSurfaceKHR *surface);
 
 /**
  * Destroy the Vulkan rendering surface of a window.
@@ -252,8 +252,8 @@ extern SDL_DECLSPEC bool SDLCALL SDL_Vulkan_CreateSurface(SDL_Window *window,
  * \sa SDL_Vulkan_CreateSurface
  */
 extern SDL_DECLSPEC void SDLCALL SDL_Vulkan_DestroySurface(VkInstance instance,
-                                                       VkSurfaceKHR surface,
-                                                       const struct VkAllocationCallbacks *allocator);
+                                                           VkSurfaceKHR surface,
+                                                           const struct VkAllocationCallbacks *allocator);
 
 /**
  * Query support for presentation via a given physical device and queue
@@ -273,8 +273,8 @@ extern SDL_DECLSPEC void SDLCALL SDL_Vulkan_DestroySurface(VkInstance instance,
  * \sa SDL_Vulkan_GetInstanceExtensions
  */
 extern SDL_DECLSPEC bool SDLCALL SDL_Vulkan_GetPresentationSupport(VkInstance instance,
-                                                                       VkPhysicalDevice physicalDevice,
-                                                                       Uint32 queueFamilyIndex);
+                                                                   VkPhysicalDevice physicalDevice,
+                                                                   Uint32 queueFamilyIndex);
 
 /* @} *//* Vulkan support functions */
 
@@ -282,6 +282,7 @@ extern SDL_DECLSPEC bool SDLCALL SDL_Vulkan_GetPresentationSupport(VkInstance in
 #ifdef __cplusplus
 }
 #endif
+
 #include <SDL3/SDL_close_code.h>
 
 #endif /* SDL_vulkan_h_ */

@@ -50,7 +50,7 @@ extern "C" {
  *
  * GUIDs are as precise as possible but are not guaranteed to distinguish
  * physically distinct but equivalent devices. For example, two game
- * controllers from the same vendor with the same product ID and revision may
+ * Controllers from the same vendor with the same product ID and revision may
  * have the same GUID.
  *
  * GUIDs may be platform-dependent (i.e., the same device may report different
@@ -101,6 +101,7 @@ extern SDL_DECLSPEC SDL_GUID SDLCALL SDL_StringToGUID(const char *pchGUID);
 #ifdef __cplusplus
 }
 #endif
+
 #include <SDL3/SDL_close_code.h>
 
 #endif /* SDL_guid_h_ */

@@ -77,7 +77,7 @@
  * If two separate pieces of the same program need their own I/O, it is legal
  * for each to create their own queue. This will prevent either piece from
  * accidentally consuming the other's completed tasks. Each queue does require
- * some amount of resources, but it is not an overwhelming cost. Do not make a
+ * some amount of Resources, but it is not an overwhelming cost. Do not make a
  * queue for each task, however. It is better to put many tasks into a single
  * queue. They will be reported in order of completion, not in the order they
  * were submitted, so it doesn't generally matter what order tasks are
@@ -128,8 +128,7 @@ typedef struct SDL_AsyncIO SDL_AsyncIO;
  *
  * \since This enum is available since SDL 3.2.0.
  */
-typedef enum SDL_AsyncIOTaskType
-{
+typedef enum SDL_AsyncIOTaskType {
     SDL_ASYNCIO_TASK_READ,   /**< A read operation. */
     SDL_ASYNCIO_TASK_WRITE,  /**< A write operation. */
     SDL_ASYNCIO_TASK_CLOSE   /**< A close operation. */
@@ -140,8 +139,7 @@ typedef enum SDL_AsyncIOTaskType
  *
  * \since This enum is available since SDL 3.2.0.
  */
-typedef enum SDL_AsyncIOResult
-{
+typedef enum SDL_AsyncIOResult {
     SDL_ASYNCIO_COMPLETE,  /**< request was completed without error */
     SDL_ASYNCIO_FAILURE,   /**< request failed for some reason; check SDL_GetError()! */
     SDL_ASYNCIO_CANCELED   /**< request was canceled before completing. */
@@ -152,8 +150,7 @@ typedef enum SDL_AsyncIOResult
  *
  * \since This struct is available since SDL 3.2.0.
  */
-typedef struct SDL_AsyncIOOutcome
-{
+typedef struct SDL_AsyncIOOutcome {
     SDL_AsyncIO *asyncio;   /**< what generated this task. This pointer will be invalid if it was closed! */
     SDL_AsyncIOTaskType type;  /**< What sort of task was this? Read, write, etc? */
     SDL_AsyncIOResult result;  /**< the result of the work (success, failure, cancellation). */
@@ -219,7 +216,7 @@ typedef struct SDL_AsyncIOQueue SDL_AsyncIOQueue;
  * \sa SDL_ReadAsyncIO
  * \sa SDL_WriteAsyncIO
  */
-extern SDL_DECLSPEC SDL_AsyncIO * SDLCALL SDL_AsyncIOFromFile(const char *file, const char *mode);
+extern SDL_DECLSPEC SDL_AsyncIO *SDLCALL SDL_AsyncIOFromFile(const char *file, const char *mode);
 
 /**
  * Use this function to get the size of the data stream in an SDL_AsyncIO.
@@ -274,7 +271,8 @@ extern SDL_DECLSPEC Sint64 SDLCALL SDL_GetAsyncIOSize(SDL_AsyncIO *asyncio);
  * \sa SDL_WriteAsyncIO
  * \sa SDL_CreateAsyncIOQueue
  */
-extern SDL_DECLSPEC bool SDLCALL SDL_ReadAsyncIO(SDL_AsyncIO *asyncio, void *ptr, Uint64 offset, Uint64 size, SDL_AsyncIOQueue *queue, void *userdata);
+extern SDL_DECLSPEC bool SDLCALL
+SDL_ReadAsyncIO(SDL_AsyncIO *asyncio, void *ptr, Uint64 offset, Uint64 size, SDL_AsyncIOQueue *queue, void *userdata);
 
 /**
  * Start an async write.
@@ -311,10 +309,11 @@ extern SDL_DECLSPEC bool SDLCALL SDL_ReadAsyncIO(SDL_AsyncIO *asyncio, void *ptr
  * \sa SDL_ReadAsyncIO
  * \sa SDL_CreateAsyncIOQueue
  */
-extern SDL_DECLSPEC bool SDLCALL SDL_WriteAsyncIO(SDL_AsyncIO *asyncio, void *ptr, Uint64 offset, Uint64 size, SDL_AsyncIOQueue *queue, void *userdata);
+extern SDL_DECLSPEC bool SDLCALL
+SDL_WriteAsyncIO(SDL_AsyncIO *asyncio, void *ptr, Uint64 offset, Uint64 size, SDL_AsyncIOQueue *queue, void *userdata);
 
 /**
- * Close and free any allocated resources for an async I/O object.
+ * Close and free any allocated Resources for an async I/O object.
  *
  * Closing a file is _also_ an asynchronous task! If a write failure were to
  * happen during the closing process, for example, the task results will
@@ -360,7 +359,8 @@ extern SDL_DECLSPEC bool SDLCALL SDL_WriteAsyncIO(SDL_AsyncIO *asyncio, void *pt
  *
  * \since This function is available since SDL 3.2.0.
  */
-extern SDL_DECLSPEC bool SDLCALL SDL_CloseAsyncIO(SDL_AsyncIO *asyncio, bool flush, SDL_AsyncIOQueue *queue, void *userdata);
+extern SDL_DECLSPEC bool SDLCALL
+SDL_CloseAsyncIO(SDL_AsyncIO *asyncio, bool flush, SDL_AsyncIOQueue *queue, void *userdata);
 
 /**
  * Create a task queue for tracking multiple I/O operations.
@@ -379,7 +379,7 @@ extern SDL_DECLSPEC bool SDLCALL SDL_CloseAsyncIO(SDL_AsyncIO *asyncio, bool flu
  * \sa SDL_GetAsyncIOResult
  * \sa SDL_WaitAsyncIOResult
  */
-extern SDL_DECLSPEC SDL_AsyncIOQueue * SDLCALL SDL_CreateAsyncIOQueue(void);
+extern SDL_DECLSPEC SDL_AsyncIOQueue *SDLCALL SDL_CreateAsyncIOQueue(void);
 
 /**
  * Destroy a previously-created async I/O task queue.
@@ -418,7 +418,7 @@ extern SDL_DECLSPEC void SDLCALL SDL_DestroyAsyncIOQueue(SDL_AsyncIOQueue *queue
  * fill in `outcome` with the details of the task. If no task in the queue has
  * finished, this function will return false. This function does not block.
  *
- * If a task has completed, this function will free its resources and the task
+ * If a task has completed, this function will free its Resources and the task
  * pointer will no longer be valid. The task will be removed from the queue.
  *
  * It is safe for multiple threads to call this function on the same queue at
@@ -447,7 +447,7 @@ extern SDL_DECLSPEC bool SDLCALL SDL_GetAsyncIOResult(SDL_AsyncIOQueue *queue, S
  * fill in `outcome` with the details of the task. If no task in the queue has
  * finished, this function will return false.
  *
- * If a task has completed, this function will free its resources and the task
+ * If a task has completed, this function will free its Resources and the task
  * pointer will no longer be valid. The task will be removed from the queue.
  *
  * It is safe for multiple threads to call this function on the same queue at
@@ -479,7 +479,8 @@ extern SDL_DECLSPEC bool SDLCALL SDL_GetAsyncIOResult(SDL_AsyncIOQueue *queue, S
  *
  * \sa SDL_SignalAsyncIOQueue
  */
-extern SDL_DECLSPEC bool SDLCALL SDL_WaitAsyncIOResult(SDL_AsyncIOQueue *queue, SDL_AsyncIOOutcome *outcome, Sint32 timeoutMS);
+extern SDL_DECLSPEC bool SDLCALL
+SDL_WaitAsyncIOResult(SDL_AsyncIOQueue *queue, SDL_AsyncIOOutcome *outcome, Sint32 timeoutMS);
 
 /**
  * Wake up any threads that are blocking in SDL_WaitAsyncIOResult().
@@ -541,6 +542,7 @@ extern SDL_DECLSPEC bool SDLCALL SDL_LoadFileAsync(const char *file, SDL_AsyncIO
 #ifdef __cplusplus
 }
 #endif
+
 #include <SDL3/SDL_close_code.h>
 
 #endif /* SDL_asyncio_h_ */

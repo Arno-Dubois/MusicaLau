@@ -22,7 +22,7 @@
 /**
  * # CategoryMetal
  *
- * Functions to creating Metal layers and views on SDL windows.
+ * Functions to creating Metal layers and Views on SDL windows.
  *
  * This provides some platform-specific glue for Apple platforms. Most macOS
  * and iOS apps can use SDL without these functions, but this API they can be
@@ -94,7 +94,7 @@ extern SDL_DECLSPEC void SDLCALL SDL_Metal_DestroyView(SDL_MetalView view);
  *
  * \since This function is available since SDL 3.2.0.
  */
-extern SDL_DECLSPEC void * SDLCALL SDL_Metal_GetLayer(SDL_MetalView view);
+extern SDL_DECLSPEC void *SDLCALL SDL_Metal_GetLayer(SDL_MetalView view);
 
 /* @} *//* Metal support functions */
 
@@ -102,6 +102,7 @@ extern SDL_DECLSPEC void * SDLCALL SDL_Metal_GetLayer(SDL_MetalView view);
 #ifdef __cplusplus
 }
 #endif
+
 #include <SDL3/SDL_close_code.h>
 
 #endif /* SDL_metal_h_ */

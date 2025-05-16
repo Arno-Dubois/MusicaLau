@@ -48,7 +48,9 @@
 #include <SDL3/SDL_atomic.h>
 
 #if defined(SDL_PLATFORM_WINDOWS)
+
 #include <process.h> /* _beginthreadex() and _endthreadex() */
+
 #endif
 
 #include <SDL3/SDL_begin_code.h>
@@ -123,8 +125,7 @@ typedef enum SDL_ThreadPriority {
  *
  * \sa SDL_GetThreadState
  */
-typedef enum SDL_ThreadState
-{
+typedef enum SDL_ThreadState {
     SDL_THREAD_UNKNOWN,     /**< The thread is not valid */
     SDL_THREAD_ALIVE,       /**< The thread is currently running */
     SDL_THREAD_DETACHED,    /**< The thread is detached and can't be waited on */
@@ -139,7 +140,7 @@ typedef enum SDL_ThreadState
  *
  * \since This datatype is available since SDL 3.2.0.
  */
-typedef int (SDLCALL *SDL_ThreadFunction) (void *data);
+typedef int (SDLCALL *SDL_ThreadFunction)(void *data);
 
 
 #ifdef SDL_WIKI_DOCUMENTATION_SECTION
@@ -330,7 +331,9 @@ extern SDL_DECLSPEC SDL_Thread * SDLCALL SDL_CreateThreadWithProperties(SDL_Prop
  *
  * \since This function is available since SDL 3.2.0.
  */
-extern SDL_DECLSPEC SDL_Thread * SDLCALL SDL_CreateThreadRuntime(SDL_ThreadFunction fn, const char *name, void *data, SDL_FunctionPointer pfnBeginThread, SDL_FunctionPointer pfnEndThread);
+extern SDL_DECLSPEC SDL_Thread *
+SDLCALL SDL_CreateThreadRuntime(SDL_ThreadFunction fn, const char *name, void *data, SDL_FunctionPointer pfnBeginThread,
+                                SDL_FunctionPointer pfnEndThread);
 
 /**
  * The actual entry point for SDL_CreateThreadWithProperties.
@@ -344,7 +347,9 @@ extern SDL_DECLSPEC SDL_Thread * SDLCALL SDL_CreateThreadRuntime(SDL_ThreadFunct
  *
  * \since This function is available since SDL 3.2.0.
  */
-extern SDL_DECLSPEC SDL_Thread * SDLCALL SDL_CreateThreadWithPropertiesRuntime(SDL_PropertiesID props, SDL_FunctionPointer pfnBeginThread, SDL_FunctionPointer pfnEndThread);
+extern SDL_DECLSPEC SDL_Thread *
+SDLCALL SDL_CreateThreadWithPropertiesRuntime(SDL_PropertiesID props, SDL_FunctionPointer pfnBeginThread,
+                                              SDL_FunctionPointer pfnEndThread);
 
 #define SDL_CreateThread(fn, name, data) SDL_CreateThreadRuntime((fn), (name), (data), (SDL_FunctionPointer) (SDL_BeginThreadFunction), (SDL_FunctionPointer) (SDL_EndThreadFunction))
 #define SDL_CreateThreadWithProperties(props) SDL_CreateThreadWithPropertiesRuntime((props), (SDL_FunctionPointer) (SDL_BeginThreadFunction), (SDL_FunctionPointer) (SDL_EndThreadFunction))
@@ -364,7 +369,7 @@ extern SDL_DECLSPEC SDL_Thread * SDLCALL SDL_CreateThreadWithPropertiesRuntime(S
  *
  * \since This function is available since SDL 3.2.0.
  */
-extern SDL_DECLSPEC const char * SDLCALL SDL_GetThreadName(SDL_Thread *thread);
+extern SDL_DECLSPEC const char *SDLCALL SDL_GetThreadName(SDL_Thread *thread);
 
 /**
  * Get the thread identifier for the current thread.
@@ -513,12 +518,12 @@ extern SDL_DECLSPEC void SDLCALL SDL_DetachThread(SDL_Thread *thread);
  *
  * \sa SDL_SetTLS
  */
-extern SDL_DECLSPEC void * SDLCALL SDL_GetTLS(SDL_TLSID *id);
+extern SDL_DECLSPEC void *SDLCALL SDL_GetTLS(SDL_TLSID *id);
 
 /**
  * The callback used to cleanup data passed to SDL_SetTLS.
  *
- * This is called when a thread exits, to allow an app to free any resources.
+ * This is called when a thread exits, to allow an app to free any Resources.
  *
  * \param value a pointer previously handed to SDL_SetTLS.
  *
@@ -573,6 +578,7 @@ extern SDL_DECLSPEC void SDLCALL SDL_CleanupTLS(void);
 #ifdef __cplusplus
 }
 #endif
+
 #include <SDL3/SDL_close_code.h>
 
 #endif /* SDL_thread_h_ */

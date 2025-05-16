@@ -190,7 +190,7 @@ extern DECLSPEC int SDLCALL Mix_Init(int flags);
  * Deinitialize SDL_mixer.
  *
  * This should be the last function you call in SDL_mixer, after freeing all
- * other resources and closing all audio devices. This will unload any shared
+ * other Resources and closing all audio devices. This will unload any shared
  * libraries it is using for various codecs.
  *
  * After this call, a call to Mix_Init(0) will return 0 (no codecs loaded).
@@ -737,7 +737,7 @@ extern DECLSPEC Mix_Music * SDLCALL Mix_LoadMUS_RW(SDL_RWops *src, int freesrc);
  * Mix_FreeMusic().
  *
  * \param src an SDL_RWops that data will be read from.
- * \param type the type of audio data provided by `src`.
+ * \param type the type of audio data provided by `Src`.
  * \param freesrc non-zero to close/free the SDL_RWops before returning, zero
  *                to leave it open.
  * \returns a new music object, or NULL on error.
@@ -807,7 +807,7 @@ extern DECLSPEC Mix_Chunk * SDLCALL Mix_QuickLoad_RAW(Uint8 *mem, Uint32 len);
  * Free an audio chunk.
  *
  * An app should call this function when it is done with a Mix_Chunk and wants
- * to dispose of its resources.
+ * to dispose of its Resources.
  *
  * SDL_mixer will stop any channels this chunk is currently playing on. This
  * will deregister all effects on those channels and call any callback
@@ -1319,7 +1319,7 @@ typedef void (SDLCALL *Mix_EffectDone_t)(int chan, void *udata);
  *
  * You may also specify a callback (Mix_EffectDone_t) that is called when the
  * channel finishes playing. This gives you a more fine-grained control than
- * Mix_ChannelFinished(), in case you need to free effect-specific resources,
+ * Mix_ChannelFinished(), in case you need to free effect-specific Resources,
  * etc. If you don't need this, you can specify NULL.
  *
  * You may set the callbacks before or after calling Mix_PlayChannel().
@@ -2779,7 +2779,7 @@ extern DECLSPEC Mix_Chunk * SDLCALL Mix_GetChunk(int channel);
  * advice:
  *
  * Note that this will not free any loaded chunks or music; you should dispose
- * of those resources separately. It is probably poor form to dispose of them
+ * of those Resources separately. It is probably poor form to dispose of them
  * _after_ this function, but it is safe to call Mix_FreeChunk() and
  * Mix_FreeMusic() after closing the device.
  *

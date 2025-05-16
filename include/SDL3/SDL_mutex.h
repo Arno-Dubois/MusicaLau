@@ -315,7 +315,7 @@ typedef struct SDL_Mutex SDL_Mutex;
  * \sa SDL_TryLockMutex
  * \sa SDL_UnlockMutex
  */
-extern SDL_DECLSPEC SDL_Mutex * SDLCALL SDL_CreateMutex(void);
+extern SDL_DECLSPEC SDL_Mutex *SDLCALL SDL_CreateMutex(void);
 
 /**
  * Lock the mutex.
@@ -466,7 +466,7 @@ typedef struct SDL_RWLock SDL_RWLock;
  * \sa SDL_TryLockRWLockForWriting
  * \sa SDL_UnlockRWLock
  */
-extern SDL_DECLSPEC SDL_RWLock * SDLCALL SDL_CreateRWLock(void);
+extern SDL_DECLSPEC SDL_RWLock *SDLCALL SDL_CreateRWLock(void);
 
 /**
  * Lock the read/write lock for _read only_ operations.
@@ -679,7 +679,7 @@ typedef struct SDL_Semaphore SDL_Semaphore;
  * \sa SDL_WaitSemaphore
  * \sa SDL_WaitSemaphoreTimeout
  */
-extern SDL_DECLSPEC SDL_Semaphore * SDLCALL SDL_CreateSemaphore(Uint32 initial_value);
+extern SDL_DECLSPEC SDL_Semaphore *SDLCALL SDL_CreateSemaphore(Uint32 initial_value);
 
 /**
  * Destroy a semaphore.
@@ -814,7 +814,7 @@ typedef struct SDL_Condition SDL_Condition;
  * \sa SDL_WaitConditionTimeout
  * \sa SDL_DestroyCondition
  */
-extern SDL_DECLSPEC SDL_Condition * SDLCALL SDL_CreateCondition(void);
+extern SDL_DECLSPEC SDL_Condition *SDLCALL SDL_CreateCondition(void);
 
 /**
  * Destroy a condition variable.
@@ -914,7 +914,7 @@ extern SDL_DECLSPEC void SDLCALL SDL_WaitCondition(SDL_Condition *cond, SDL_Mute
  * \sa SDL_WaitCondition
  */
 extern SDL_DECLSPEC bool SDLCALL SDL_WaitConditionTimeout(SDL_Condition *cond,
-                                                SDL_Mutex *mutex, Sint32 timeoutMS);
+                                                          SDL_Mutex *mutex, Sint32 timeoutMS);
 
 /* @} *//* Condition variable functions */
 
@@ -928,8 +928,7 @@ extern SDL_DECLSPEC bool SDLCALL SDL_WaitConditionTimeout(SDL_Condition *cond,
  *
  * \since This enum is available since SDL 3.2.0.
  */
-typedef enum SDL_InitStatus
-{
+typedef enum SDL_InitStatus {
     SDL_INIT_STATUS_UNINITIALIZED,
     SDL_INIT_STATUS_INITIALIZING,
     SDL_INIT_STATUS_INITIALIZED,
@@ -985,15 +984,14 @@ typedef enum SDL_InitStatus
  *    }
  * ```
  *
- * Note that this doesn't protect any resources created during initialization,
- * or guarantee that nobody is using those resources during cleanup. You
+ * Note that this doesn't protect any Resources created during initialization,
+ * or guarantee that nobody is using those Resources during cleanup. You
  * should use other mechanisms to protect those, if that's a concern for your
  * code.
  *
  * \since This struct is available since SDL 3.2.0.
  */
-typedef struct SDL_InitState
-{
+typedef struct SDL_InitState {
     SDL_AtomicInt status;
     SDL_ThreadID thread;
     void *reserved;
@@ -1068,6 +1066,7 @@ extern SDL_DECLSPEC void SDLCALL SDL_SetInitialized(SDL_InitState *state, bool i
 #ifdef __cplusplus
 }
 #endif
+
 #include <SDL3/SDL_close_code.h>
 
 #endif /* SDL_mutex_h_ */

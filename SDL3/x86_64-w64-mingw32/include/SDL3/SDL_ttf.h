@@ -150,7 +150,7 @@ extern SDL_DECLSPEC bool SDLCALL TTF_Init(void);
  *
  * \sa TTF_CloseFont
  */
-extern SDL_DECLSPEC TTF_Font * SDLCALL TTF_OpenFont(const char *file, float ptsize);
+extern SDL_DECLSPEC TTF_Font *SDLCALL TTF_OpenFont(const char *file, float ptsize);
 
 /**
  * Create a font from an SDL_IOStream, using a specified point size.
@@ -159,13 +159,13 @@ extern SDL_DECLSPEC TTF_Font * SDLCALL TTF_OpenFont(const char *file, float ptsi
  * size becomes the index of choosing which size. If the value is too high,
  * the last indexed size will be the default.
  *
- * If `closeio` is true, `src` will be automatically closed once the font is
- * closed. Otherwise you should close `src` yourself after closing the font.
+ * If `closeio` is true, `Src` will be automatically closed once the font is
+ * closed. Otherwise you should close `Src` yourself after closing the font.
  *
  * When done with the returned TTF_Font, use TTF_CloseFont() to dispose of it.
  *
  * \param src an SDL_IOStream to provide a font file's data.
- * \param closeio true to close `src` when the font is closed, false to leave
+ * \param closeio true to close `Src` when the font is closed, false to leave
  *                it open.
  * \param ptsize point size to use for the newly-opened font.
  * \returns a valid TTF_Font, or NULL on failure; call SDL_GetError() for more
@@ -177,7 +177,7 @@ extern SDL_DECLSPEC TTF_Font * SDLCALL TTF_OpenFont(const char *file, float ptsi
  *
  * \sa TTF_CloseFont
  */
-extern SDL_DECLSPEC TTF_Font * SDLCALL TTF_OpenFontIO(SDL_IOStream *src, bool closeio, float ptsize);
+extern SDL_DECLSPEC TTF_Font *SDLCALL TTF_OpenFontIO(SDL_IOStream *src, bool closeio, float ptsize);
 
 /**
  * Create a font with the specified properties.
@@ -222,7 +222,7 @@ extern SDL_DECLSPEC TTF_Font * SDLCALL TTF_OpenFontIO(SDL_IOStream *src, bool cl
  *
  * \sa TTF_CloseFont
  */
-extern SDL_DECLSPEC TTF_Font * SDLCALL TTF_OpenFontWithProperties(SDL_PropertiesID props);
+extern SDL_DECLSPEC TTF_Font *SDLCALL TTF_OpenFontWithProperties(SDL_PropertiesID props);
 
 #define TTF_PROP_FONT_CREATE_FILENAME_STRING            "SDL_ttf.font.create.filename"
 #define TTF_PROP_FONT_CREATE_IOSTREAM_POINTER           "SDL_ttf.font.create.iostream"
@@ -253,7 +253,7 @@ extern SDL_DECLSPEC TTF_Font * SDLCALL TTF_OpenFontWithProperties(SDL_Properties
  *
  * \sa TTF_CloseFont
  */
-extern SDL_DECLSPEC TTF_Font * SDLCALL TTF_CopyFont(TTF_Font *existing_font);
+extern SDL_DECLSPEC TTF_Font *SDLCALL TTF_CopyFont(TTF_Font *existing_font);
 
 /**
  * Get the properties associated with a font.
@@ -556,8 +556,7 @@ extern SDL_DECLSPEC int SDLCALL TTF_GetFontOutline(const TTF_Font *font);
  * \sa TTF_SetFontHinting
  * \sa TTF_GetFontHinting
  */
-typedef enum TTF_HintingFlags
-{
+typedef enum TTF_HintingFlags {
     TTF_HINTING_NORMAL = 0,     /**< Normal hinting applies standard grid-fitting. */
     TTF_HINTING_LIGHT,          /**< Light hinting applies subtle adjustments to improve rendering. */
     TTF_HINTING_MONO,           /**< Monochrome hinting adjusts the font for better rendering at lower resolutions. */
@@ -670,8 +669,7 @@ extern SDL_DECLSPEC bool SDLCALL TTF_GetFontSDF(const TTF_Font *font);
  *
  * \since This enum is available since SDL_ttf 3.0.0.
  */
-typedef enum TTF_HorizontalAlignment
-{
+typedef enum TTF_HorizontalAlignment {
     TTF_HORIZONTAL_ALIGN_INVALID = -1,
     TTF_HORIZONTAL_ALIGN_LEFT,
     TTF_HORIZONTAL_ALIGN_CENTER,
@@ -868,7 +866,7 @@ extern SDL_DECLSPEC bool SDLCALL TTF_FontIsScalable(const TTF_Font *font);
  *
  * \since This function is available since SDL_ttf 3.0.0.
  */
-extern SDL_DECLSPEC const char * SDLCALL TTF_GetFontFamilyName(const TTF_Font *font);
+extern SDL_DECLSPEC const char *SDLCALL TTF_GetFontFamilyName(const TTF_Font *font);
 
 /**
  * Query a font's style name.
@@ -886,7 +884,7 @@ extern SDL_DECLSPEC const char * SDLCALL TTF_GetFontFamilyName(const TTF_Font *f
  *
  * \since This function is available since SDL_ttf 3.0.0.
  */
-extern SDL_DECLSPEC const char * SDLCALL TTF_GetFontStyleName(const TTF_Font *font);
+extern SDL_DECLSPEC const char *SDLCALL TTF_GetFontStyleName(const TTF_Font *font);
 
 /**
  * Direction flags
@@ -899,13 +897,12 @@ extern SDL_DECLSPEC const char * SDLCALL TTF_GetFontStyleName(const TTF_Font *fo
  *
  * \sa TTF_SetFontDirection
  */
-typedef enum TTF_Direction
-{
-  TTF_DIRECTION_INVALID = 0,
-  TTF_DIRECTION_LTR = 4,        /**< Left to Right */
-  TTF_DIRECTION_RTL,            /**< Right to Left */
-  TTF_DIRECTION_TTB,            /**< Top to Bottom */
-  TTF_DIRECTION_BTT             /**< Bottom to Top */
+typedef enum TTF_Direction {
+    TTF_DIRECTION_INVALID = 0,
+    TTF_DIRECTION_LTR = 4,        /**< Left to Right */
+    TTF_DIRECTION_RTL,            /**< Right to Left */
+    TTF_DIRECTION_TTB,            /**< Top to Bottom */
+    TTF_DIRECTION_BTT             /**< Bottom to Top */
 } TTF_Direction;
 
 /**
@@ -1071,8 +1068,7 @@ extern SDL_DECLSPEC bool SDLCALL TTF_FontHasGlyph(TTF_Font *font, Uint32 ch);
  *
  * \since This enum is available since SDL_ttf 3.0.0.
  */
-typedef enum TTF_ImageType
-{
+typedef enum TTF_ImageType {
     TTF_IMAGE_INVALID,
     TTF_IMAGE_ALPHA,    /**< The color channels are white */
     TTF_IMAGE_COLOR,    /**< The color channels have image data */
@@ -1094,7 +1090,7 @@ typedef enum TTF_ImageType
  *
  * \since This function is available since SDL_ttf 3.0.0.
  */
-extern SDL_DECLSPEC SDL_Surface * SDLCALL TTF_GetGlyphImage(TTF_Font *font, Uint32 ch, TTF_ImageType *image_type);
+extern SDL_DECLSPEC SDL_Surface *SDLCALL TTF_GetGlyphImage(TTF_Font *font, Uint32 ch, TTF_ImageType *image_type);
 
 /**
  * Get the pixel image for a character index.
@@ -1114,7 +1110,8 @@ extern SDL_DECLSPEC SDL_Surface * SDLCALL TTF_GetGlyphImage(TTF_Font *font, Uint
  *
  * \since This function is available since SDL_ttf 3.0.0.
  */
-extern SDL_DECLSPEC SDL_Surface * SDLCALL TTF_GetGlyphImageForIndex(TTF_Font *font, Uint32 glyph_index, TTF_ImageType *image_type);
+extern SDL_DECLSPEC SDL_Surface *
+SDLCALL TTF_GetGlyphImageForIndex(TTF_Font *font, Uint32 glyph_index, TTF_ImageType *image_type);
 
 /**
  * Query the metrics (dimensions) of a font's glyph for a UNICODE codepoint.
@@ -1145,7 +1142,8 @@ extern SDL_DECLSPEC SDL_Surface * SDLCALL TTF_GetGlyphImageForIndex(TTF_Font *fo
  *
  * \since This function is available since SDL_ttf 3.0.0.
  */
-extern SDL_DECLSPEC bool SDLCALL TTF_GetGlyphMetrics(TTF_Font *font, Uint32 ch, int *minx, int *maxx, int *miny, int *maxy, int *advance);
+extern SDL_DECLSPEC bool SDLCALL
+TTF_GetGlyphMetrics(TTF_Font *font, Uint32 ch, int *minx, int *maxx, int *miny, int *maxy, int *advance);
 
 /**
  * Query the kerning size between the glyphs of two UNICODE codepoints.
@@ -1213,7 +1211,8 @@ extern SDL_DECLSPEC bool SDLCALL TTF_GetStringSize(TTF_Font *font, const char *t
  *
  * \since This function is available since SDL_ttf 3.0.0.
  */
-extern SDL_DECLSPEC bool SDLCALL TTF_GetStringSizeWrapped(TTF_Font *font, const char *text, size_t length, int wrap_width, int *w, int *h);
+extern SDL_DECLSPEC bool SDLCALL
+TTF_GetStringSizeWrapped(TTF_Font *font, const char *text, size_t length, int wrap_width, int *w, int *h);
 
 /**
  * Calculate how much of a UTF-8 string will fit in a given width.
@@ -1241,7 +1240,9 @@ extern SDL_DECLSPEC bool SDLCALL TTF_GetStringSizeWrapped(TTF_Font *font, const 
  *
  * \since This function is available since SDL_ttf 3.0.0.
  */
-extern SDL_DECLSPEC bool SDLCALL TTF_MeasureString(TTF_Font *font, const char *text, size_t length, int max_width, int *measured_width, size_t *measured_length);
+extern SDL_DECLSPEC bool SDLCALL
+TTF_MeasureString(TTF_Font *font, const char *text, size_t length, int max_width, int *measured_width,
+                  size_t *measured_length);
 
 /**
  * Render UTF-8 text at fast quality to a new 8-bit surface.
@@ -1278,7 +1279,8 @@ extern SDL_DECLSPEC bool SDLCALL TTF_MeasureString(TTF_Font *font, const char *t
  * \sa TTF_RenderText_Solid
  * \sa TTF_RenderText_Solid_Wrapped
  */
-extern SDL_DECLSPEC SDL_Surface * SDLCALL TTF_RenderText_Solid(TTF_Font *font, const char *text, size_t length, SDL_Color fg);
+extern SDL_DECLSPEC SDL_Surface *
+SDLCALL TTF_RenderText_Solid(TTF_Font *font, const char *text, size_t length, SDL_Color fg);
 
 /**
  * Render word-wrapped UTF-8 text at fast quality to a new 8-bit surface.
@@ -1314,7 +1316,8 @@ extern SDL_DECLSPEC SDL_Surface * SDLCALL TTF_RenderText_Solid(TTF_Font *font, c
  * \sa TTF_RenderText_Shaded_Wrapped
  * \sa TTF_RenderText_Solid
  */
-extern SDL_DECLSPEC SDL_Surface * SDLCALL TTF_RenderText_Solid_Wrapped(TTF_Font *font, const char *text, size_t length, SDL_Color fg, int wrapLength);
+extern SDL_DECLSPEC SDL_Surface *
+SDLCALL TTF_RenderText_Solid_Wrapped(TTF_Font *font, const char *text, size_t length, SDL_Color fg, int wrapLength);
 
 /**
  * Render a single 32-bit glyph at fast quality to a new 8-bit surface.
@@ -1343,7 +1346,7 @@ extern SDL_DECLSPEC SDL_Surface * SDLCALL TTF_RenderText_Solid_Wrapped(TTF_Font 
  * \sa TTF_RenderGlyph_LCD
  * \sa TTF_RenderGlyph_Shaded
  */
-extern SDL_DECLSPEC SDL_Surface * SDLCALL TTF_RenderGlyph_Solid(TTF_Font *font, Uint32 ch, SDL_Color fg);
+extern SDL_DECLSPEC SDL_Surface *SDLCALL TTF_RenderGlyph_Solid(TTF_Font *font, Uint32 ch, SDL_Color fg);
 
 /**
  * Render UTF-8 text at high quality to a new 8-bit surface.
@@ -1381,7 +1384,8 @@ extern SDL_DECLSPEC SDL_Surface * SDLCALL TTF_RenderGlyph_Solid(TTF_Font *font, 
  * \sa TTF_RenderText_Shaded_Wrapped
  * \sa TTF_RenderText_Solid
  */
-extern SDL_DECLSPEC SDL_Surface * SDLCALL TTF_RenderText_Shaded(TTF_Font *font, const char *text, size_t length, SDL_Color fg, SDL_Color bg);
+extern SDL_DECLSPEC SDL_Surface *
+SDLCALL TTF_RenderText_Shaded(TTF_Font *font, const char *text, size_t length, SDL_Color fg, SDL_Color bg);
 
 /**
  * Render word-wrapped UTF-8 text at high quality to a new 8-bit surface.
@@ -1419,7 +1423,9 @@ extern SDL_DECLSPEC SDL_Surface * SDLCALL TTF_RenderText_Shaded(TTF_Font *font, 
  * \sa TTF_RenderText_Shaded
  * \sa TTF_RenderText_Solid_Wrapped
  */
-extern SDL_DECLSPEC SDL_Surface * SDLCALL TTF_RenderText_Shaded_Wrapped(TTF_Font *font, const char *text, size_t length, SDL_Color fg, SDL_Color bg, int wrap_width);
+extern SDL_DECLSPEC SDL_Surface *
+SDLCALL TTF_RenderText_Shaded_Wrapped(TTF_Font *font, const char *text, size_t length, SDL_Color fg, SDL_Color bg,
+                                      int wrap_width);
 
 /**
  * Render a single UNICODE codepoint at high quality to a new 8-bit surface.
@@ -1450,7 +1456,7 @@ extern SDL_DECLSPEC SDL_Surface * SDLCALL TTF_RenderText_Shaded_Wrapped(TTF_Font
  * \sa TTF_RenderGlyph_LCD
  * \sa TTF_RenderGlyph_Solid
  */
-extern SDL_DECLSPEC SDL_Surface * SDLCALL TTF_RenderGlyph_Shaded(TTF_Font *font, Uint32 ch, SDL_Color fg, SDL_Color bg);
+extern SDL_DECLSPEC SDL_Surface *SDLCALL TTF_RenderGlyph_Shaded(TTF_Font *font, Uint32 ch, SDL_Color fg, SDL_Color bg);
 
 /**
  * Render UTF-8 text at high quality to a new ARGB surface.
@@ -1486,7 +1492,8 @@ extern SDL_DECLSPEC SDL_Surface * SDLCALL TTF_RenderGlyph_Shaded(TTF_Font *font,
  * \sa TTF_RenderText_Shaded
  * \sa TTF_RenderText_Solid
  */
-extern SDL_DECLSPEC SDL_Surface * SDLCALL TTF_RenderText_Blended(TTF_Font *font, const char *text, size_t length, SDL_Color fg);
+extern SDL_DECLSPEC SDL_Surface *
+SDLCALL TTF_RenderText_Blended(TTF_Font *font, const char *text, size_t length, SDL_Color fg);
 
 /**
  * Render word-wrapped UTF-8 text at high quality to a new ARGB surface.
@@ -1522,7 +1529,8 @@ extern SDL_DECLSPEC SDL_Surface * SDLCALL TTF_RenderText_Blended(TTF_Font *font,
  * \sa TTF_RenderText_Shaded_Wrapped
  * \sa TTF_RenderText_Solid_Wrapped
  */
-extern SDL_DECLSPEC SDL_Surface * SDLCALL TTF_RenderText_Blended_Wrapped(TTF_Font *font, const char *text, size_t length, SDL_Color fg, int wrap_width);
+extern SDL_DECLSPEC SDL_Surface *
+SDLCALL TTF_RenderText_Blended_Wrapped(TTF_Font *font, const char *text, size_t length, SDL_Color fg, int wrap_width);
 
 /**
  * Render a single UNICODE codepoint at high quality to a new ARGB surface.
@@ -1551,7 +1559,7 @@ extern SDL_DECLSPEC SDL_Surface * SDLCALL TTF_RenderText_Blended_Wrapped(TTF_Fon
  * \sa TTF_RenderGlyph_Shaded
  * \sa TTF_RenderGlyph_Solid
  */
-extern SDL_DECLSPEC SDL_Surface * SDLCALL TTF_RenderGlyph_Blended(TTF_Font *font, Uint32 ch, SDL_Color fg);
+extern SDL_DECLSPEC SDL_Surface *SDLCALL TTF_RenderGlyph_Blended(TTF_Font *font, Uint32 ch, SDL_Color fg);
 
 /**
  * Render UTF-8 text at LCD subpixel quality to a new ARGB surface.
@@ -1588,7 +1596,8 @@ extern SDL_DECLSPEC SDL_Surface * SDLCALL TTF_RenderGlyph_Blended(TTF_Font *font
  * \sa TTF_RenderText_Shaded
  * \sa TTF_RenderText_Solid
  */
-extern SDL_DECLSPEC SDL_Surface * SDLCALL TTF_RenderText_LCD(TTF_Font *font, const char *text, size_t length, SDL_Color fg, SDL_Color bg);
+extern SDL_DECLSPEC SDL_Surface *
+SDLCALL TTF_RenderText_LCD(TTF_Font *font, const char *text, size_t length, SDL_Color fg, SDL_Color bg);
 
 /**
  * Render word-wrapped UTF-8 text at LCD subpixel quality to a new ARGB
@@ -1626,7 +1635,9 @@ extern SDL_DECLSPEC SDL_Surface * SDLCALL TTF_RenderText_LCD(TTF_Font *font, con
  * \sa TTF_RenderText_Shaded_Wrapped
  * \sa TTF_RenderText_Solid_Wrapped
  */
-extern SDL_DECLSPEC SDL_Surface * SDLCALL TTF_RenderText_LCD_Wrapped(TTF_Font *font, const char *text, size_t length, SDL_Color fg, SDL_Color bg, int wrap_width);
+extern SDL_DECLSPEC SDL_Surface *
+SDLCALL TTF_RenderText_LCD_Wrapped(TTF_Font *font, const char *text, size_t length, SDL_Color fg, SDL_Color bg,
+                                   int wrap_width);
 
 /**
  * Render a single UNICODE codepoint at LCD subpixel quality to a new ARGB
@@ -1657,7 +1668,7 @@ extern SDL_DECLSPEC SDL_Surface * SDLCALL TTF_RenderText_LCD_Wrapped(TTF_Font *f
  * \sa TTF_RenderGlyph_Shaded
  * \sa TTF_RenderGlyph_Solid
  */
-extern SDL_DECLSPEC SDL_Surface * SDLCALL TTF_RenderGlyph_LCD(TTF_Font *font, Uint32 ch, SDL_Color fg, SDL_Color bg);
+extern SDL_DECLSPEC SDL_Surface *SDLCALL TTF_RenderGlyph_LCD(TTF_Font *font, Uint32 ch, SDL_Color fg, SDL_Color bg);
 
 
 /**
@@ -1694,8 +1705,7 @@ typedef struct TTF_TextData TTF_TextData;
  * \sa TTF_GetTextProperties
  * \sa TTF_DestroyText
  */
-typedef struct TTF_Text
-{
+typedef struct TTF_Text {
     char *text;             /**< A copy of the UTF-8 string that this text object represents, useful for layout, debugging and retrieving substring text. This is updated when the text object is modified and will be freed automatically when the object is destroyed. */
     int num_lines;          /**< The number of lines in the text, 0 if it's empty */
 
@@ -1718,7 +1728,7 @@ typedef struct TTF_Text
  * \sa TTF_DestroySurfaceTextEngine
  * \sa TTF_DrawSurfaceText
  */
-extern SDL_DECLSPEC TTF_TextEngine * SDLCALL TTF_CreateSurfaceTextEngine(void);
+extern SDL_DECLSPEC TTF_TextEngine *SDLCALL TTF_CreateSurfaceTextEngine(void);
 
 /**
  * Draw text to an SDL surface.
@@ -1779,7 +1789,7 @@ extern SDL_DECLSPEC void SDLCALL TTF_DestroySurfaceTextEngine(TTF_TextEngine *en
  * \sa TTF_DrawRendererText
  * \sa TTF_CreateRendererTextEngineWithProperties
  */
-extern SDL_DECLSPEC TTF_TextEngine * SDLCALL TTF_CreateRendererTextEngine(SDL_Renderer *renderer);
+extern SDL_DECLSPEC TTF_TextEngine *SDLCALL TTF_CreateRendererTextEngine(SDL_Renderer *renderer);
 
 /**
  * Create a text engine for drawing text on an SDL renderer, with the
@@ -1805,7 +1815,7 @@ extern SDL_DECLSPEC TTF_TextEngine * SDLCALL TTF_CreateRendererTextEngine(SDL_Re
  * \sa TTF_DestroyRendererTextEngine
  * \sa TTF_DrawRendererText
  */
-extern SDL_DECLSPEC TTF_TextEngine * SDLCALL TTF_CreateRendererTextEngineWithProperties(SDL_PropertiesID props);
+extern SDL_DECLSPEC TTF_TextEngine *SDLCALL TTF_CreateRendererTextEngineWithProperties(SDL_PropertiesID props);
 
 #define TTF_PROP_RENDERER_TEXT_ENGINE_RENDERER                 "SDL_ttf.renderer_text_engine.create.renderer"
 #define TTF_PROP_RENDERER_TEXT_ENGINE_ATLAS_TEXTURE_SIZE       "SDL_ttf.renderer_text_engine.create.atlas_texture_size"
@@ -1870,7 +1880,7 @@ extern SDL_DECLSPEC void SDLCALL TTF_DestroyRendererTextEngine(TTF_TextEngine *e
  * \sa TTF_DestroyGPUTextEngine
  * \sa TTF_GetGPUTextDrawData
  */
-extern SDL_DECLSPEC TTF_TextEngine * SDLCALL TTF_CreateGPUTextEngine(SDL_GPUDevice *device);
+extern SDL_DECLSPEC TTF_TextEngine *SDLCALL TTF_CreateGPUTextEngine(SDL_GPUDevice *device);
 
 /**
  * Create a text engine for drawing text with the SDL GPU API, with the
@@ -1896,7 +1906,7 @@ extern SDL_DECLSPEC TTF_TextEngine * SDLCALL TTF_CreateGPUTextEngine(SDL_GPUDevi
  * \sa TTF_DestroyGPUTextEngine
  * \sa TTF_GetGPUTextDrawData
  */
-extern SDL_DECLSPEC TTF_TextEngine * SDLCALL TTF_CreateGPUTextEngineWithProperties(SDL_PropertiesID props);
+extern SDL_DECLSPEC TTF_TextEngine *SDLCALL TTF_CreateGPUTextEngineWithProperties(SDL_PropertiesID props);
 
 #define TTF_PROP_GPU_TEXT_ENGINE_DEVICE                   "SDL_ttf.gpu_text_engine.create.device"
 #define TTF_PROP_GPU_TEXT_ENGINE_ATLAS_TEXTURE_SIZE       "SDL_ttf.gpu_text_engine.create.atlas_texture_size"
@@ -1908,8 +1918,7 @@ extern SDL_DECLSPEC TTF_TextEngine * SDLCALL TTF_CreateGPUTextEngineWithProperti
  *
  * \sa TTF_GetGPUTextDrawData
  */
-typedef struct TTF_GPUAtlasDrawSequence
-{
+typedef struct TTF_GPUAtlasDrawSequence {
     SDL_GPUTexture *atlas_texture;          /**< Texture atlas that stores the glyphs */
     SDL_FPoint *xy;                         /**< An array of vertex positions */
     SDL_FPoint *uv;                         /**< An array of normalized texture coordinates for each vertex */
@@ -1948,7 +1957,7 @@ typedef struct TTF_GPUAtlasDrawSequence
  * \sa TTF_CreateGPUTextEngine
  * \sa TTF_CreateText
  */
-extern SDL_DECLSPEC TTF_GPUAtlasDrawSequence * SDLCALL TTF_GetGPUTextDrawData(TTF_Text *text);
+extern SDL_DECLSPEC TTF_GPUAtlasDrawSequence *SDLCALL TTF_GetGPUTextDrawData(TTF_Text *text);
 
 /**
  * Destroy a text engine created for drawing text with the SDL GPU API.
@@ -1973,8 +1982,7 @@ extern SDL_DECLSPEC void SDLCALL TTF_DestroyGPUTextEngine(TTF_TextEngine *engine
  *
  * \since This enum is available since SDL_ttf 3.0.0.
  */
-typedef enum TTF_GPUTextEngineWinding
-{
+typedef enum TTF_GPUTextEngineWinding {
     TTF_GPU_TEXTENGINE_WINDING_INVALID = -1,
     TTF_GPU_TEXTENGINE_WINDING_CLOCKWISE,
     TTF_GPU_TEXTENGINE_WINDING_COUNTER_CLOCKWISE
@@ -2034,7 +2042,8 @@ extern SDL_DECLSPEC TTF_GPUTextEngineWinding SDLCALL TTF_GetGPUTextEngineWinding
  *
  * \sa TTF_DestroyText
  */
-extern SDL_DECLSPEC TTF_Text * SDLCALL TTF_CreateText(TTF_TextEngine *engine, TTF_Font *font, const char *text, size_t length);
+extern SDL_DECLSPEC TTF_Text *
+SDLCALL TTF_CreateText(TTF_TextEngine *engine, TTF_Font *font, const char *text, size_t length);
 
 /**
  * Get the properties associated with a text object.
@@ -2083,7 +2092,7 @@ extern SDL_DECLSPEC bool SDLCALL TTF_SetTextEngine(TTF_Text *text, TTF_TextEngin
  *
  * \sa TTF_SetTextEngine
  */
-extern SDL_DECLSPEC TTF_TextEngine * SDLCALL TTF_GetTextEngine(TTF_Text *text);
+extern SDL_DECLSPEC TTF_TextEngine *SDLCALL TTF_GetTextEngine(TTF_Text *text);
 
 /**
  * Set the font used by a text object.
@@ -2122,7 +2131,7 @@ extern SDL_DECLSPEC bool SDLCALL TTF_SetTextFont(TTF_Text *text, TTF_Font *font)
  *
  * \sa TTF_SetTextFont
  */
-extern SDL_DECLSPEC TTF_Font * SDLCALL TTF_GetTextFont(TTF_Text *text);
+extern SDL_DECLSPEC TTF_Font *SDLCALL TTF_GetTextFont(TTF_Text *text);
 
 /**
  * Set the direction to be used for text shaping a text object.
@@ -2559,8 +2568,7 @@ typedef Uint32 TTF_SubStringFlags;
  * \sa TTF_GetTextSubStringForPoint
  * \sa TTF_GetTextSubStringsForRange
  */
-typedef struct TTF_SubString
-{
+typedef struct TTF_SubString {
     TTF_SubStringFlags flags;   /**< The flags for this substring */
     int offset;                 /**< The byte offset from the beginning of the text */
     int length;                 /**< The byte length starting at the offset */
@@ -2634,7 +2642,8 @@ extern SDL_DECLSPEC bool SDLCALL TTF_GetTextSubStringForLine(TTF_Text *text, int
  *
  * \since This function is available since SDL_ttf 3.0.0.
  */
-extern SDL_DECLSPEC TTF_SubString ** SDLCALL TTF_GetTextSubStringsForRange(TTF_Text *text, int offset, int length, int *count);
+extern SDL_DECLSPEC TTF_SubString **
+SDLCALL TTF_GetTextSubStringsForRange(TTF_Text *text, int offset, int length, int *count);
 
 /**
  * Get the portion of a text string that is closest to a point.
@@ -2674,7 +2683,8 @@ extern SDL_DECLSPEC bool SDLCALL TTF_GetTextSubStringForPoint(TTF_Text *text, in
  *
  * \since This function is available since SDL_ttf 3.0.0.
  */
-extern SDL_DECLSPEC bool SDLCALL TTF_GetPreviousTextSubString(TTF_Text *text, const TTF_SubString *substring, TTF_SubString *previous);
+extern SDL_DECLSPEC bool SDLCALL
+TTF_GetPreviousTextSubString(TTF_Text *text, const TTF_SubString *substring, TTF_SubString *previous);
 
 /**
  * Get the next substring in a text object
@@ -2693,7 +2703,8 @@ extern SDL_DECLSPEC bool SDLCALL TTF_GetPreviousTextSubString(TTF_Text *text, co
  *
  * \since This function is available since SDL_ttf 3.0.0.
  */
-extern SDL_DECLSPEC bool SDLCALL TTF_GetNextTextSubString(TTF_Text *text, const TTF_SubString *substring, TTF_SubString *next);
+extern SDL_DECLSPEC bool SDLCALL
+TTF_GetNextTextSubString(TTF_Text *text, const TTF_SubString *substring, TTF_SubString *next);
 
 /**
  * Update the layout of a text object.
@@ -2730,7 +2741,7 @@ extern SDL_DECLSPEC void SDLCALL TTF_DestroyText(TTF_Text *text);
 /**
  * Dispose of a previously-created font.
  *
- * Call this when done with a font. This function will free any resources
+ * Call this when done with a font. This function will free any Resources
  * associated with it. It is safe to call this function on NULL, for example
  * on the result of a failed call to TTF_OpenFont().
  *
@@ -2754,7 +2765,7 @@ extern SDL_DECLSPEC void SDLCALL TTF_CloseFont(TTF_Font *font);
 /**
  * Deinitialize SDL_ttf.
  *
- * You must call this when done with the library, to free internal resources.
+ * You must call this when done with the library, to free internal Resources.
  * It is safe to call this when the library isn't initialized, as it will just
  * return immediately.
  *
@@ -2801,6 +2812,7 @@ extern SDL_DECLSPEC int SDLCALL TTF_WasInit(void);
 #ifdef __cplusplus
 }
 #endif
+
 #include <SDL3/SDL_close_code.h>
 
 #endif /* SDL_TTF_H_ */

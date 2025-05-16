@@ -95,7 +95,7 @@ typedef Uint32 SDL_SensorID;
  * - `values[1]`: Acceleration on the y axis
  * - `values[2]`: Acceleration on the z axis
  *
- * For phones and tablets held in natural orientation and game controllers
+ * For phones and tablets held in natural orientation and game Controllers
  * held in front of you, the axes are defined as follows:
  *
  * - -X ... +X : left ... right
@@ -116,7 +116,7 @@ typedef Uint32 SDL_SensorID;
  * - `values[1]`: Angular speed around the y axis (yaw)
  * - `values[2]`: Angular speed around the z axis (roll)
  *
- * For phones and tablets held in natural orientation and game controllers
+ * For phones and tablets held in natural orientation and game Controllers
  * held in front of you, the axes are defined as follows:
  *
  * - -X ... +X : left ... right
@@ -129,8 +129,7 @@ typedef Uint32 SDL_SensorID;
  *
  * \sa SDL_GetCurrentDisplayOrientation
  */
-typedef enum SDL_SensorType
-{
+typedef enum SDL_SensorType {
     SDL_SENSOR_INVALID = -1,    /**< Returned for an invalid sensor */
     SDL_SENSOR_UNKNOWN,         /**< Unknown sensor type */
     SDL_SENSOR_ACCEL,           /**< Accelerometer */
@@ -155,7 +154,7 @@ typedef enum SDL_SensorType
  *
  * \since This function is available since SDL 3.2.0.
  */
-extern SDL_DECLSPEC SDL_SensorID * SDLCALL SDL_GetSensors(int *count);
+extern SDL_DECLSPEC SDL_SensorID *SDLCALL SDL_GetSensors(int *count);
 
 /**
  * Get the implementation dependent name of a sensor.
@@ -167,7 +166,7 @@ extern SDL_DECLSPEC SDL_SensorID * SDLCALL SDL_GetSensors(int *count);
  *
  * \since This function is available since SDL 3.2.0.
  */
-extern SDL_DECLSPEC const char * SDLCALL SDL_GetSensorNameForID(SDL_SensorID instance_id);
+extern SDL_DECLSPEC const char *SDLCALL SDL_GetSensorNameForID(SDL_SensorID instance_id);
 
 /**
  * Get the type of a sensor.
@@ -204,7 +203,7 @@ extern SDL_DECLSPEC int SDLCALL SDL_GetSensorNonPortableTypeForID(SDL_SensorID i
  *
  * \since This function is available since SDL 3.2.0.
  */
-extern SDL_DECLSPEC SDL_Sensor * SDLCALL SDL_OpenSensor(SDL_SensorID instance_id);
+extern SDL_DECLSPEC SDL_Sensor *SDLCALL SDL_OpenSensor(SDL_SensorID instance_id);
 
 /**
  * Return the SDL_Sensor associated with an instance ID.
@@ -215,7 +214,7 @@ extern SDL_DECLSPEC SDL_Sensor * SDLCALL SDL_OpenSensor(SDL_SensorID instance_id
  *
  * \since This function is available since SDL 3.2.0.
  */
-extern SDL_DECLSPEC SDL_Sensor * SDLCALL SDL_GetSensorFromID(SDL_SensorID instance_id);
+extern SDL_DECLSPEC SDL_Sensor *SDLCALL SDL_GetSensorFromID(SDL_SensorID instance_id);
 
 /**
  * Get the properties associated with a sensor.
@@ -237,7 +236,7 @@ extern SDL_DECLSPEC SDL_PropertiesID SDLCALL SDL_GetSensorProperties(SDL_Sensor 
  *
  * \since This function is available since SDL 3.2.0.
  */
-extern SDL_DECLSPEC const char * SDLCALL SDL_GetSensorName(SDL_Sensor *sensor);
+extern SDL_DECLSPEC const char *SDLCALL SDL_GetSensorName(SDL_Sensor *sensor);
 
 /**
  * Get the type of a sensor.
@@ -315,6 +314,7 @@ extern SDL_DECLSPEC void SDLCALL SDL_UpdateSensors(void);
 }
 /* *INDENT-ON* */
 #endif
+
 #include <SDL3/SDL_close_code.h>
 
 #endif /* SDL_sensor_h_ */

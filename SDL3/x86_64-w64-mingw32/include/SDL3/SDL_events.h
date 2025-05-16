@@ -81,12 +81,11 @@ extern "C" {
  *
  * \since This enum is available since SDL 3.2.0.
  */
-typedef enum SDL_EventType
-{
-    SDL_EVENT_FIRST     = 0,     /**< Unused (do not remove) */
+typedef enum SDL_EventType {
+    SDL_EVENT_FIRST = 0,     /**< Unused (do not remove) */
 
     /* Application events */
-    SDL_EVENT_QUIT           = 0x100, /**< User-requested quit */
+    SDL_EVENT_QUIT = 0x100, /**< User-requested quit */
 
     /* These application events have special meaning on iOS and Android, see README-ios.md and README-android.md for details */
     SDL_EVENT_TERMINATING,      /**< The application is being terminated by the OS. This event must be handled in a callback set with SDL_AddEventWatch().
@@ -158,14 +157,14 @@ typedef enum SDL_EventType
     SDL_EVENT_WINDOW_LEAVE_FULLSCREEN,  /**< The window has left fullscreen mode */
     SDL_EVENT_WINDOW_DESTROYED,         /**< The window with the associated ID is being or has been destroyed. If this message is being handled
                                              in an event watcher, the window handle is still valid and can still be used to retrieve any properties
-                                             associated with the window. Otherwise, the handle has already been destroyed and all resources
+                                             associated with the window. Otherwise, the handle has already been destroyed and all Resources
                                              associated with it are invalid */
     SDL_EVENT_WINDOW_HDR_STATE_CHANGED, /**< Window HDR properties have changed */
     SDL_EVENT_WINDOW_FIRST = SDL_EVENT_WINDOW_SHOWN,
     SDL_EVENT_WINDOW_LAST = SDL_EVENT_WINDOW_HDR_STATE_CHANGED,
 
     /* Keyboard events */
-    SDL_EVENT_KEY_DOWN        = 0x300, /**< Key pressed */
+    SDL_EVENT_KEY_DOWN = 0x300, /**< Key pressed */
     SDL_EVENT_KEY_UP,                  /**< Key released */
     SDL_EVENT_TEXT_EDITING,            /**< Keyboard text editing (composition) */
     SDL_EVENT_TEXT_INPUT,              /**< Keyboard text input */
@@ -176,7 +175,7 @@ typedef enum SDL_EventType
     SDL_EVENT_TEXT_EDITING_CANDIDATES, /**< Keyboard text editing candidates */
 
     /* Mouse events */
-    SDL_EVENT_MOUSE_MOTION    = 0x400, /**< Mouse moved */
+    SDL_EVENT_MOUSE_MOTION = 0x400, /**< Mouse moved */
     SDL_EVENT_MOUSE_BUTTON_DOWN,       /**< Mouse button pressed */
     SDL_EVENT_MOUSE_BUTTON_UP,         /**< Mouse button released */
     SDL_EVENT_MOUSE_WHEEL,             /**< Mouse wheel motion */
@@ -184,7 +183,7 @@ typedef enum SDL_EventType
     SDL_EVENT_MOUSE_REMOVED,           /**< A mouse has been removed */
 
     /* Joystick events */
-    SDL_EVENT_JOYSTICK_AXIS_MOTION  = 0x600, /**< Joystick axis motion */
+    SDL_EVENT_JOYSTICK_AXIS_MOTION = 0x600, /**< Joystick axis motion */
     SDL_EVENT_JOYSTICK_BALL_MOTION,          /**< Joystick trackball motion */
     SDL_EVENT_JOYSTICK_HAT_MOTION,           /**< Joystick hat position change */
     SDL_EVENT_JOYSTICK_BUTTON_DOWN,          /**< Joystick button pressed */
@@ -195,7 +194,7 @@ typedef enum SDL_EventType
     SDL_EVENT_JOYSTICK_UPDATE_COMPLETE,      /**< Joystick update is complete */
 
     /* Gamepad events */
-    SDL_EVENT_GAMEPAD_AXIS_MOTION  = 0x650, /**< Gamepad axis motion */
+    SDL_EVENT_GAMEPAD_AXIS_MOTION = 0x650, /**< Gamepad axis motion */
     SDL_EVENT_GAMEPAD_BUTTON_DOWN,          /**< Gamepad button pressed */
     SDL_EVENT_GAMEPAD_BUTTON_UP,            /**< Gamepad button released */
     SDL_EVENT_GAMEPAD_ADDED,                /**< A new gamepad has been inserted into the system */
@@ -209,7 +208,7 @@ typedef enum SDL_EventType
     SDL_EVENT_GAMEPAD_STEAM_HANDLE_UPDATED,  /**< Gamepad Steam handle has changed */
 
     /* Touch events */
-    SDL_EVENT_FINGER_DOWN      = 0x700,
+    SDL_EVENT_FINGER_DOWN = 0x700,
     SDL_EVENT_FINGER_UP,
     SDL_EVENT_FINGER_MOTION,
     SDL_EVENT_FINGER_CANCELED,
@@ -220,7 +219,7 @@ typedef enum SDL_EventType
     SDL_EVENT_CLIPBOARD_UPDATE = 0x900, /**< The clipboard or primary selection changed */
 
     /* Drag and drop events */
-    SDL_EVENT_DROP_FILE        = 0x1000, /**< The system requests a file open */
+    SDL_EVENT_DROP_FILE = 0x1000, /**< The system requests a file open */
     SDL_EVENT_DROP_TEXT,                 /**< text/plain drag-and-drop event */
     SDL_EVENT_DROP_BEGIN,                /**< A new set of drops is beginning (NULL filename) */
     SDL_EVENT_DROP_COMPLETE,             /**< Current set of drops is now complete (NULL filename) */
@@ -267,12 +266,12 @@ typedef enum SDL_EventType
     /** Events SDL_EVENT_USER through SDL_EVENT_LAST are for your use,
      *  and should be allocated with SDL_RegisterEvents()
      */
-    SDL_EVENT_USER    = 0x8000,
+    SDL_EVENT_USER = 0x8000,
 
     /**
      *  This last event is only for bounding internal arrays
      */
-    SDL_EVENT_LAST    = 0xFFFF,
+    SDL_EVENT_LAST = 0xFFFF,
 
     /* This just makes sure the enum is the size of Uint32 */
     SDL_EVENT_ENUM_PADDING = 0x7FFFFFFF
@@ -284,8 +283,7 @@ typedef enum SDL_EventType
  *
  * \since This struct is available since SDL 3.2.0.
  */
-typedef struct SDL_CommonEvent
-{
+typedef struct SDL_CommonEvent {
     Uint32 type;        /**< Event type, shared with all events, Uint32 to cover user events which are not in the SDL_EventType enumeration */
     Uint32 reserved;
     Uint64 timestamp;   /**< In nanoseconds, populated using SDL_GetTicksNS() */
@@ -296,8 +294,7 @@ typedef struct SDL_CommonEvent
  *
  * \since This struct is available since SDL 3.2.0.
  */
-typedef struct SDL_DisplayEvent
-{
+typedef struct SDL_DisplayEvent {
     SDL_EventType type; /**< SDL_DISPLAYEVENT_* */
     Uint32 reserved;
     Uint64 timestamp;   /**< In nanoseconds, populated using SDL_GetTicksNS() */
@@ -311,8 +308,7 @@ typedef struct SDL_DisplayEvent
  *
  * \since This struct is available since SDL 3.2.0.
  */
-typedef struct SDL_WindowEvent
-{
+typedef struct SDL_WindowEvent {
     SDL_EventType type; /**< SDL_EVENT_WINDOW_* */
     Uint32 reserved;
     Uint64 timestamp;   /**< In nanoseconds, populated using SDL_GetTicksNS() */
@@ -326,8 +322,7 @@ typedef struct SDL_WindowEvent
  *
  * \since This struct is available since SDL 3.2.0.
  */
-typedef struct SDL_KeyboardDeviceEvent
-{
+typedef struct SDL_KeyboardDeviceEvent {
     SDL_EventType type; /**< SDL_EVENT_KEYBOARD_ADDED or SDL_EVENT_KEYBOARD_REMOVED */
     Uint32 reserved;
     Uint64 timestamp;   /**< In nanoseconds, populated using SDL_GetTicksNS() */
@@ -348,8 +343,7 @@ typedef struct SDL_KeyboardDeviceEvent
  * \sa SDL_GetKeyFromScancode
  * \sa SDL_HINT_KEYCODE_OPTIONS
  */
-typedef struct SDL_KeyboardEvent
-{
+typedef struct SDL_KeyboardEvent {
     SDL_EventType type;     /**< SDL_EVENT_KEY_DOWN or SDL_EVENT_KEY_UP */
     Uint32 reserved;
     Uint64 timestamp;       /**< In nanoseconds, populated using SDL_GetTicksNS() */
@@ -372,8 +366,7 @@ typedef struct SDL_KeyboardEvent
  *
  * \since This struct is available since SDL 3.2.0.
  */
-typedef struct SDL_TextEditingEvent
-{
+typedef struct SDL_TextEditingEvent {
     SDL_EventType type;         /**< SDL_EVENT_TEXT_EDITING */
     Uint32 reserved;
     Uint64 timestamp;           /**< In nanoseconds, populated using SDL_GetTicksNS() */
@@ -388,13 +381,12 @@ typedef struct SDL_TextEditingEvent
  *
  * \since This struct is available since SDL 3.2.0.
  */
-typedef struct SDL_TextEditingCandidatesEvent
-{
+typedef struct SDL_TextEditingCandidatesEvent {
     SDL_EventType type;         /**< SDL_EVENT_TEXT_EDITING_CANDIDATES */
     Uint32 reserved;
     Uint64 timestamp;           /**< In nanoseconds, populated using SDL_GetTicksNS() */
     SDL_WindowID windowID;      /**< The window with keyboard focus, if any */
-    const char * const *candidates;    /**< The list of candidates, or NULL if there are no candidates available */
+    const char *const *candidates;    /**< The list of candidates, or NULL if there are no candidates available */
     Sint32 num_candidates;      /**< The number of strings in `candidates` */
     Sint32 selected_candidate;  /**< The index of the selected candidate, or -1 if no candidate is selected */
     bool horizontal;          /**< true if the list is horizontal, false if it's vertical */
@@ -414,8 +406,7 @@ typedef struct SDL_TextEditingCandidatesEvent
  * \sa SDL_StartTextInput
  * \sa SDL_StopTextInput
  */
-typedef struct SDL_TextInputEvent
-{
+typedef struct SDL_TextInputEvent {
     SDL_EventType type; /**< SDL_EVENT_TEXT_INPUT */
     Uint32 reserved;
     Uint64 timestamp;   /**< In nanoseconds, populated using SDL_GetTicksNS() */
@@ -428,8 +419,7 @@ typedef struct SDL_TextInputEvent
  *
  * \since This struct is available since SDL 3.2.0.
  */
-typedef struct SDL_MouseDeviceEvent
-{
+typedef struct SDL_MouseDeviceEvent {
     SDL_EventType type; /**< SDL_EVENT_MOUSE_ADDED or SDL_EVENT_MOUSE_REMOVED */
     Uint32 reserved;
     Uint64 timestamp;   /**< In nanoseconds, populated using SDL_GetTicksNS() */
@@ -441,8 +431,7 @@ typedef struct SDL_MouseDeviceEvent
  *
  * \since This struct is available since SDL 3.2.0.
  */
-typedef struct SDL_MouseMotionEvent
-{
+typedef struct SDL_MouseMotionEvent {
     SDL_EventType type; /**< SDL_EVENT_MOUSE_MOTION */
     Uint32 reserved;
     Uint64 timestamp;   /**< In nanoseconds, populated using SDL_GetTicksNS() */
@@ -460,8 +449,7 @@ typedef struct SDL_MouseMotionEvent
  *
  * \since This struct is available since SDL 3.2.0.
  */
-typedef struct SDL_MouseButtonEvent
-{
+typedef struct SDL_MouseButtonEvent {
     SDL_EventType type; /**< SDL_EVENT_MOUSE_BUTTON_DOWN or SDL_EVENT_MOUSE_BUTTON_UP */
     Uint32 reserved;
     Uint64 timestamp;   /**< In nanoseconds, populated using SDL_GetTicksNS() */
@@ -480,8 +468,7 @@ typedef struct SDL_MouseButtonEvent
  *
  * \since This struct is available since SDL 3.2.0.
  */
-typedef struct SDL_MouseWheelEvent
-{
+typedef struct SDL_MouseWheelEvent {
     SDL_EventType type; /**< SDL_EVENT_MOUSE_WHEEL */
     Uint32 reserved;
     Uint64 timestamp;   /**< In nanoseconds, populated using SDL_GetTicksNS() */
@@ -499,8 +486,7 @@ typedef struct SDL_MouseWheelEvent
  *
  * \since This struct is available since SDL 3.2.0.
  */
-typedef struct SDL_JoyAxisEvent
-{
+typedef struct SDL_JoyAxisEvent {
     SDL_EventType type; /**< SDL_EVENT_JOYSTICK_AXIS_MOTION */
     Uint32 reserved;
     Uint64 timestamp;   /**< In nanoseconds, populated using SDL_GetTicksNS() */
@@ -518,8 +504,7 @@ typedef struct SDL_JoyAxisEvent
  *
  * \since This struct is available since SDL 3.2.0.
  */
-typedef struct SDL_JoyBallEvent
-{
+typedef struct SDL_JoyBallEvent {
     SDL_EventType type; /**< SDL_EVENT_JOYSTICK_BALL_MOTION */
     Uint32 reserved;
     Uint64 timestamp;   /**< In nanoseconds, populated using SDL_GetTicksNS() */
@@ -537,8 +522,7 @@ typedef struct SDL_JoyBallEvent
  *
  * \since This struct is available since SDL 3.2.0.
  */
-typedef struct SDL_JoyHatEvent
-{
+typedef struct SDL_JoyHatEvent {
     SDL_EventType type; /**< SDL_EVENT_JOYSTICK_HAT_MOTION */
     Uint32 reserved;
     Uint64 timestamp;   /**< In nanoseconds, populated using SDL_GetTicksNS() */
@@ -560,8 +544,7 @@ typedef struct SDL_JoyHatEvent
  *
  * \since This struct is available since SDL 3.2.0.
  */
-typedef struct SDL_JoyButtonEvent
-{
+typedef struct SDL_JoyButtonEvent {
     SDL_EventType type; /**< SDL_EVENT_JOYSTICK_BUTTON_DOWN or SDL_EVENT_JOYSTICK_BUTTON_UP */
     Uint32 reserved;
     Uint64 timestamp;   /**< In nanoseconds, populated using SDL_GetTicksNS() */
@@ -582,8 +565,7 @@ typedef struct SDL_JoyButtonEvent
  *
  * \sa SDL_GamepadDeviceEvent
  */
-typedef struct SDL_JoyDeviceEvent
-{
+typedef struct SDL_JoyDeviceEvent {
     SDL_EventType type; /**< SDL_EVENT_JOYSTICK_ADDED or SDL_EVENT_JOYSTICK_REMOVED or SDL_EVENT_JOYSTICK_UPDATE_COMPLETE */
     Uint32 reserved;
     Uint64 timestamp;   /**< In nanoseconds, populated using SDL_GetTicksNS() */
@@ -595,8 +577,7 @@ typedef struct SDL_JoyDeviceEvent
  *
  * \since This struct is available since SDL 3.2.0.
  */
-typedef struct SDL_JoyBatteryEvent
-{
+typedef struct SDL_JoyBatteryEvent {
     SDL_EventType type; /**< SDL_EVENT_JOYSTICK_BATTERY_UPDATED */
     Uint32 reserved;
     Uint64 timestamp;   /**< In nanoseconds, populated using SDL_GetTicksNS() */
@@ -610,8 +591,7 @@ typedef struct SDL_JoyBatteryEvent
  *
  * \since This struct is available since SDL 3.2.0.
  */
-typedef struct SDL_GamepadAxisEvent
-{
+typedef struct SDL_GamepadAxisEvent {
     SDL_EventType type; /**< SDL_EVENT_GAMEPAD_AXIS_MOTION */
     Uint32 reserved;
     Uint64 timestamp;   /**< In nanoseconds, populated using SDL_GetTicksNS() */
@@ -630,8 +610,7 @@ typedef struct SDL_GamepadAxisEvent
  *
  * \since This struct is available since SDL 3.2.0.
  */
-typedef struct SDL_GamepadButtonEvent
-{
+typedef struct SDL_GamepadButtonEvent {
     SDL_EventType type; /**< SDL_EVENT_GAMEPAD_BUTTON_DOWN or SDL_EVENT_GAMEPAD_BUTTON_UP */
     Uint32 reserved;
     Uint64 timestamp;   /**< In nanoseconds, populated using SDL_GetTicksNS() */
@@ -657,8 +636,7 @@ typedef struct SDL_GamepadButtonEvent
  *
  * \sa SDL_JoyDeviceEvent
  */
-typedef struct SDL_GamepadDeviceEvent
-{
+typedef struct SDL_GamepadDeviceEvent {
     SDL_EventType type; /**< SDL_EVENT_GAMEPAD_ADDED, SDL_EVENT_GAMEPAD_REMOVED, or SDL_EVENT_GAMEPAD_REMAPPED, SDL_EVENT_GAMEPAD_UPDATE_COMPLETE or SDL_EVENT_GAMEPAD_STEAM_HANDLE_UPDATED */
     Uint32 reserved;
     Uint64 timestamp;   /**< In nanoseconds, populated using SDL_GetTicksNS() */
@@ -670,8 +648,7 @@ typedef struct SDL_GamepadDeviceEvent
  *
  * \since This struct is available since SDL 3.2.0.
  */
-typedef struct SDL_GamepadTouchpadEvent
-{
+typedef struct SDL_GamepadTouchpadEvent {
     SDL_EventType type; /**< SDL_EVENT_GAMEPAD_TOUCHPAD_DOWN or SDL_EVENT_GAMEPAD_TOUCHPAD_MOTION or SDL_EVENT_GAMEPAD_TOUCHPAD_UP */
     Uint32 reserved;
     Uint64 timestamp;   /**< In nanoseconds, populated using SDL_GetTicksNS() */
@@ -688,8 +665,7 @@ typedef struct SDL_GamepadTouchpadEvent
  *
  * \since This struct is available since SDL 3.2.0.
  */
-typedef struct SDL_GamepadSensorEvent
-{
+typedef struct SDL_GamepadSensorEvent {
     SDL_EventType type; /**< SDL_EVENT_GAMEPAD_SENSOR_UPDATE */
     Uint32 reserved;
     Uint64 timestamp;   /**< In nanoseconds, populated using SDL_GetTicksNS() */
@@ -704,8 +680,7 @@ typedef struct SDL_GamepadSensorEvent
  *
  * \since This struct is available since SDL 3.2.0.
  */
-typedef struct SDL_AudioDeviceEvent
-{
+typedef struct SDL_AudioDeviceEvent {
     SDL_EventType type; /**< SDL_EVENT_AUDIO_DEVICE_ADDED, or SDL_EVENT_AUDIO_DEVICE_REMOVED, or SDL_EVENT_AUDIO_DEVICE_FORMAT_CHANGED */
     Uint32 reserved;
     Uint64 timestamp;   /**< In nanoseconds, populated using SDL_GetTicksNS() */
@@ -721,8 +696,7 @@ typedef struct SDL_AudioDeviceEvent
  *
  * \since This struct is available since SDL 3.2.0.
  */
-typedef struct SDL_CameraDeviceEvent
-{
+typedef struct SDL_CameraDeviceEvent {
     SDL_EventType type; /**< SDL_EVENT_CAMERA_DEVICE_ADDED, SDL_EVENT_CAMERA_DEVICE_REMOVED, SDL_EVENT_CAMERA_DEVICE_APPROVED, SDL_EVENT_CAMERA_DEVICE_DENIED */
     Uint32 reserved;
     Uint64 timestamp;   /**< In nanoseconds, populated using SDL_GetTicksNS() */
@@ -735,8 +709,7 @@ typedef struct SDL_CameraDeviceEvent
  *
  * \since This struct is available since SDL 3.2.0.
  */
-typedef struct SDL_RenderEvent
-{
+typedef struct SDL_RenderEvent {
     SDL_EventType type; /**< SDL_EVENT_RENDER_TARGETS_RESET, SDL_EVENT_RENDER_DEVICE_RESET, SDL_EVENT_RENDER_DEVICE_LOST */
     Uint32 reserved;
     Uint64 timestamp;   /**< In nanoseconds, populated using SDL_GetTicksNS() */
@@ -763,8 +736,7 @@ typedef struct SDL_RenderEvent
  *
  * \since This struct is available since SDL 3.2.0.
  */
-typedef struct SDL_TouchFingerEvent
-{
+typedef struct SDL_TouchFingerEvent {
     SDL_EventType type; /**< SDL_EVENT_FINGER_DOWN, SDL_EVENT_FINGER_UP, SDL_EVENT_FINGER_MOTION, or SDL_EVENT_FINGER_CANCELED */
     Uint32 reserved;
     Uint64 timestamp;   /**< In nanoseconds, populated using SDL_GetTicksNS() */
@@ -793,8 +765,7 @@ typedef struct SDL_TouchFingerEvent
  *
  * \since This struct is available since SDL 3.2.0.
  */
-typedef struct SDL_PenProximityEvent
-{
+typedef struct SDL_PenProximityEvent {
     SDL_EventType type; /**< SDL_EVENT_PEN_PROXIMITY_IN or SDL_EVENT_PEN_PROXIMITY_OUT */
     Uint32 reserved;
     Uint64 timestamp;   /**< In nanoseconds, populated using SDL_GetTicksNS() */
@@ -813,8 +784,7 @@ typedef struct SDL_PenProximityEvent
  *
  * \since This struct is available since SDL 3.2.0.
  */
-typedef struct SDL_PenMotionEvent
-{
+typedef struct SDL_PenMotionEvent {
     SDL_EventType type; /**< SDL_EVENT_PEN_MOTION */
     Uint32 reserved;
     Uint64 timestamp;   /**< In nanoseconds, populated using SDL_GetTicksNS() */
@@ -833,8 +803,7 @@ typedef struct SDL_PenMotionEvent
  *
  * \since This struct is available since SDL 3.2.0.
  */
-typedef struct SDL_PenTouchEvent
-{
+typedef struct SDL_PenTouchEvent {
     SDL_EventType type;     /**< SDL_EVENT_PEN_DOWN or SDL_EVENT_PEN_UP */
     Uint32 reserved;
     Uint64 timestamp;       /**< In nanoseconds, populated using SDL_GetTicksNS() */
@@ -855,8 +824,7 @@ typedef struct SDL_PenTouchEvent
  *
  * \since This struct is available since SDL 3.2.0.
  */
-typedef struct SDL_PenButtonEvent
-{
+typedef struct SDL_PenButtonEvent {
     SDL_EventType type; /**< SDL_EVENT_PEN_BUTTON_DOWN or SDL_EVENT_PEN_BUTTON_UP */
     Uint32 reserved;
     Uint64 timestamp;   /**< In nanoseconds, populated using SDL_GetTicksNS() */
@@ -877,8 +845,7 @@ typedef struct SDL_PenButtonEvent
  *
  * \since This struct is available since SDL 3.2.0.
  */
-typedef struct SDL_PenAxisEvent
-{
+typedef struct SDL_PenAxisEvent {
     SDL_EventType type;     /**< SDL_EVENT_PEN_AXIS */
     Uint32 reserved;
     Uint64 timestamp;       /**< In nanoseconds, populated using SDL_GetTicksNS() */
@@ -897,8 +864,7 @@ typedef struct SDL_PenAxisEvent
  *
  * \since This struct is available since SDL 3.2.0.
  */
-typedef struct SDL_DropEvent
-{
+typedef struct SDL_DropEvent {
     SDL_EventType type; /**< SDL_EVENT_DROP_BEGIN or SDL_EVENT_DROP_FILE or SDL_EVENT_DROP_TEXT or SDL_EVENT_DROP_COMPLETE or SDL_EVENT_DROP_POSITION */
     Uint32 reserved;
     Uint64 timestamp;   /**< In nanoseconds, populated using SDL_GetTicksNS() */
@@ -915,8 +881,7 @@ typedef struct SDL_DropEvent
  *
  * \since This struct is available since SDL 3.2.0.
  */
-typedef struct SDL_ClipboardEvent
-{
+typedef struct SDL_ClipboardEvent {
     SDL_EventType type; /**< SDL_EVENT_CLIPBOARD_UPDATE */
     Uint32 reserved;
     Uint64 timestamp;   /**< In nanoseconds, populated using SDL_GetTicksNS() */
@@ -930,8 +895,7 @@ typedef struct SDL_ClipboardEvent
  *
  * \since This struct is available since SDL 3.2.0.
  */
-typedef struct SDL_SensorEvent
-{
+typedef struct SDL_SensorEvent {
     SDL_EventType type; /**< SDL_EVENT_SENSOR_UPDATE */
     Uint32 reserved;
     Uint64 timestamp;   /**< In nanoseconds, populated using SDL_GetTicksNS() */
@@ -945,8 +909,7 @@ typedef struct SDL_SensorEvent
  *
  * \since This struct is available since SDL 3.2.0.
  */
-typedef struct SDL_QuitEvent
-{
+typedef struct SDL_QuitEvent {
     SDL_EventType type; /**< SDL_EVENT_QUIT */
     Uint32 reserved;
     Uint64 timestamp;   /**< In nanoseconds, populated using SDL_GetTicksNS() */
@@ -963,8 +926,7 @@ typedef struct SDL_QuitEvent
  *
  * \since This struct is available since SDL 3.2.0.
  */
-typedef struct SDL_UserEvent
-{
+typedef struct SDL_UserEvent {
     Uint32 type;        /**< SDL_EVENT_USER through SDL_EVENT_LAST-1, Uint32 because these are not in the SDL_EventType enumeration */
     Uint32 reserved;
     Uint64 timestamp;   /**< In nanoseconds, populated using SDL_GetTicksNS() */
@@ -983,8 +945,7 @@ typedef struct SDL_UserEvent
  *
  * \since This struct is available since SDL 3.2.0.
  */
-typedef union SDL_Event
-{
+typedef union SDL_Event {
     Uint32 type;                            /**< Event type, shared with all events, Uint32 to cover user events which are not in the SDL_EventType enumeration */
     SDL_CommonEvent common;                 /**< Common event data */
     SDL_DisplayEvent display;               /**< Display event data */
@@ -1041,7 +1002,7 @@ typedef union SDL_Event
 } SDL_Event;
 
 /* Make sure we haven't broken binary compatibility */
-SDL_COMPILE_TIME_ASSERT(SDL_Event, sizeof(SDL_Event) == sizeof(((SDL_Event *)NULL)->padding));
+SDL_COMPILE_TIME_ASSERT(SDL_Event, sizeof(SDL_Event) == sizeof(((SDL_Event *) NULL)->padding));
 
 
 /* Function prototypes */
@@ -1075,8 +1036,7 @@ extern SDL_DECLSPEC void SDLCALL SDL_PumpEvents(void);
  *
  * \since This enum is available since SDL 3.2.0.
  */
-typedef enum SDL_EventAction
-{
+typedef enum SDL_EventAction {
     SDL_ADDEVENT,  /**< Add events to the back of the queue. */
     SDL_PEEKEVENT, /**< Check but don't remove events from the queue front. */
     SDL_GETEVENT   /**< Retrieve/remove events from the front of the queue. */
@@ -1124,7 +1084,8 @@ typedef enum SDL_EventAction
  * \sa SDL_PumpEvents
  * \sa SDL_PushEvent
  */
-extern SDL_DECLSPEC int SDLCALL SDL_PeepEvents(SDL_Event *events, int numevents, SDL_EventAction action, Uint32 minType, Uint32 maxType);
+extern SDL_DECLSPEC int SDLCALL
+SDL_PeepEvents(SDL_Event *events, int numevents, SDL_EventAction action, Uint32 minType, Uint32 maxType);
 /* @} */
 
 /**
@@ -1366,7 +1327,7 @@ extern SDL_DECLSPEC bool SDLCALL SDL_PushEvent(SDL_Event *event);
  *          ignored.
  *
  * \threadsafety SDL may call this callback at any time from any thread; the
- *               application is responsible for locking resources the callback
+ *               application is responsible for locking Resources the callback
  *               touches that need to be protected.
  *
  * \since This datatype is available since SDL 3.2.0.
@@ -1563,12 +1524,13 @@ extern SDL_DECLSPEC Uint32 SDLCALL SDL_RegisterEvents(int numevents);
  * \sa SDL_WaitEvent
  * \sa SDL_WaitEventTimeout
  */
-extern SDL_DECLSPEC SDL_Window * SDLCALL SDL_GetWindowFromEvent(const SDL_Event *event);
+extern SDL_DECLSPEC SDL_Window *SDLCALL SDL_GetWindowFromEvent(const SDL_Event *event);
 
 /* Ends C function definitions when using C++ */
 #ifdef __cplusplus
 }
 #endif
+
 #include <SDL3/SDL_close_code.h>
 
 #endif /* SDL_events_h_ */

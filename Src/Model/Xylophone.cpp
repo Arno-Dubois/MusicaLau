@@ -2,7 +2,7 @@
 // Created by coren on 24/03/2025.
 //
 
-#include "../../include/models/Xylophone.h"
+#include "../../include/Model/Xylophone.h"
 
 Xylophone::Xylophone(float x, float y, float width, float height, int bars)
         : x(x), y(y), width(width), height(height), bars(bars) {

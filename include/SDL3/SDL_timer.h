@@ -318,7 +318,7 @@ typedef Uint32 SDL_TimerID;
  *          the callback.
  *
  * \threadsafety SDL may call this callback at any time from a background
- *               thread; the application is responsible for locking resources
+ *               thread; the application is responsible for locking Resources
  *               the callback touches that need to be protected.
  *
  * \since This datatype is available since SDL 3.2.0.
@@ -380,7 +380,7 @@ extern SDL_DECLSPEC SDL_TimerID SDLCALL SDL_AddTimer(Uint32 interval, SDL_TimerC
  *          the callback.
  *
  * \threadsafety SDL may call this callback at any time from a background
- *               thread; the application is responsible for locking resources
+ *               thread; the application is responsible for locking Resources
  *               the callback touches that need to be protected.
  *
  * \since This datatype is available since SDL 3.2.0.
@@ -445,6 +445,7 @@ extern SDL_DECLSPEC bool SDLCALL SDL_RemoveTimer(SDL_TimerID id);
 #ifdef __cplusplus
 }
 #endif
+
 #include <SDL3/SDL_close_code.h>
 
 #endif /* SDL_timer_h_ */

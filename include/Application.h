@@ -1,11 +1,11 @@
 #pragma once
 
 #include <SDL3/SDL.h>
-#include "controllers/Controller.h"
-#include "controllers/PianoAppController.h"
-#include "controllers/XylophoneAppController.h"
-#include "controllers/VideoGameAppController.h"
-#include "utils/DropdownMenu.h"
+#include "Controller/Controller.h"
+#include "Controller/PianoAppController.h"
+#include "Controller/XylophoneAppController.h"
+#include "Controller/VideoGameAppController.h"
+#include "Utils/DropdownMenu.h"
 
 enum class InstrumentType {
     PIANO,

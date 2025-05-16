@@ -78,7 +78,7 @@ extern "C" {
  *   `/Applications/SDLApp/`
  *
  * **Nintendo 3DS Specific Functionality**: This function returns "romfs"
- * directory of the application as it is uncommon to store resources outside
+ * directory of the application as it is uncommon to store Resources outside
  * the executable. As such it is not a writable directory.
  *
  * The returned path is guaranteed to end with a path separator ('\\' on
@@ -93,7 +93,7 @@ extern "C" {
  *
  * \sa SDL_GetPrefPath
  */
-extern SDL_DECLSPEC const char * SDLCALL SDL_GetBasePath(void);
+extern SDL_DECLSPEC const char *SDLCALL SDL_GetBasePath(void);
 
 /**
  * Get the user-and-app-specific path where files can be written.
@@ -148,7 +148,7 @@ extern SDL_DECLSPEC const char * SDLCALL SDL_GetBasePath(void);
  *
  * \sa SDL_GetBasePath
  */
-extern SDL_DECLSPEC char * SDLCALL SDL_GetPrefPath(const char *org, const char *app);
+extern SDL_DECLSPEC char *SDLCALL SDL_GetPrefPath(const char *org, const char *app);
 
 /**
  * The type of the OS-provided default folder for a specific purpose.
@@ -179,8 +179,7 @@ extern SDL_DECLSPEC char * SDLCALL SDL_GetPrefPath(const char *org, const char *
  *
  * \sa SDL_GetUserFolder
  */
-typedef enum SDL_Folder
-{
+typedef enum SDL_Folder {
     SDL_FOLDER_HOME,        /**< The folder which contains all of the current user's data, preferences, and documents. It usually contains most of the other folders. If a requested folder does not exist, the home folder can be considered a safe fallback to store a user's documents. */
     SDL_FOLDER_DESKTOP,     /**< The folder of files that are displayed on the desktop. Note that the existence of a desktop folder does not guarantee that the system does show icons on its desktop; certain GNU/Linux distros with a graphical environment may not have desktop icons. */
     SDL_FOLDER_DOCUMENTS,   /**< User document files, possibly application-specific. This is a good place to save a user's projects. */
@@ -218,7 +217,7 @@ typedef enum SDL_Folder
  *
  * \since This function is available since SDL 3.2.0.
  */
-extern SDL_DECLSPEC const char * SDLCALL SDL_GetUserFolder(SDL_Folder folder);
+extern SDL_DECLSPEC const char *SDLCALL SDL_GetUserFolder(SDL_Folder folder);
 
 
 /* Abstract filesystem interface */
@@ -234,8 +233,7 @@ extern SDL_DECLSPEC const char * SDLCALL SDL_GetUserFolder(SDL_Folder folder);
  *
  * \sa SDL_PathInfo
  */
-typedef enum SDL_PathType
-{
+typedef enum SDL_PathType {
     SDL_PATHTYPE_NONE,      /**< path does not exist */
     SDL_PATHTYPE_FILE,      /**< a normal file */
     SDL_PATHTYPE_DIRECTORY, /**< a directory */
@@ -250,8 +248,7 @@ typedef enum SDL_PathType
  * \sa SDL_GetPathInfo
  * \sa SDL_GetStoragePathInfo
  */
-typedef struct SDL_PathInfo
-{
+typedef struct SDL_PathInfo {
     SDL_PathType type;      /**< the path type */
     Uint64 size;            /**< the file size in bytes */
     SDL_Time create_time;   /**< the time when the path was created */
@@ -294,8 +291,7 @@ extern SDL_DECLSPEC bool SDLCALL SDL_CreateDirectory(const char *path);
  *
  * \sa SDL_EnumerateDirectoryCallback
  */
-typedef enum SDL_EnumerationResult
-{
+typedef enum SDL_EnumerationResult {
     SDL_ENUM_CONTINUE,   /**< Value that requests that enumeration continue. */
     SDL_ENUM_SUCCESS,    /**< Value that requests that enumeration stop, successfully. */
     SDL_ENUM_FAILURE     /**< Value that requests that enumeration stop, as a failure. */
@@ -325,7 +321,8 @@ typedef enum SDL_EnumerationResult
  *
  * \sa SDL_EnumerateDirectory
  */
-typedef SDL_EnumerationResult (SDLCALL *SDL_EnumerateDirectoryCallback)(void *userdata, const char *dirname, const char *fname);
+typedef SDL_EnumerationResult (SDLCALL *SDL_EnumerateDirectoryCallback)(void *userdata, const char *dirname,
+                                                                        const char *fname);
 
 /**
  * Enumerate a directory through a callback function.
@@ -348,7 +345,8 @@ typedef SDL_EnumerationResult (SDLCALL *SDL_EnumerateDirectoryCallback)(void *us
  *
  * \since This function is available since SDL 3.2.0.
  */
-extern SDL_DECLSPEC bool SDLCALL SDL_EnumerateDirectory(const char *path, SDL_EnumerateDirectoryCallback callback, void *userdata);
+extern SDL_DECLSPEC bool SDLCALL
+SDL_EnumerateDirectory(const char *path, SDL_EnumerateDirectoryCallback callback, void *userdata);
 
 /**
  * Remove a file or an empty directory.
@@ -471,7 +469,8 @@ extern SDL_DECLSPEC bool SDLCALL SDL_GetPathInfo(const char *path, SDL_PathInfo 
  *
  * \since This function is available since SDL 3.2.0.
  */
-extern SDL_DECLSPEC char ** SDLCALL SDL_GlobDirectory(const char *path, const char *pattern, SDL_GlobFlags flags, int *count);
+extern SDL_DECLSPEC char **
+SDLCALL SDL_GlobDirectory(const char *path, const char *pattern, SDL_GlobFlags flags, int *count);
 
 /**
  * Get what the system believes is the "current working directory."
@@ -492,12 +491,13 @@ extern SDL_DECLSPEC char ** SDLCALL SDL_GlobDirectory(const char *path, const ch
  *
  * \since This function is available since SDL 3.2.0.
  */
-extern SDL_DECLSPEC char * SDLCALL SDL_GetCurrentDirectory(void);
+extern SDL_DECLSPEC char *SDLCALL SDL_GetCurrentDirectory(void);
 
 /* Ends C function definitions when using C++ */
 #ifdef __cplusplus
 }
 #endif
+
 #include <SDL3/SDL_close_code.h>
 
 #endif /* SDL_filesystem_h_ */
