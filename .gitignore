@@ -1,3 +1,4 @@
 cmake-build-debug
 MusicaLau.vpp.bak_*
 .idea
+bin/MusicaLau.exe
