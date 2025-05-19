@@ -13,11 +13,12 @@ private:
     PianoView *pianoView;
 
 public:
-    PianoAppController(int windowWidth, int windowHeight, MusicApp::Audio::AudioEngine* audioE);
+    PianoAppController(int windowWidth, int windowHeight, MusicApp::Audio::AudioEngine *audioE);
 
     ~PianoAppController();
 
     void processButtonAction(int buttonIndex);
+
     void handlePianoKeyClick(float mouseX, float mouseY);
 
     void render(SDL_Renderer *renderer, int windowWidth, int windowHeight) override;

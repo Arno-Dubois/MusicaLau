@@ -43,5 +43,5 @@ public:
     std::string getPitchAt(float mouseX, float mouseY) const;
 
     // Getter for the view to access key data for rendering
-    const std::vector<PianoKey>& getPianoKeys() const { return pianoKeys; }
+    const std::vector<PianoKey> &getPianoKeys() const { return pianoKeys; }
 };

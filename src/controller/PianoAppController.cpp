@@ -2,7 +2,8 @@
 #include "../../include/model/Piano.h"
 #include "../../include/view/PianoView.h"
 
-PianoAppController::PianoAppController(int windowWidth, int windowHeight, MusicApp::Audio::AudioEngine* audioE) : Controller(audioE) {
+PianoAppController::PianoAppController(int windowWidth, int windowHeight, MusicApp::Audio::AudioEngine *audioE)
+        : Controller(audioE) {
     // Position et dimensions du piano
     float mainAreaX = 50.0f;
     float mainAreaY = toolbarY + buttonHeight + 30.0f;

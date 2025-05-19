@@ -175,9 +175,9 @@ bool Application::run() {
 
                     if (PianoAppController *pianoController = dynamic_cast<PianoAppController *>(mainController)) {
                         if (buttonClicked != -1) { // A toolbar button was clicked
-                           pianoController->processButtonAction(buttonClicked);
+                            pianoController->processButtonAction(buttonClicked);
                         } else { // No toolbar button clicked, assume it might be on the instrument itself
-                           pianoController->handlePianoKeyClick(mouseX, mouseY);
+                            pianoController->handlePianoKeyClick(mouseX, mouseY);
                         }
                     } else if (XylophoneAppController *xylophoneController = dynamic_cast<XylophoneAppController *>(mainController)) {
                         // Similar logic for Xylophone: process toolbar or handle instrument click

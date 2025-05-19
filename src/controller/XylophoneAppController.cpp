@@ -2,7 +2,8 @@
 #include "../../include/model/Xylophone.h"
 #include "../../include/view/XylophoneView.h"
 
-XylophoneAppController::XylophoneAppController(int windowWidth, int windowHeight, MusicApp::Audio::AudioEngine* audioE) : Controller(audioE) {
+XylophoneAppController::XylophoneAppController(int windowWidth, int windowHeight, MusicApp::Audio::AudioEngine *audioE)
+        : Controller(audioE) {
     // Position et dimensions du xylophone
     float mainAreaX = 50.0f;
     float mainAreaY = toolbarY + buttonHeight + 30.0f;

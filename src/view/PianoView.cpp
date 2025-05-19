@@ -6,7 +6,7 @@ PianoView::PianoView(Piano *piano) : piano(piano) {
 void PianoView::render(SDL_Renderer *renderer, int windowWidth, int windowHeight) {
     if (!piano) return;
 
-    const auto& keys = piano->getPianoKeys();
+    const auto &keys = piano->getPianoKeys();
     if (keys.empty()) { // Draw a simple placeholder if keys aren't calculated yet
         float x = piano->getX();
         float y = piano->getY();
@@ -22,7 +22,7 @@ void PianoView::render(SDL_Renderer *renderer, int windowWidth, int windowHeight
     }
 
     // Render white keys first
-    for (const auto& key : keys) {
+    for (const auto &key: keys) {
         if (!key.isBlack) {
             SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255); // White
             SDL_RenderFillRect(renderer, &key.rect);
@@ -32,7 +32,7 @@ void PianoView::render(SDL_Renderer *renderer, int windowWidth, int windowHeight
     }
 
     // Render black keys on top
-    for (const auto& key : keys) {
+    for (const auto &key: keys) {
         if (key.isBlack) {
             SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255); // Black
             SDL_RenderFillRect(renderer, &key.rect);

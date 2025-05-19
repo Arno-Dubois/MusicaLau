@@ -39,11 +39,11 @@ void Piano::calculateKeyLayout() {
 
     // Standard names for the 12 notes in an octave (starting with C)
     const std::array<std::string, 12> noteNamesChromatic = {
-        "C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B"
+            "C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B"
     };
     // Indicates if a note at a chromatic index is a black key
     const std::array<bool, 12> isChromaticBlack = {
-        false, true, false, true, false, false, true, false, true, false, true, false
+            false, true, false, true, false, false, true, false, true, false, true, false
     };
     // White key indices in a chromatic scale (0=C, 2=D, 4=E, 5=F, 7=G, 9=A, 11=B)
     const std::array<int, 7> whiteKeyChromaticIndices = {0, 2, 4, 5, 7, 9, 11};
@@ -85,10 +85,12 @@ void Piano::calculateKeyLayout() {
             // Black keys are C#, D#, F#, G#, A#
             // Chromatic indices for these are 1, 3, 6, 8, 10
             // These occur after white keys C, D, F, G, A (chromatic indices 0, 2, 5, 7, 9)
-            if (whiteKeyChromaIndex == 0 || whiteKeyChromaIndex == 2 || whiteKeyChromaIndex == 5 || whiteKeyChromaIndex == 7 || whiteKeyChromaIndex == 9) {
-                if ( (whiteKeyChromaIndex + 1) < 12 && isChromaticBlack[whiteKeyChromaIndex + 1]) {
-                    std::string pitch = noteNamesChromatic[whiteKeyChromaIndex + 1] + std::to_string(startingOctaveNumber + o);
-                    
+            if (whiteKeyChromaIndex == 0 || whiteKeyChromaIndex == 2 || whiteKeyChromaIndex == 5 ||
+                whiteKeyChromaIndex == 7 || whiteKeyChromaIndex == 9) {
+                if ((whiteKeyChromaIndex + 1) < 12 && isChromaticBlack[whiteKeyChromaIndex + 1]) {
+                    std::string pitch =
+                            noteNamesChromatic[whiteKeyChromaIndex + 1] + std::to_string(startingOctaveNumber + o);
+
                     // Calculate position for the black key
                     // It should be at the boundary of the current white key and the next.
                     // currentX at this point is the START of the current white key.
@@ -110,7 +112,7 @@ void Piano::calculateKeyLayout() {
 std::string Piano::getPitchAt(float mouseX, float mouseY) const {
     // Iterate in reverse for black keys to be checked first (as they overlap white keys)
     for (auto it = pianoKeys.rbegin(); it != pianoKeys.rend(); ++it) {
-        const auto& key = *it;
+        const auto &key = *it;
         if (mouseX >= key.rect.x && mouseX <= (key.rect.x + key.rect.w) &&
             mouseY >= key.rect.y && mouseY <= (key.rect.y + key.rect.h)) {
             return key.pitchName;
