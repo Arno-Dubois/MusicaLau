@@ -21,5 +21,10 @@ public:
 
     void handlePianoKeyClick(float mouseX, float mouseY);
 
+    void handlePianoKeyHover(float mouseX, float mouseY);
+
+    // Accesseur pour le piano
+    Piano *getPiano() const { return piano; }
+
     void render(SDL_Renderer *renderer, int windowWidth, int windowHeight) override;
 };

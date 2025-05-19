@@ -25,6 +25,10 @@ void PianoView::render(SDL_Renderer *renderer, int windowWidth, int windowHeight
     for (const auto &key: keys) {
         if (!key.isBlack) {
             SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255); // White
+            // Si la touche est survolée, utiliser une couleur de surbrillance
+            if (key.isHovered) {
+                SDL_SetRenderDrawColor(renderer, 210, 230, 255, 255); // Bleu clair pour le hover
+            }
             SDL_RenderFillRect(renderer, &key.rect);
             SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255); // Black border
             SDL_RenderRect(renderer, &key.rect);
@@ -35,6 +39,10 @@ void PianoView::render(SDL_Renderer *renderer, int windowWidth, int windowHeight
     for (const auto &key: keys) {
         if (key.isBlack) {
             SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255); // Black
+            // Si la touche est survolée, utiliser une couleur de surbrillance
+            if (key.isHovered) {
+                SDL_SetRenderDrawColor(renderer, 40, 40, 80, 255); // Bleu foncé pour le hover
+            }
             SDL_RenderFillRect(renderer, &key.rect);
             // Optionally, add a slight highlight or border to black keys if desired
         }

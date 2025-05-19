@@ -29,6 +29,7 @@ struct PianoKey {
     SDL_FRect rect;         // Bounding box of the key
     std::string pitchName;  // e.g., "C4", "Db4"
     bool isBlack;           // To help with drawing and layout
+    bool isHovered;         // To indicate if the key is hovered
 };
 
 class Piano {
@@ -36,6 +37,7 @@ private:
     float x, y, width, height;
     int octaves;
     std::vector<PianoKey> pianoKeys; // Stores all keys
+    int hoveredKeyIndex;             // Index of the hovered key (-1 if none)
 
     void calculateKeyLayout(); // Private method to calculate key positions and names
 
@@ -62,6 +64,12 @@ public:
 
     // Method to get pitch name from coordinates
     std::string getPitchAt(float mouseX, float mouseY) const;
+
+    // Method to handle key hover state
+    bool updateHoveredKey(float mouseX, float mouseY);
+
+    // Method to clear hover state
+    void clearHoveredKey();
 
     // Getter for the view to access key data for rendering
     const std::vector<PianoKey> &getPianoKeys() const { return pianoKeys; }

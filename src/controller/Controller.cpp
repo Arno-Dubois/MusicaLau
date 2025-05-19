@@ -6,12 +6,13 @@
 #include "../../include/utils/TextHelper.h"
 #include <iostream>
 
-Controller::Controller() : font(nullptr), audioEngine(nullptr) {
+Controller::Controller() : font(nullptr), audioEngine(nullptr), currentWindowWidth(0), currentWindowHeight(0) {
     font = TextHelper::LoadFont("Roboto-SemiBold.ttf", 16);
     initializeButtons();
 }
 
-Controller::Controller(MusicApp::Audio::AudioEngine *audioE) : audioEngine(audioE), font(nullptr) {
+Controller::Controller(MusicApp::Audio::AudioEngine *audioE) : audioEngine(audioE), font(nullptr),
+                                                               currentWindowWidth(0), currentWindowHeight(0) {
     font = TextHelper::LoadFont("Roboto-SemiBold.ttf", 16);
     initializeButtons();
 }
@@ -35,9 +36,26 @@ void Controller::initializeButtons() {
             "Finish Recording"
     };
 
-    // Créer les 8 boutons avec les bonnes dimensions et espacements
+    // Vider la liste de boutons existants
+    buttons.clear();
+
+    // Calculer le nombre de boutons à afficher en fonction de l'espace disponible
+    // et des valeurs calculées dans updateDimensions
+    float availableWidth = currentWindowWidth * 0.95f;
+    int maxButtonsToShow = 8; // Par défaut
+
+    if (currentWindowWidth > 0) {
+        float requiredSpace = 8 * buttonWidth + 7 * buttonSpacing;
+        if (requiredSpace > availableWidth) {
+            int spacePerButton = static_cast<int>(buttonWidth + buttonSpacing);
+            maxButtonsToShow = spacePerButton > 0 ? static_cast<int>(availableWidth / spacePerButton) : 3;
+            maxButtonsToShow = std::max(3, std::min(8, maxButtonsToShow)); // Entre 3 et 8 boutons
+        }
+    }
+
+    // Créer les boutons avec les dimensions calculées
     SDL_Color darkGray = {46, 46, 46, 255};
-    for (int i = 0; i < 8; i++) {
+    for (int i = 0; i < maxButtonsToShow; i++) {
         Button btn;
         btn.rect = {startX + i * (buttonWidth + buttonSpacing), toolbarY, buttonWidth, buttonHeight};
         btn.color = darkGray;
@@ -45,6 +63,59 @@ void Controller::initializeButtons() {
         btn.icon = nullptr;
         buttons.push_back(btn);
     }
+}
+
+// Calcule une largeur relative à la largeur de la fenêtre
+float Controller::calculateRelativeWidth(int windowWidth, float percentage) {
+    return windowWidth * percentage;
+}
+
+// Calcule une hauteur relative à la hauteur de la fenêtre
+float Controller::calculateRelativeHeight(int windowHeight, float percentage) {
+    return windowHeight * percentage;
+}
+
+// Met à jour les dimensions des éléments UI en fonction des dimensions de la fenêtre
+void Controller::updateDimensions(int windowWidth, int windowHeight) {
+    currentWindowWidth = windowWidth;
+    currentWindowHeight = windowHeight;
+
+    // Calculer combien de boutons peuvent tenir dans la fenêtre avec un espacement raisonnable
+    int maxButtonsCount = 8; // Maximum de 8 boutons
+
+    // Calcul de l'espacement et de la largeur des boutons
+    float availableWidth = windowWidth * 0.95f; // 95% de la largeur disponible pour les boutons
+    float minButtonWidth = 90.0f; // Largeur minimale d'un bouton pour qu'il reste lisible
+    float idealButtonSpacing = windowWidth * 0.02f; // 2% de la largeur
+
+    // Trouver le bon nombre de boutons qui peuvent tenir dans la largeur disponible
+    int visibleButtonCount = maxButtonsCount;
+    buttonWidth = minButtonWidth;
+
+    // Ajuster les dimensions pour que les boutons tiennent dans la largeur disponible
+    while (visibleButtonCount > 3) { // Au moins 3 boutons doivent être visibles
+        float requiredSpace = visibleButtonCount * buttonWidth + (visibleButtonCount - 1) * idealButtonSpacing;
+
+        if (requiredSpace <= availableWidth) {
+            // Tous les boutons tiennent, augmenter leur largeur proportionnellement
+            buttonWidth = std::min(150.0f, (availableWidth - (visibleButtonCount - 1) * idealButtonSpacing) /
+                                           visibleButtonCount);
+            break;
+        }
+
+        // Si tous les boutons ne tiennent pas, réduire leur nombre
+        visibleButtonCount--;
+    }
+
+    // Définir les autres dimensions UI
+    buttonHeight = calculateRelativeHeight(windowHeight, 0.088f); // ~8.8% de la hauteur
+    buttonSpacing = idealButtonSpacing;
+    toolbarY = calculateRelativeHeight(windowHeight, 0.02f); // 2% de la hauteur
+    startX = (windowWidth - (visibleButtonCount * buttonWidth + (visibleButtonCount - 1) * buttonSpacing)) /
+             2; // Centrer horizontalement
+
+    // Recalculer la position des boutons
+    initializeButtons();
 }
 
 int Controller::handleButtonClick(float x, float y) {

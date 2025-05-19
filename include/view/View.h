@@ -23,6 +23,7 @@ protected:
 public:
     virtual ~View() = default;
 
+    // La méthode render doit toujours recevoir les dimensions de la fenêtre pour permettre l'ajustement
     virtual void render(SDL_Renderer *renderer, int windowWidth = 0, int windowHeight = 0) = 0;
 
     // Méthode utilitaire pour dessiner les boutons

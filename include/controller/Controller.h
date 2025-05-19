@@ -25,6 +25,10 @@ protected:
     float toolbarY = 20.0f;
     float startX = 63.0f;
 
+    // Suivi des dimensions actuelles de la fenêtre
+    int currentWindowWidth;
+    int currentWindowHeight;
+
     // Audio engine
     MusicApp::Audio::AudioEngine *audioEngine;
 
@@ -57,4 +61,11 @@ public:
     void drawUpArrow(SDL_Renderer *renderer, float centerX, float centerY, float size, SDL_Color color);
 
     void drawStopIcon(SDL_Renderer *renderer, float centerX, float centerY, float size, SDL_Color color);
+
+    // Nouvelles méthodes pour calculer les dimensions relatives
+    float calculateRelativeWidth(int windowWidth, float percentage);
+
+    float calculateRelativeHeight(int windowHeight, float percentage);
+
+    void updateDimensions(int windowWidth, int windowHeight);
 };

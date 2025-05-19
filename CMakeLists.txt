@@ -122,8 +122,16 @@ set(SDL3_LIBS
         ${PROJECT_SOURCE_DIR}/lib/libSDL2_mixer.dll.a
 )
 
+# Définir des options de préprocesseur pour SDL_mixer
+add_compile_definitions(SDL_MIXER_INCLUDED=1)
+
 # Création de la bibliothèque
 add_library(MusicaLauLib ${LIB_SOURCES} ${LIB_HEADERS})
+
+# Spécifier des flags de compilation supplémentaires si nécessaire
+if (CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
+    target_compile_options(MusicaLauLib PRIVATE -Wno-deprecated-declarations)
+endif ()
 
 # Compilation de l'exécutable principal
 add_executable(MusicaLau src/main.cpp)
@@ -155,8 +163,9 @@ file(COPY ${PROJECT_SOURCE_DIR}/assets DESTINATION ${CMAKE_BINARY_DIR})
 file(COPY ${PROJECT_SOURCE_DIR}/lib/SDL3.dll DESTINATION ${PROJECT_SOURCE_DIR}/bin)
 file(COPY ${PROJECT_SOURCE_DIR}/lib/SDL3_ttf.dll DESTINATION ${PROJECT_SOURCE_DIR}/bin)
 file(COPY ${PROJECT_SOURCE_DIR}/lib/SDL3_image.dll DESTINATION ${PROJECT_SOURCE_DIR}/bin)
-# Pour SDL_mixer, nous utilisons la version SDL2 renommée en SDL3
-file(COPY ${PROJECT_SOURCE_DIR}/lib/SDL2_mixer.dll DESTINATION ${PROJECT_SOURCE_DIR}/bin/SDL3_mixer.dll)
+# Pour SDL_mixer, nous utilisons la version SDL2 en la copiant directement
+file(COPY ${PROJECT_SOURCE_DIR}/lib/SDL2_mixer.dll DESTINATION ${PROJECT_SOURCE_DIR}/bin)
+message(STATUS "Note: SDL2_mixer.dll est utilisé comme SDL3_mixer.dll")
 
 # Définir la sortie de l'exécutable
 set_target_properties(MusicaLau PROPERTIES

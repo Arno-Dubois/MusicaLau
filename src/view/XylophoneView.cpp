@@ -15,6 +15,7 @@ void XylophoneView::render(SDL_Renderer *renderer, int windowWidth, int windowHe
     float w = xylophone->getWidth();
     float h = xylophone->getHeight();
     int numBars = xylophone->getBars();
+    const auto &bars = xylophone->getXylophoneBars();
 
     // Dimensions générales
     float xylophoneWidth = w * 0.9f; // Largeur totale du xylophone
@@ -75,41 +76,84 @@ void XylophoneView::render(SDL_Renderer *renderer, int windowWidth, int windowHe
             {135, 206, 235, 255}  // Bleu ciel (Sol - G)
     };
 
-    // Dimensions des lames
-    float barAreaWidth = xylophoneWidth * 0.85f;
-    float barAreaX = xylophoneX + (xylophoneWidth - barAreaWidth) / 2;
     float barHeight = xylophoneHeight * 0.1f;
-    float totalBarsSpace = xylophoneHeight * 0.75f;
-    float barSpacing = totalBarsSpace / numBars;
 
-    // Dessiner les lames horizontales
-    for (int i = 0; i < numBars; i++) {
-        // La largeur diminue progressivement pour les notes plus hautes
-        float barWidth = barAreaWidth * (1.0f - (i * 0.03f));
-        float barX = barAreaX + (barAreaWidth - barWidth) / 2;
-        float barY = xylophoneY + xylophoneHeight * 0.15f + i * barSpacing;
+    if (bars.empty()) {
+        // Dimensions des lames
+        float barAreaWidth = xylophoneWidth * 0.85f;
+        float barAreaX = xylophoneX + (xylophoneWidth - barAreaWidth) / 2;
+        float totalBarsSpace = xylophoneHeight * 0.75f;
+        float barSpacing = totalBarsSpace / numBars;
 
-        // Dessiner la lame
-        SDL_SetRenderDrawColor(renderer, noteColors[i].r, noteColors[i].g, noteColors[i].b, noteColors[i].a);
-        SDL_FRect bar = {barX, barY, barWidth, barHeight};
-        SDL_RenderFillRect(renderer, &bar);
+        // Dessiner les lames horizontales
+        for (int i = 0; i < numBars; i++) {
+            // La largeur diminue progressivement pour les notes plus hautes
+            float barWidth = barAreaWidth * (1.0f - (i * 0.03f));
+            float barX = barAreaX + (barAreaWidth - barWidth) / 2;
+            float barY = xylophoneY + xylophoneHeight * 0.15f + i * barSpacing;
 
-        // Bordure noire pour la lame
-        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-        SDL_RenderRect(renderer, &bar);
+            // Dessiner la lame
+            SDL_SetRenderDrawColor(renderer, noteColors[i].r, noteColors[i].g, noteColors[i].b, noteColors[i].a);
+            SDL_FRect bar = {barX, barY, barWidth, barHeight};
+            SDL_RenderFillRect(renderer, &bar);
 
-        // Dessiner les cordons qui soutiennent la lame
-        SDL_SetRenderDrawColor(renderer, 50, 50, 50, 255);
-        float leftStringX = barX + barWidth * 0.25f;
-        float rightStringX = barX + barWidth * 0.75f;
+            // Bordure noire pour la lame
+            SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+            SDL_RenderRect(renderer, &bar);
 
-        // Cordon gauche
-        SDL_FRect leftString = {leftStringX, barY + barHeight - 2, 2, 10};
-        SDL_RenderFillRect(renderer, &leftString);
+            // Dessiner les cordons qui soutiennent la lame
+            SDL_SetRenderDrawColor(renderer, 50, 50, 50, 255);
+            float leftStringX = barX + barWidth * 0.25f;
+            float rightStringX = barX + barWidth * 0.75f;
 
-        // Cordon droit
-        SDL_FRect rightString = {rightStringX, barY + barHeight - 2, 2, 10};
-        SDL_RenderFillRect(renderer, &rightString);
+            // Cordon gauche
+            SDL_FRect leftString = {leftStringX, barY + barHeight - 2, 2, 10};
+            SDL_RenderFillRect(renderer, &leftString);
+
+            // Cordon droit
+            SDL_FRect rightString = {rightStringX, barY + barHeight - 2, 2, 10};
+            SDL_RenderFillRect(renderer, &rightString);
+        }
+    } else {
+        // Dessiner les lames horizontales en utilisant les données du modèle
+        for (int i = 0; i < bars.size(); i++) {
+            const auto &bar = bars[i];
+
+            // Sélectionner la couleur de la lame
+            SDL_Color barColor = noteColors[i % 12]; // Utiliser les couleurs de note pour les lames
+
+            // Si la lame est survolée, éclaircir la couleur
+            if (bar.isHovered) {
+                // Effet de surbrillance plus prononcé pour que ce soit bien visible
+                barColor.r = std::min(255, barColor.r + 80);
+                barColor.g = std::min(255, barColor.g + 80);
+                barColor.b = std::min(255, barColor.b + 80);
+
+                // Afficher en console pour le débogage
+                SDL_Log("Rendering hovered xylophone bar at index: %d", i);
+            }
+
+            // Dessiner la lame
+            SDL_SetRenderDrawColor(renderer, barColor.r, barColor.g, barColor.b, barColor.a);
+            SDL_RenderFillRect(renderer, &bar.rect);
+
+            // Bordure noire pour la lame
+            SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+            SDL_RenderRect(renderer, &bar.rect);
+
+            // Dessiner les cordons qui soutiennent la lame
+            SDL_SetRenderDrawColor(renderer, 50, 50, 50, 255);
+            float leftStringX = bar.rect.x + bar.rect.w * 0.25f;
+            float rightStringX = bar.rect.x + bar.rect.w * 0.75f;
+
+            // Cordon gauche
+            SDL_FRect leftString = {leftStringX, bar.rect.y + bar.rect.h - 2, 2, 10};
+            SDL_RenderFillRect(renderer, &leftString);
+
+            // Cordon droit
+            SDL_FRect rightString = {rightStringX, bar.rect.y + bar.rect.h - 2, 2, 10};
+            SDL_RenderFillRect(renderer, &rightString);
+        }
     }
 
     // Dessiner les maillets

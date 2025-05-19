@@ -2,7 +2,7 @@
 #include <array> // For pitch names
 
 Piano::Piano(float x, float y, float width, float height, int octaves)
-        : x(x), y(y), width(width), height(height), octaves(octaves) {
+        : x(x), y(y), width(width), height(height), octaves(octaves), hoveredKeyIndex(-1) {
     calculateKeyLayout(); // Calculate keys on construction
 }
 
@@ -31,7 +31,15 @@ void Piano::removeOctave() {
 }
 
 void Piano::calculateKeyLayout() {
+    // Sauvegarder l'index de la touche survolée avant de réinitialiser
+    int previousHoveredIndex = hoveredKeyIndex;
+    std::string previousHoveredPitchName;
+    if (previousHoveredIndex >= 0 && previousHoveredIndex < pianoKeys.size()) {
+        previousHoveredPitchName = pianoKeys[previousHoveredIndex].pitchName;
+    }
+
     pianoKeys.clear();
+    hoveredKeyIndex = -1;
 
     if (width <= 0 || height <= 0 || octaves <= 0) {
         return; // Cannot draw if dimensions or octaves are invalid
@@ -56,7 +64,7 @@ void Piano::calculateKeyLayout() {
     float blackKeyHeight = height * 0.65f;   // Typical relative height
 
     float currentX = x;
-    int startingOctaveNumber = 4; // Example: Middle C is C4. Adjust if needed.
+    int startingOctaveNumber = 2; // Example: Middle C is C4. Adjust if needed.
 
     // First pass: Layout all white keys
     for (int o = 0; o < octaves; ++o) {
@@ -68,6 +76,7 @@ void Piano::calculateKeyLayout() {
             key.rect = {currentX, y, whiteKeyWidth, height};
             key.pitchName = pitch;
             key.isBlack = false;
+            key.isHovered = false;
             pianoKeys.push_back(key);
             currentX += whiteKeyWidth;
         }
@@ -100,11 +109,23 @@ void Piano::calculateKeyLayout() {
                     key.rect = {blackKeyX, y, blackKeyWidth, blackKeyHeight};
                     key.pitchName = pitch;
                     key.isBlack = true;
+                    key.isHovered = false;
                     pianoKeys.push_back(key); // Add black key to the list
                 }
             }
             currentX += whiteKeyWidth; // Advance to the start of the next white key
             whiteKeyCounter++;
+        }
+    }
+
+    // Restaurer l'état de survol si possible
+    if (!previousHoveredPitchName.empty()) {
+        for (int i = 0; i < pianoKeys.size(); ++i) {
+            if (pianoKeys[i].pitchName == previousHoveredPitchName) {
+                pianoKeys[i].isHovered = true;
+                hoveredKeyIndex = i;
+                break;
+            }
         }
     }
 }
@@ -119,4 +140,35 @@ std::string Piano::getPitchAt(float mouseX, float mouseY) const {
         }
     }
     return ""; // No key found at this position
+}
+
+bool Piano::updateHoveredKey(float mouseX, float mouseY) {
+    // Effacer l'état de survol précédent
+    if (hoveredKeyIndex >= 0 && hoveredKeyIndex < pianoKeys.size()) {
+        pianoKeys[hoveredKeyIndex].isHovered = false;
+    }
+    hoveredKeyIndex = -1;
+
+    // Itérer en ordre inverse pour vérifier d'abord les touches noires (elles sont au-dessus)
+    for (int i = pianoKeys.size() - 1; i >= 0; i--) {
+        const auto &key = pianoKeys[i];
+        if (mouseX >= key.rect.x && mouseX <= (key.rect.x + key.rect.w) &&
+            mouseY >= key.rect.y && mouseY <= (key.rect.y + key.rect.h)) {
+            // Touche trouvée, mettre à jour son état
+            pianoKeys[i].isHovered = true;
+            hoveredKeyIndex = i;
+            // Debug pour vérifier que le survol est détecté
+            SDL_Log("Hover detected on key: %s", pianoKeys[i].pitchName.c_str());
+            return true;
+        }
+    }
+    return false; // Aucune touche survolée
+}
+
+void Piano::clearHoveredKey() {
+    // Effacer l'état de survol
+    if (hoveredKeyIndex >= 0 && hoveredKeyIndex < pianoKeys.size()) {
+        pianoKeys[hoveredKeyIndex].isHovered = false;
+    }
+    hoveredKeyIndex = -1;
 }

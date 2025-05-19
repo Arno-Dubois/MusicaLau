@@ -1,6 +1,7 @@
 #include "../include/Application.h"
 #include <iostream>
 #include <SDL3/SDL_ttf.h>
+#include <unordered_map>
 
 Application::Application(int width, int height)
         : window(nullptr),
@@ -160,6 +161,12 @@ bool Application::run() {
     bool quit = false;
     SDL_Event event;
 
+    // Structure pour suivre les touches de piano/xylophone actives
+    std::unordered_map<std::string, bool> activeNotes;
+
+    // Timer pour la mise à jour des sons
+    Uint32 lastUpdateTime = SDL_GetTicks();
+
     while (!quit) {
         while (SDL_PollEvent(&event)) {
             if (event.type == SDL_EVENT_QUIT) {
@@ -181,7 +188,12 @@ bool Application::run() {
                         if (buttonClicked != -1) {
                             pianoController->processButtonAction(buttonClicked);
                         } else {
-                            pianoController->handlePianoKeyClick(mouseX, mouseY);
+                            std::string pitchName = pianoController->getPiano()->getPitchAt(mouseX, mouseY);
+                            if (!pitchName.empty()) {
+                                MusicApp::Core::Note note(pitchName);
+                                audioEngine->playSound("Piano", note);
+                                activeNotes[pitchName] = true;
+                            }
                         }
                     } else if (XylophoneAppController *xylophoneController = dynamic_cast<XylophoneAppController *>(mainController)) {
                         if (buttonClicked != -1) {
@@ -225,6 +237,12 @@ bool Application::run() {
                     setInstrument(currentInstrument);
                 }
             }
+        }
+
+        // Mettre à jour les sons toutes les 100ms
+        Uint32 currentTime = SDL_GetTicks();
+        if (currentTime - lastUpdateTime > 100) {
+            lastUpdateTime = currentTime;
         }
 
         // Effacer l'écran

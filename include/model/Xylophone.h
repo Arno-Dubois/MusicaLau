@@ -2,11 +2,19 @@
 
 #include "SDL3/SDL.h"
 #include <string>
+#include <vector>
+
+struct XylophoneBar {
+    SDL_FRect rect;         // Rectangle représentant la lame du xylophone
+    bool isHovered;         // État de survol
+};
 
 class Xylophone {
 private:
     float x, y, width, height;
     int bars;
+    std::vector<XylophoneBar> xylophones;  // Stockage des lames du xylophone
+    int hoveredBarIndex;                   // Index de la lame survolée (-1 si aucune)
 
 public:
     Xylophone(float x = 0, float y = 0, float width = 0, float height = 0, int bars = 8);
@@ -28,4 +36,18 @@ public:
     void addBar();
 
     void removeBar();
+
+    // Méthodes pour gérer le survol des lames
+    bool updateHoveredBar(float mouseX, float mouseY);
+
+    void clearHoveredBar();
+
+    // Obtenir l'index de la lame à une position donnée
+    int getBarAt(float mouseX, float mouseY) const;
+
+    // Accéder aux lames pour le rendu
+    const std::vector<XylophoneBar> &getXylophoneBars() const { return xylophones; }
+
+    // Calculer la disposition des lames
+    void calculateBarsLayout();
 };
