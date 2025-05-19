@@ -12,6 +12,7 @@
 namespace MusicApp {
     namespace Audio {
         static SDL_AudioStream *stream = nullptr;
+        static SDLAudioEngine *currentEngine = nullptr;
 
         const std::map<std::string, float> SDLAudioEngine::noteFrequencies_ = {
                 // Octave -2 (ultra-basse)
@@ -265,12 +266,16 @@ namespace MusicApp {
         SDLAudioEngine::SDLAudioEngine()
                 : isInitialized_(false) {
             std::cout << "SDLAudioEngine: Constructor called." << std::endl;
+            currentEngine = this; // Stocker l'instance pour le callback
         }
 
         SDLAudioEngine::~SDLAudioEngine() {
             std::cout << "SDLAudioEngine: Destructor called." << std::endl;
             if (isInitialized_) {
                 shutdown();
+            }
+            if (currentEngine == this) {
+                currentEngine = nullptr;
             }
         }
 
@@ -308,6 +313,7 @@ namespace MusicApp {
             want.format = SDL_AUDIO_S16LE;
             want.channels = 2;
 
+            // Créer un stream audio sans callback
             stream = SDL_OpenAudioDeviceStream(SDL_AUDIO_DEVICE_DEFAULT_PLAYBACK, &want, nullptr, nullptr);
             if (!stream) {
                 std::cerr << "SDLAudioEngine: Failed to open audio stream: " << SDL_GetError() << std::endl;
@@ -343,9 +349,13 @@ namespace MusicApp {
             }
         }
 
-        static std::vector<int16_t>
-        generateWaveform(float frequency, float durationSeconds, unsigned int sampleRate = 44100) {
-            const size_t sampleCount = static_cast<size_t>(sampleRate * durationSeconds);
+        std::vector<int16_t>
+        SDLAudioEngine::generateWaveform(float frequency, float durationSeconds, bool sustainMode) {
+            unsigned int sampleRate = 44100;
+            // Pour les notes maintenues, générer une durée plus longue pour le sustain
+            float actualDuration = sustainMode ? 10.0f : durationSeconds;
+
+            const size_t sampleCount = static_cast<size_t>(sampleRate * actualDuration);
             std::vector<int16_t> samples(sampleCount);
             const float twoPi = 2.0f * static_cast<float>(M_PI);
 
@@ -353,7 +363,7 @@ namespace MusicApp {
             float attack = 0.005f;   // 5ms - attaque rapide
             float decay = 0.1f;      // 100ms - déclin rapide après le pic initial
             float sustain = 0.7f;    // niveau de sustain à 70% du maximum
-            float release = 0.3f;    // 300ms - relâchement assez long pour le piano
+            float release = sustainMode ? 0.0f : 0.2f;    // relâchement uniquement en mode non-sustain
 
             // Coefficients d'harmoniques pour le piano
             // Ces coefficients modulent l'amplitude des harmoniques pour imiter le timbre du piano
@@ -408,16 +418,24 @@ namespace MusicApp {
                     // Phase de decay
                     float decayProgress = (time - attack) / decay;
                     envelope = 1.0f - (1.0f - sustain) * decayProgress;
-                } else if (time < durationSeconds - release) {
-                    // Phase de sustain
+                } else if (sustainMode || time < actualDuration - release) {
+                    // Phase de sustain - pour les notes maintenues, cela peut durer longtemps
                     envelope = sustain;
 
-                    // Pour le piano : déclin naturel durant le sustain
-                    float sustainProgress = (time - (attack + decay)) / (durationSeconds - release - (attack + decay));
-                    envelope *= 1.0f - 0.3f * sustainProgress;
+                    // Pour le piano : déclin naturel durant le sustain (seulement pour les notes à durée fixe)
+                    if (!sustainMode) {
+                        float sustainProgress =
+                                (time - (attack + decay)) / (actualDuration - release - (attack + decay));
+                        envelope *= 1.0f - 0.3f * sustainProgress;
+                    } else {
+                        // En mode sustain, on applique un très léger déclin pour un son plus naturel
+                        // mais qui reste essentiellement constant jusqu'au relâchement
+                        float sustainProgress = time / actualDuration;
+                        envelope *= 1.0f - 0.05f * sustainProgress;
+                    }
                 } else {
                     // Phase de relâchement
-                    envelope = sustain * (durationSeconds - time) / release;
+                    envelope = sustain * (actualDuration - time) / release;
                 }
 
                 // Réduction du maintien pour les notes aiguës (simulation des cordes courtes)
@@ -451,22 +469,90 @@ namespace MusicApp {
             std::cout << "SDLAudioEngine: Playing note '" << note.pitchName
                       << "' (Freq: " << frequency << " Hz)" << std::endl;
 
-            // Générer une forme d'onde pour le piano (durée adaptée à la fréquence)
-            float noteDuration = 1.2f;
-            // Les notes graves sonnent plus longtemps
-            if (frequency < 100.0f) {
-                noteDuration = 1.8f;
-            }
-                // Les notes aiguës sonnent moins longtemps
-            else if (frequency > 1000.0f) {
-                noteDuration = 0.8f;
-            }
-            std::vector<int16_t> samples = generateWaveform(frequency, noteDuration);
+            // Identifiant unique pour cette note
+            std::string noteId = instrumentName + "_" + note.pitchName;
 
-            // Ajouter les données audio au stream
+            // Si la note est déjà jouée, l'arrêter d'abord pour éviter les clics
+            auto it = activeNotes.find(noteId);
+            if (it != activeNotes.end()) {
+                stopSound(instrumentName, note);
+            }
+
+            // Générer une forme d'onde très courte (0.5 secondes) pour éviter les notes qui sonnent trop longtemps
+            float noteDuration = 0.5f;
+            if (frequency < 100.0f) {
+                noteDuration = 0.7f;  // Notes graves un peu plus longues
+            } else if (frequency > 1000.0f) {
+                noteDuration = 0.3f;  // Notes aiguës un peu plus courtes
+            }
+
+            // Générer le son
+            std::vector<int16_t> samples = generateWaveform(frequency, noteDuration, false);
+
+            // Envoyer directement les données audio au stream
             int byteSize = static_cast<int>(samples.size() * sizeof(int16_t));
             if (SDL_PutAudioStreamData(stream, samples.data(), byteSize) < 0) {
                 std::cerr << "SDL_PutAudioStreamData error: " << SDL_GetError() << std::endl;
+            }
+
+            // Enregistrer cette note comme active
+            ActiveNote activeNote;
+            activeNote.instrumentName = instrumentName;
+            activeNote.pitchName = note.pitchName;
+            activeNote.frequency = frequency;
+            activeNote.isPlaying = true;
+            activeNote.startTime = SDL_GetTicks();  // Enregistrer le moment de début de la note
+            activeNotes[noteId] = std::move(activeNote);
+        }
+
+        void SDLAudioEngine::stopSound(const std::string &instrumentName, const Core::Note &note) {
+            std::string noteId = instrumentName + "_" + note.pitchName;
+
+            // Si la note est en train de jouer, générer le relâchement
+            auto it = activeNotes.find(noteId);
+            if (it != activeNotes.end() && it->second.isPlaying) {
+                // Générer une petite forme d'onde de relâchement pour éviter les clics
+                std::vector<int16_t> releaseSamples = generateWaveform(it->second.frequency, 0.2f, false);
+
+                // Envoyer les données de relâchement au stream
+                int byteSize = static_cast<int>(releaseSamples.size() * sizeof(int16_t));
+                if (SDL_PutAudioStreamData(stream, releaseSamples.data(), byteSize) < 0) {
+                    std::cerr << "SDL_PutAudioStreamData error for release: " << SDL_GetError() << std::endl;
+                }
+
+                activeNotes.erase(noteId);
+                std::cout << "SDLAudioEngine: Stopped note '" << note.pitchName << "'" << std::endl;
+            }
+        }
+
+        bool SDLAudioEngine::isNotePlaying(const std::string &instrumentName, const Core::Note &note) {
+            std::string noteId = instrumentName + "_" + note.pitchName;
+            auto it = activeNotes.find(noteId);
+            return (it != activeNotes.end() && it->second.isPlaying);
+        }
+
+        void SDLAudioEngine::cleanupLongPlayingNotes(Uint32 maxDurationMs) {
+            Uint32 currentTime = SDL_GetTicks();
+            std::vector<std::string> notesToStop;
+
+            // Identifier les notes qui jouent depuis trop longtemps
+            for (const auto &pair: activeNotes) {
+                Uint32 elapsedTime = currentTime - pair.second.startTime;
+                if (elapsedTime > maxDurationMs) {
+                    notesToStop.push_back(pair.first);
+                }
+            }
+
+            // Arrêter ces notes
+            for (const auto &noteId: notesToStop) {
+                auto it = activeNotes.find(noteId);
+                if (it != activeNotes.end()) {
+                    // Créer une note temporaire pour l'arrêter
+                    Core::Note note(it->second.pitchName);
+                    stopSound(it->second.instrumentName, note);
+                    std::cout << "SDLAudioEngine: Note " << it->second.pitchName
+                              << " auto-stopped after " << maxDurationMs << "ms" << std::endl;
+                }
             }
         }
     } // namespace Audio

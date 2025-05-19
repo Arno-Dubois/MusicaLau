@@ -12,7 +12,10 @@ Application::Application(int width, int height)
           windowHeight(height),
           initialized(false),
           currentInstrument(InstrumentType::PIANO),
-          instrumentMenu(nullptr) {
+          instrumentMenu(nullptr),
+          currentPlayingNote(""),
+          isMouseButtonDown(false),
+          lastNotePlayTime(0) {
 }
 
 Application::~Application() {
@@ -157,14 +160,11 @@ bool Application::run() {
         }
     }
 
-    // Boucle principale
     bool quit = false;
     SDL_Event event;
 
-    // Structure pour suivre les touches de piano/xylophone actives
     std::unordered_map<std::string, bool> activeNotes;
 
-    // Timer pour la mise à jour des sons
     Uint32 lastUpdateTime = SDL_GetTicks();
 
     while (!quit) {
@@ -193,6 +193,9 @@ bool Application::run() {
                                 MusicApp::Core::Note note(pitchName);
                                 audioEngine->playSound("Piano", note);
                                 activeNotes[pitchName] = true;
+                                currentPlayingNote = pitchName;
+                                isMouseButtonDown = true;
+                                lastNotePlayTime = SDL_GetTicks();
                             }
                         }
                     } else if (XylophoneAppController *xylophoneController = dynamic_cast<XylophoneAppController *>(mainController)) {
@@ -225,6 +228,22 @@ bool Application::run() {
                         videoGameController->handleVideoGameKeyHover(mouseX, mouseY);
                     } */
                 }
+            } else if (event.type == SDL_EVENT_MOUSE_BUTTON_UP) {
+                if (PianoAppController *pianoController = dynamic_cast<PianoAppController *>(mainController)) {
+                    float mouseX, mouseY;
+                    SDL_GetMouseState(&mouseX, &mouseY);
+
+                    std::string pitchName = pianoController->getPiano()->getPitchAt(mouseX, mouseY);
+                    if (!pitchName.empty()) {
+                        MusicApp::Core::Note note(pitchName);
+                        MusicApp::Audio::SDLAudioEngine *engine = dynamic_cast<MusicApp::Audio::SDLAudioEngine *>(audioEngine);
+                        if (engine) {
+                            engine->stopSound("Piano", note);
+                            currentPlayingNote = "";
+                            isMouseButtonDown = false;
+                        }
+                    }
+                }
             } else if (event.type == SDL_EVENT_WINDOW_RESIZED) {
                 SDL_GetWindowSizeInPixels(window, &windowWidth, &windowHeight);
 
@@ -243,6 +262,22 @@ bool Application::run() {
         Uint32 currentTime = SDL_GetTicks();
         if (currentTime - lastUpdateTime > 100) {
             lastUpdateTime = currentTime;
+
+            // Rejouer la note actuelle si le bouton de la souris est toujours enfoncé
+            if (isMouseButtonDown && !currentPlayingNote.empty() &&
+                (currentTime - lastNotePlayTime >= 450)) { // Rejouer légèrement avant la fin de la note
+                if (PianoAppController *pianoController = dynamic_cast<PianoAppController *>(mainController)) {
+                    MusicApp::Core::Note note(currentPlayingNote);
+                    audioEngine->playSound("Piano", note);
+                    lastNotePlayTime = currentTime;
+                }
+            }
+
+            // Nettoyer les notes qui jouent depuis trop longtemps (2 secondes maximum)
+            MusicApp::Audio::SDLAudioEngine *engine = dynamic_cast<MusicApp::Audio::SDLAudioEngine *>(audioEngine);
+            if (engine) {
+                engine->cleanupLongPlayingNotes(1000); // Réduire à 1 seconde pour plus de sécurité
+            }
         }
 
         // Effacer l'écran
@@ -251,10 +286,8 @@ bool Application::run() {
 
         // Rendre l'interface utilisateur et l'instrument actif
         mainController->render(renderer, windowWidth, windowHeight);
-
         // Rendre le menu déroulant
         instrumentMenu->render(renderer);
-
         // Présenter le rendu
         SDL_RenderPresent(renderer);
         SDL_Delay(16);

@@ -28,6 +28,11 @@ private:
 
     void initializeInstrumentMenu();
 
+    // Pour suivre la note actuellement jouée via la souris
+    std::string currentPlayingNote;
+    bool isMouseButtonDown;
+    Uint32 lastNotePlayTime;
+
 public:
     Application(int width = 1440, int height = 1024);
 
