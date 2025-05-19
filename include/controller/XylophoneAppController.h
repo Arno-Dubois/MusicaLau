@@ -11,7 +11,7 @@ private:
     XylophoneView *xylophoneView;
 
 public:
-    XylophoneAppController(int windowWidth, int windowHeight);
+    XylophoneAppController(int windowWidth, int windowHeight, MusicApp::Audio::AudioEngine* audioE);
 
     ~XylophoneAppController();
 

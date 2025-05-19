@@ -14,6 +14,11 @@ Controller::Controller() : font(nullptr) {
         std::cerr << "Impossible de charger Arial : " << SDL_GetError() << std::endl;
     }
 
+    <<<<<<< HEAD
+            == == == =
+                    Controller::Controller(MusicApp::Audio::AudioEngine * audioE) : audioEngine(audioE)
+    {
+        >>>>>>> origin / MergingBranch
     initializeButtons();
 }
 

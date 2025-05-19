@@ -6,6 +6,7 @@
 #include "Controller/XylophoneAppController.h"
 #include "Controller/VideoGameAppController.h"
 #include "Utils/DropdownMenu.h"
+#include "Audio/SDLAudioEngine.h"
 
 enum class InstrumentType {
     PIANO,
@@ -18,6 +19,7 @@ private:
     SDL_Window *window;
     SDL_Renderer *renderer;
     Controller *mainController;
+    MusicApp::Audio::AudioEngine *audioEngine;
     int windowWidth;
     int windowHeight;
     bool initialized;

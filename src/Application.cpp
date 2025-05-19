@@ -1,11 +1,11 @@
 #include "../include/Application.h"
 #include <iostream>
-#include <SDL3/SDL_ttf.h>
 
 Application::Application(int width, int height)
         : window(nullptr),
           renderer(nullptr),
           mainController(nullptr),
+          audioEngine(nullptr),
           windowWidth(width),
           windowHeight(height),
           initialized(false),
@@ -72,9 +72,11 @@ bool Application::initialize() {
         return false;
     }
 
-    if (TTF_Init() < 0) {
-        SDL_Log("SDL_ttf could not initialize! Error: %s\n", SDL_GetError());
-        SDL_Quit();
+    // Initialize AudioEngine
+    audioEngine = new MusicApp::Audio::SDLAudioEngine();
+    if (!audioEngine->init()) {
+        SDL_Log("AudioEngine could not initialize!\n");
+        SDL_Quit(); // For now, quit if audio fails
         return false;
     }
 
@@ -128,13 +130,13 @@ void Application::setInstrument(InstrumentType instrument) {
     // Créer le nouveau contrôleur
     switch (instrument) {
         case InstrumentType::PIANO:
-            mainController = new PianoAppController(windowWidth, windowHeight);
+            mainController = new PianoAppController(windowWidth, windowHeight, audioEngine);
             break;
         case InstrumentType::XYLOPHONE:
-            mainController = new XylophoneAppController(windowWidth, windowHeight);
+            mainController = new XylophoneAppController(windowWidth, windowHeight, audioEngine);
             break;
         case InstrumentType::VIDEO_GAME:
-            mainController = new VideoGameAppController(windowWidth, windowHeight);
+            mainController = new VideoGameAppController(windowWidth, windowHeight, audioEngine);
             break;
     }
 
@@ -172,11 +174,25 @@ bool Application::run() {
                     int buttonClicked = mainController->handleButtonClick(mouseX, mouseY);
 
                     if (PianoAppController *pianoController = dynamic_cast<PianoAppController *>(mainController)) {
-                        pianoController->processButtonAction(buttonClicked);
+                        if (buttonClicked != -1) { // A toolbar button was clicked
+                           pianoController->processButtonAction(buttonClicked);
+                        } else { // No toolbar button clicked, assume it might be on the instrument itself
+                           pianoController->handlePianoKeyClick(mouseX, mouseY);
+                        }
                     } else if (XylophoneAppController *xylophoneController = dynamic_cast<XylophoneAppController *>(mainController)) {
-                        xylophoneController->processButtonAction(buttonClicked);
+                        // Similar logic for Xylophone: process toolbar or handle instrument click
+                        if (buttonClicked != -1) {
+                            xylophoneController->processButtonAction(buttonClicked);
+                        } else {
+                            // TODO: xylophoneController->handleXyloBarClick(mouseX, mouseY); 
+                        }
                     } else if (VideoGameAppController *videoGameController = dynamic_cast<VideoGameAppController *>(mainController)) {
-                        videoGameController->processButtonAction(buttonClicked);
+                        // Similar logic for VideoGame instrument
+                        if (buttonClicked != -1) {
+                            videoGameController->processButtonAction(buttonClicked);
+                        } else {
+                            // TODO: videoGameController->handleGameInput(mouseX, mouseY); 
+                        }
                     }
                 }
             } else if (event.type == SDL_EVENT_MOUSE_MOTION) {
@@ -212,6 +228,13 @@ void Application::cleanup() {
     delete instrumentMenu;
     instrumentMenu = nullptr;
 
+    // Shutdown and delete AudioEngine
+    if (audioEngine) {
+        audioEngine->shutdown();
+        delete audioEngine;
+        audioEngine = nullptr;
+    }
+
     if (renderer) {
         SDL_DestroyRenderer(renderer);
         renderer = nullptr;
@@ -222,7 +245,6 @@ void Application::cleanup() {
         window = nullptr;
     }
 
-    TTF_Quit();
     SDL_Quit();
     initialized = false;
 }

@@ -2,7 +2,7 @@
 #include "../../include/model/VideoGame.h"
 #include "../../include/view/VideoGameView.h"
 
-VideoGameAppController::VideoGameAppController(int windowWidth, int windowHeight) : Controller() {
+VideoGameAppController::VideoGameAppController(int windowWidth, int windowHeight, MusicApp::Audio::AudioEngine* audioE) : Controller(audioE) {
     // Position et dimensions du VideoGame
     float mainAreaX = 50.0f;
     float mainAreaY = toolbarY + buttonHeight + 30.0f;
