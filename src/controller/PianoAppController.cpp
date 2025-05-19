@@ -2,7 +2,7 @@
 #include "../../include/model/Piano.h"
 #include "../../include/view/PianoView.h"
 
-PianoAppController::PianoAppController(int windowWidth, int windowHeight) : Controller() {
+PianoAppController::PianoAppController(int windowWidth, int windowHeight, MusicApp::Audio::AudioEngine* audioE) : Controller(audioE) {
     // Position et dimensions du piano
     float mainAreaX = 50.0f;
     float mainAreaY = toolbarY + buttonHeight + 30.0f;
@@ -32,6 +32,23 @@ void PianoAppController::processButtonAction(int buttonIndex) {
             piano->addOctave();
             break;
             // Autres actions de boutons à ajouter...
+    }
+}
+
+void PianoAppController::handlePianoKeyClick(float mouseX, float mouseY) {
+    if (!piano || !audioEngine) {
+        return;
+    }
+
+    std::string pitchName = piano->getPitchAt(mouseX, mouseY);
+
+    if (!pitchName.empty()) {
+        MusicApp::Core::Note note(pitchName);
+        // Assuming "Piano" is the instrument name the SDLAudioEngine expects for piano sounds.
+        // This might need to be configurable or based on a more robust instrument mapping.
+        audioEngine->playSound("Piano", note);
+        // For debugging:
+        // SDL_Log("Piano key clicked: %s", pitchName.c_str());
     }
 }
 

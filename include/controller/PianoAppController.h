@@ -4,6 +4,8 @@
 #include "Controller.h"
 #include "../Model/Piano.h"
 #include "../View/PianoView.h"
+#include "../Core/Note.h"
+#include "../Audio/AudioEngine.h"
 
 class PianoAppController : public Controller {
 private:
@@ -11,11 +13,12 @@ private:
     PianoView *pianoView;
 
 public:
-    PianoAppController(int windowWidth, int windowHeight);
+    PianoAppController(int windowWidth, int windowHeight, MusicApp::Audio::AudioEngine* audioE);
 
     ~PianoAppController();
 
     void processButtonAction(int buttonIndex);
+    void handlePianoKeyClick(float mouseX, float mouseY);
 
     void render(SDL_Renderer *renderer, int windowWidth, int windowHeight) override;
 };

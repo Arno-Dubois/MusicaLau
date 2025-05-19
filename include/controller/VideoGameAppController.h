@@ -11,7 +11,7 @@ private:
     VideoGameView *videoGameView;
 
 public:
-    VideoGameAppController(int windowWidth, int windowHeight);
+    VideoGameAppController(int windowWidth, int windowHeight, MusicApp::Audio::AudioEngine* audioE);
 
     ~VideoGameAppController();
 

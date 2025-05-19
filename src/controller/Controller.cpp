@@ -4,7 +4,7 @@
 
 #include "../../include/Controller/Controller.h"
 
-Controller::Controller() {
+Controller::Controller(MusicApp::Audio::AudioEngine* audioE) : audioEngine(audioE) {
     initializeButtons();
 }
 

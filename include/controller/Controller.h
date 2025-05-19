@@ -3,14 +3,14 @@
 #include <SDL3/SDL.h>
 #include <vector>
 #include <string>
-#include <cmath> // Pour M_PI
+#include <cmath>
 #include "../View/View.h"
+#include "../Audio/AudioEngine.h"
 
 class Controller {
 protected:
     std::vector<Button> buttons;
-
-    // UI parameters
+    MusicApp::Audio::AudioEngine* audioEngine;
     float buttonWidth = 121.0f;
     float buttonHeight = 90.0f;
     float buttonSpacing = 50.0f;
@@ -18,7 +18,7 @@ protected:
     float startX = 63.0f;
 
 public:
-    Controller();
+    Controller(MusicApp::Audio::AudioEngine* audioE);
 
     virtual ~Controller() = default;
 
