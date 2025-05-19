@@ -1,8 +1,29 @@
 #pragma once
 
-#include "SDL3/SDL.h"
+#include <SDL3/SDL.h>
 #include <string>
 #include <vector>
+
+namespace Model {
+    class Instrument {
+    protected:
+        std::string name;
+        int id;
+
+    public:
+        Instrument(const std::string &name = "", int id = 0) : name(name), id(id) {}
+
+        virtual ~Instrument() = default;
+
+        std::string getName() const { return name; }
+
+        int getId() const { return id; }
+
+        void setName(const std::string &newName) { name = newName; }
+
+        void setId(int newId) { id = newId; }
+    };
+} // namespace Model
 
 struct PianoKey {
     SDL_FRect rect;         // Bounding box of the key

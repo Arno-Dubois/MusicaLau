@@ -1,18 +1,24 @@
 #pragma once
+
 #include <string>
 
-class Instrument {
-protected:
-    std::string name;
-    int id;
+namespace Model {
+    class Instrument {
+    protected:
+        std::string name;
+        int id;
 
-public:
-    Instrument(const std::string& name = "", int id = 0);
-    virtual ~Instrument() = default;
+    public:
+        Instrument(const std::string &name = "", int id = 0);
 
-    std::string getName() const { return name; }
-    int getId() const { return id; }
+        virtual ~Instrument() = default;
 
-    void setName(const std::string& newName);
-    void setId(int newId);
-};
+        std::string getName() const { return name; }
+
+        int getId() const { return id; }
+
+        void setName(const std::string &newName);
+
+        void setId(int newId);
+    };
+} // namespace Model

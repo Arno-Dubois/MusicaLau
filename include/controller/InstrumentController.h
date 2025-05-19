@@ -6,10 +6,10 @@
 
 class InstrumentController {
 protected:
-    Instrument *instrument;
+    Model::Instrument *instrument;
 
 public:
-    InstrumentController(Instrument *instrument);
+    InstrumentController(Model::Instrument *instrument);
 
     virtual ~InstrumentController();
 
