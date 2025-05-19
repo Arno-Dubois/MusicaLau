@@ -1,5 +1,6 @@
 #include "../include/Application.h"
 #include <iostream>
+#include <SDL3/SDL_ttf.h>
 
 Application::Application(int width, int height)
         : window(nullptr),
@@ -68,6 +69,12 @@ bool Application::initialize() {
     // Initializer SDL
     if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS | SDL_INIT_AUDIO) < 0) {
         SDL_Log("SDL could not initialize! SDL_Error: %s\n", SDL_GetError());
+        return false;
+    }
+
+    if (TTF_Init() < 0) {
+        SDL_Log("SDL_ttf could not initialize! Error: %s\n", SDL_GetError());
+        SDL_Quit();
         return false;
     }
 
@@ -215,6 +222,7 @@ void Application::cleanup() {
         window = nullptr;
     }
 
+    TTF_Quit();
     SDL_Quit();
     initialized = false;
 }

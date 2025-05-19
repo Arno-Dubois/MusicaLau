@@ -1,7 +1,10 @@
 #include "../../include/utils/DropdownMenu.h"
+#include "../../include/utils/TextHelper.h"
+#include <SDL3/SDL_ttf.h>
+#include <iostream>
 
 DropdownMenu::DropdownMenu(float x, float y, float width, float height, const std::string &headerLabel)
-        : isOpen(false), selectedIndex(-1) {
+        : isOpen(false), selectedIndex(-1), font(nullptr) {
 
     headerRect = {x, y, width, height};
 
@@ -12,8 +15,22 @@ DropdownMenu::DropdownMenu(float x, float y, float width, float height, const st
     hoverColor = {150, 190, 220, 255}; // Bleu plus foncé
     darkBlue = {100, 150, 200, 255};
 
+    // Utiliser Arial comme solution de secours
+    font = TTF_OpenFont("C:/Windows/Fonts/arial.ttf", 16);
+
+    if (!font) {
+        std::cerr << "Impossible de charger Arial : " << SDL_GetError() << std::endl;
+    }
+
     // Ajouter le label d'en-tête
     itemLabels.push_back(headerLabel);
+}
+
+DropdownMenu::~DropdownMenu() {
+    if (font) {
+        TTF_CloseFont(font);
+        font = nullptr;
+    }
 }
 
 void DropdownMenu::addItem(const std::string &label, std::function<void()> action) {
@@ -52,17 +69,15 @@ void DropdownMenu::render(SDL_Renderer *renderer) {
     };
     SDL_RenderFillRect(renderer, &titleBar);
 
-    // Simuler l'affichage du texte sélectionné dans l'en-tête
+    // Afficher le texte sélectionné dans l'en-tête
     if (itemLabels.size() > 0) {
-        SDL_SetRenderDrawColor(renderer, 40, 40, 40, 255);
-        // Calculer le centre du texte
-        float textX = headerRect.x + 50; // Après la barre de titre
-        float textY = headerRect.y + headerRect.h / 2 - 5; // Centré verticalement
-
-        // Dessiner un rectangle pour simuler le texte
-        int textLength = itemLabels[0].length() * 10; // Largeur approximative du texte
-        SDL_FRect textRect = {textX, textY, static_cast<float>(textLength), 10};
-        SDL_RenderFillRect(renderer, &textRect);
+        SDL_FRect textRect = {
+                headerRect.x + 50, // Après la barre de titre
+                headerRect.y + 5,
+                headerRect.w - 100, // Laisser de l'espace pour l'indicateur
+                headerRect.h - 10
+        };
+        renderText(renderer, itemLabels[0], textRect, textColor);
     }
 
     // Positionnement et dimensions pour l'indicateur de menu déroulant 
@@ -132,16 +147,15 @@ void DropdownMenu::render(SDL_Renderer *renderer) {
                 SDL_RenderFillRect(renderer, &separatorLine);
             }
 
-            // Simuler l'affichage du texte pour chaque élément
+            // Afficher le texte pour chaque élément
             if (i < itemRects.size() && i + 1 < itemLabels.size()) {
-                SDL_SetRenderDrawColor(renderer, 40, 40, 40, 255);
-                float textX = itemRects[i].x + 50; // Aligner avec le texte principal
-                float textY = itemRects[i].y + itemRects[i].h / 2 - 5; // Centré verticalement
-
-                // Dessiner un rectangle pour simuler le texte
-                int textLength = itemLabels[i + 1].length() * 10;
-                SDL_FRect textRect = {textX, textY, static_cast<float>(textLength), 10};
-                SDL_RenderFillRect(renderer, &textRect);
+                SDL_FRect textRect = {
+                        itemRects[i].x + 50, // Alignement avec le texte principal
+                        itemRects[i].y + 5,
+                        itemRects[i].w - 60,
+                        itemRects[i].h - 10
+                };
+                renderText(renderer, itemLabels[i + 1], textRect, textColor);
             }
 
             // Ajouter un indicateur de sélection pour l'élément actif
@@ -212,4 +226,45 @@ bool DropdownMenu::handleClick(float x, float y) {
 
 void DropdownMenu::toggleOpen() {
     isOpen = !isOpen;
+}
+
+// Fonction pour afficher du texte avec SDL_ttf
+void DropdownMenu::renderText(SDL_Renderer *renderer, const std::string &text, SDL_FRect &targetRect, SDL_Color color) {
+    if (!font || !renderer || text.empty()) return;
+
+    // Créer une surface de texte
+    SDL_Surface *textSurface = TextHelper::RenderTextSolid(font, text, color);
+    if (!textSurface) {
+        std::cerr << "Erreur lors du rendu du texte : " << SDL_GetError() << std::endl;
+        return;
+    }
+
+    // Créer une texture à partir de la surface
+    SDL_Texture *textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
+    SDL_DestroySurface(textSurface);
+
+    if (!textTexture) {
+        std::cerr << "Erreur lors de la création de la texture : " << SDL_GetError() << std::endl;
+        return;
+    }
+
+    // Calculer la position pour centrer verticalement le texte
+    float textWidth, textHeight;
+    SDL_GetTextureSize(textTexture, &textWidth, &textHeight);
+
+    SDL_FRect renderRect = {
+            targetRect.x,
+            targetRect.y + (targetRect.h - textHeight) / 2, // Centrage vertical
+            textWidth,
+            textHeight
+    };
+
+    // Si le texte est trop large, le limiter à la zone cible
+    if (renderRect.w > targetRect.w) {
+        renderRect.w = targetRect.w;
+    }
+
+    // Afficher la texture
+    SDL_RenderTexture(renderer, textTexture, NULL, &renderRect);
+    SDL_DestroyTexture(textTexture);
 }

@@ -55,6 +55,7 @@ set(LIB_SOURCES
         src/utils/audio_utils.cpp
         src/utils/file_utils.cpp
         src/utils/DropdownMenu.cpp
+        src/utils/TextHelper.cpp
         devfile.cpp
 )
 
@@ -105,6 +106,7 @@ set(LIB_HEADERS
         include/utils/audio_utils.h
         include/utils/file_utils.h
         include/utils/DropdownMenu.h
+        include/utils/TextHelper.h
 
         #Core
         include/Core/Note.h
