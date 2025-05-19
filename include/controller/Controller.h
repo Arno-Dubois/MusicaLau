@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SDL3/SDL.h>
+#include <SDL3/SDL_ttf.h>
 #include <vector>
 #include <string>
 #include <cmath> // Pour M_PI
@@ -9,6 +10,7 @@
 class Controller {
 protected:
     std::vector<Button> buttons;
+    TTF_Font *font;
 
     // UI parameters
     float buttonWidth = 121.0f;
@@ -20,7 +22,7 @@ protected:
 public:
     Controller();
 
-    virtual ~Controller() = default;
+    virtual ~Controller();
 
     void initializeButtons();
 

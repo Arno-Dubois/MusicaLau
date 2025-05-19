@@ -3,9 +3,25 @@
 //
 
 #include "../../include/Controller/Controller.h"
+#include "../../include/utils/TextHelper.h"
+#include <iostream>
 
-Controller::Controller() {
+Controller::Controller() : font(nullptr) {
+    // Utiliser Arial comme solution de secours
+    font = TTF_OpenFont("C:/Windows/Fonts/arial.ttf", 16);
+
+    if (!font) {
+        std::cerr << "Impossible de charger Arial : " << SDL_GetError() << std::endl;
+    }
+
     initializeButtons();
+}
+
+Controller::~Controller() {
+    if (font) {
+        TTF_CloseFont(font);
+        font = nullptr;
+    }
 }
 
 void Controller::initializeButtons() {
@@ -148,56 +164,94 @@ void Controller::renderButtons(SDL_Renderer *renderer, const std::vector<Button>
     }
 }
 
-// Fonction utilitaire pour dessiner un texte centré (simulé sans SDL_ttf)
+// Fonction utilitaire pour dessiner un texte centré avec SDL_ttf
 void Controller::renderTextCentered(SDL_Renderer *renderer, float centerX, float centerY, const std::string &text,
                                     SDL_Color color) {
-    // Comme nous n'utilisons pas SDL_ttf pour le moment, je vais dessiner quelque chose de plus propre qu'un simple rectangle
-    SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
+    if (!font || !renderer || text.empty()) return;
 
-    float charWidth = 10.0f;   // Largeur moyenne d'un caractère
-    float charHeight = 16.0f;  // Hauteur du texte
-
-    float textWidth = text.length() * charWidth;
-    float startX = centerX - textWidth / 2;
-    float startY = centerY - charHeight / 2;
-
-    // Dessine chaque caractère (simplifié)
-    for (size_t i = 0; i < text.length(); i++) {
-        float x = startX + i * charWidth;
-
-        // Si c'est un espace, ne rien dessiner
-        if (text[i] == ' ') continue;
-
-        // Dessiner un simple caractère rectangulaire
-        SDL_FRect charRect = {x + 1, startY, charWidth - 2, charHeight};
-        SDL_RenderFillRect(renderer, &charRect);
+    // Créer une surface de texte
+    SDL_Surface *textSurface = TextHelper::RenderTextSolid(font, text, color);
+    if (!textSurface) {
+        std::cerr << "Erreur lors du rendu du texte : " << SDL_GetError() << std::endl;
+        return;
     }
+
+    // Créer une texture à partir de la surface
+    SDL_Texture *textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
+    SDL_DestroySurface(textSurface);
+
+    if (!textTexture) {
+        std::cerr << "Erreur lors de la création de la texture : " << SDL_GetError() << std::endl;
+        return;
+    }
+
+    // Obtenir les dimensions de la texture
+    float textWidth, textHeight;
+    SDL_GetTextureSize(textTexture, &textWidth, &textHeight);
+
+    // Positionner le texte centré
+    SDL_FRect renderQuad = {
+            centerX - textWidth / 2.0f,
+            centerY - textHeight / 2.0f,
+            textWidth,
+            textHeight
+    };
+
+    // Afficher la texture
+    SDL_RenderTexture(renderer, textTexture, NULL, &renderQuad);
+    SDL_DestroyTexture(textTexture);
 }
 
-// Fonction pour dessiner un texte en petit
+// Fonction pour dessiner un texte en petit avec SDL_ttf
 void Controller::renderSmallText(SDL_Renderer *renderer, float centerX, float centerY, const std::string &text,
                                  SDL_Color color) {
-    // Version plus petite et plus fine pour le texte secondaire
-    SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
+    if (!font || !renderer || text.empty()) return;
 
-    float charWidth = 5.0f;    // Largeur réduite pour le texte petit
-    float charHeight = 8.0f;   // Hauteur réduite
+    // Créer une surface de texte avec une taille réduite
+    TTF_Font *smallFont = TTF_OpenFont("C:/Windows/Fonts/arial.ttf", 12);
 
-    float textWidth = text.length() * charWidth;
-    float startX = centerX - textWidth / 2;
-    float startY = centerY - charHeight / 2;
-
-    // Dessine chaque caractère (simplifié)
-    for (size_t i = 0; i < text.length(); i++) {
-        float x = startX + i * charWidth;
-
-        // Si c'est un espace, ne rien dessiner
-        if (text[i] == ' ') continue;
-
-        // Dessiner un simple caractère rectangulaire plus fin
-        SDL_FRect charRect = {x + 0.5f, startY, charWidth - 1, charHeight};
-        SDL_RenderFillRect(renderer, &charRect);
+    if (!smallFont) {
+        smallFont = TTF_OpenFont("assets/fonts/Roboto-SemiBold.ttf", 12);
+        if (!smallFont) {
+            // Si la police plus petite ne peut pas être chargée, utiliser la police standard
+            renderTextCentered(renderer, centerX, centerY, text, color);
+            return;
+        }
     }
+
+    // Créer une surface de texte
+    SDL_Surface *textSurface = TextHelper::RenderTextSolid(smallFont, text, color);
+    TTF_CloseFont(smallFont);
+
+    if (!textSurface) {
+        std::cerr << "Erreur lors du rendu du texte : " << SDL_GetError() << std::endl;
+        return;
+    }
+
+    // Créer une texture à partir de la surface
+    SDL_Texture *textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
+    SDL_DestroySurface(textSurface);
+
+    if (!textTexture) {
+        std::cerr << "Erreur lors de la création de la texture : " << SDL_GetError() << std::endl;
+        return;
+    }
+
+    // Obtenir les dimensions de la texture
+    float textWidth, textHeight;
+    SDL_GetTextureSize(textTexture, &textWidth, &textHeight);
+
+    // Positionner le texte centré
+    SDL_FRect renderQuad = {
+            centerX - textWidth / 2.0f,
+            centerY - textHeight / 2.0f,
+            textWidth,
+            textHeight
+    };
+
+    // Afficher la texture
+    SDL_RenderTexture(renderer, textTexture, NULL, &renderQuad);
+    SDL_DestroyTexture(textTexture);
 }
 
 // Fonction pour dessiner une icône de fichier
