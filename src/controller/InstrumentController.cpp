@@ -2,9 +2,9 @@
 // Created by coren on 24/03/2025.
 //
 
-#include "../../include/controller/InstrumentController.h"
+#include "../../include/Controller/InstrumentController.h"
 
-InstrumentController::InstrumentController(Instrument *instrument)
+InstrumentController::InstrumentController(Model::Instrument *instrument)
         : instrument(instrument) {
 }
 

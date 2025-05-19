@@ -6,19 +6,13 @@
 #include "../../include/utils/TextHelper.h"
 #include <iostream>
 
-Controller::Controller() : font(nullptr) {
-    // Utiliser Arial comme solution de secours
-    font = TTF_OpenFont("C:/Windows/Fonts/arial.ttf", 16);
+Controller::Controller() : font(nullptr), audioEngine(nullptr) {
+    font = TextHelper::LoadFont("Roboto-SemiBold.ttf", 16);
+    initializeButtons();
+}
 
-    if (!font) {
-        std::cerr << "Impossible de charger Arial : " << SDL_GetError() << std::endl;
-    }
-
-    <<<<<<< HEAD
-            == == == =
-                    Controller::Controller(MusicApp::Audio::AudioEngine * audioE) : audioEngine(audioE)
-    {
-        >>>>>>> origin / MergingBranch
+Controller::Controller(MusicApp::Audio::AudioEngine *audioE) : audioEngine(audioE), font(nullptr) {
+    font = TextHelper::LoadFont("Roboto-SemiBold.ttf", 16);
     initializeButtons();
 }
 
@@ -30,7 +24,6 @@ Controller::~Controller() {
 }
 
 void Controller::initializeButtons() {
-    // Tableau des noms de boutons
     std::vector<std::string> buttonNames = {
             "Select",
             "Remove Octave",
@@ -79,6 +72,11 @@ void Controller::renderButtons(SDL_Renderer *renderer, const std::vector<Button>
         float centerX = button.rect.x + button.rect.w / 2;
         float centerY = button.rect.y + button.rect.h / 2;
 
+        // Calculer la position du texte (plus proche du bas)
+        float textY = button.rect.y + button.rect.h - 15;
+        // Calculer la position des icônes (plus haute pour laisser de la place au texte)
+        float iconY = centerY - 10;
+
         // Dessiner l'icône ou le texte en fonction de l'index du bouton
         switch (i) {
             case 0: // Select
@@ -92,11 +90,11 @@ void Controller::renderButtons(SDL_Renderer *renderer, const std::vector<Button>
             {
                 // Dessiner un symbole minus
                 SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-                SDL_FRect minus = {centerX - 15, centerY - 2, 30, 4};
+                SDL_FRect minus = {centerX - 15, iconY - 2, 30, 4};
                 SDL_RenderFillRect(renderer, &minus);
 
-                // Texte descriptif en petit en bas du bouton
-                renderSmallText(renderer, centerX, centerY + 20, "Remove Octave", {200, 200, 200, 255});
+                // Texte descriptif en bas du bouton avec une couleur plus claire
+                renderSmallText(renderer, centerX, textY, "Remove", {255, 255, 255, 255});
                 break;
             }
 
@@ -105,64 +103,64 @@ void Controller::renderButtons(SDL_Renderer *renderer, const std::vector<Button>
                 // Dessiner un symbole plus (+)
                 SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
                 // Ligne horizontale
-                SDL_FRect plusH = {centerX - 15, centerY - 2, 30, 4};
+                SDL_FRect plusH = {centerX - 15, iconY - 2, 30, 4};
                 SDL_RenderFillRect(renderer, &plusH);
                 // Ligne verticale
-                SDL_FRect plusV = {centerX - 2, centerY - 15, 4, 30};
+                SDL_FRect plusV = {centerX - 2, iconY - 15, 4, 30};
                 SDL_RenderFillRect(renderer, &plusV);
 
-                // Texte descriptif en petit en bas du bouton
-                renderSmallText(renderer, centerX, centerY + 20, "Add Octave", {200, 200, 200, 255});
+                // Texte descriptif en bas du bouton avec une couleur plus claire
+                renderSmallText(renderer, centerX, textY, "Add", {255, 255, 255, 255});
                 break;
             }
 
             case 3: // Import File
             {
                 // Dessiner une icône de fichier
-                drawFileIcon(renderer, centerX, centerY, 30, {255, 255, 255, 255});
+                drawFileIcon(renderer, centerX, iconY, 30, {255, 255, 255, 255});
 
-                // Texte descriptif en petit en bas du bouton
-                renderSmallText(renderer, centerX, centerY + 20, "Import File", {200, 200, 200, 255});
+                // Texte descriptif en bas du bouton avec une couleur plus claire
+                renderSmallText(renderer, centerX, textY, "Import", {255, 255, 255, 255});
                 break;
             }
 
             case 4: // Play Song
             {
                 // Dessiner un triangle de lecture (blanc)
-                drawPlayIcon(renderer, centerX, centerY, 20, {200, 200, 200, 255});
+                drawPlayIcon(renderer, centerX, iconY, 20, {200, 200, 200, 255});
 
-                // Texte descriptif en petit en bas du bouton
-                renderSmallText(renderer, centerX, centerY + 20, "Play Song", {200, 200, 200, 255});
+                // Texte descriptif en bas du bouton avec une couleur plus claire
+                renderSmallText(renderer, centerX, textY, "Play", {255, 255, 255, 255});
                 break;
             }
 
             case 5: // Start Recording
             {
                 // Dessiner un triangle de lecture (rouge)
-                drawPlayIcon(renderer, centerX, centerY, 20, {255, 50, 50, 255});
+                drawPlayIcon(renderer, centerX, iconY, 20, {255, 50, 50, 255});
 
-                // Texte descriptif en petit en bas du bouton
-                renderSmallText(renderer, centerX, centerY + 20, "Start Recording", {200, 200, 200, 255});
+                // Texte descriptif en bas du bouton avec une couleur plus claire
+                renderSmallText(renderer, centerX, textY, "Record", {255, 255, 255, 255});
                 break;
             }
 
             case 6: // Export
             {
                 // Dessiner une flèche vers le haut
-                drawUpArrow(renderer, centerX, centerY, 20, {255, 50, 50, 255});
+                drawUpArrow(renderer, centerX, iconY, 20, {255, 50, 50, 255});
 
-                // Texte descriptif en petit en bas du bouton
-                renderSmallText(renderer, centerX, centerY + 20, "Export", {200, 200, 200, 255});
+                // Texte descriptif en bas du bouton avec une couleur plus claire
+                renderSmallText(renderer, centerX, textY, "Export", {255, 255, 255, 255});
                 break;
             }
 
             case 7: // Finish Recording
             {
                 // Dessiner un cercle avec un carré à l'intérieur
-                drawStopIcon(renderer, centerX, centerY, 20, {255, 50, 50, 255});
+                drawStopIcon(renderer, centerX, iconY, 20, {255, 50, 50, 255});
 
-                // Texte descriptif en petit en bas du bouton
-                renderSmallText(renderer, centerX, centerY + 20, "Finish Recording", {200, 200, 200, 255});
+                // Texte descriptif en bas du bouton avec une couleur plus claire
+                renderSmallText(renderer, centerX, textY, "Stop", {255, 255, 255, 255});
                 break;
             }
         }
@@ -202,29 +200,21 @@ void Controller::renderTextCentered(SDL_Renderer *renderer, float centerX, float
             textHeight
     };
 
-    // Afficher la texture
     SDL_RenderTexture(renderer, textTexture, NULL, &renderQuad);
     SDL_DestroyTexture(textTexture);
 }
 
-// Fonction pour dessiner un texte en petit avec SDL_ttf
 void Controller::renderSmallText(SDL_Renderer *renderer, float centerX, float centerY, const std::string &text,
                                  SDL_Color color) {
     if (!font || !renderer || text.empty()) return;
 
-    // Créer une surface de texte avec une taille réduite
-    TTF_Font *smallFont = TTF_OpenFont("C:/Windows/Fonts/arial.ttf", 12);
+    TTF_Font *smallFont = TextHelper::LoadFont("Roboto-SemiBold.ttf", 14);
 
     if (!smallFont) {
-        smallFont = TTF_OpenFont("assets/fonts/Roboto-SemiBold.ttf", 12);
-        if (!smallFont) {
-            // Si la police plus petite ne peut pas être chargée, utiliser la police standard
-            renderTextCentered(renderer, centerX, centerY, text, color);
-            return;
-        }
+        renderTextCentered(renderer, centerX, centerY, text, color);
+        return;
     }
 
-    // Créer une surface de texte
     SDL_Surface *textSurface = TextHelper::RenderTextSolid(smallFont, text, color);
     TTF_CloseFont(smallFont);
 

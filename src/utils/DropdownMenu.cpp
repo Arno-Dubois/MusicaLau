@@ -15,12 +15,8 @@ DropdownMenu::DropdownMenu(float x, float y, float width, float height, const st
     hoverColor = {150, 190, 220, 255}; // Bleu plus foncé
     darkBlue = {100, 150, 200, 255};
 
-    // Utiliser Arial comme solution de secours
-    font = TTF_OpenFont("C:/Windows/Fonts/arial.ttf", 16);
-
-    if (!font) {
-        std::cerr << "Impossible de charger Arial : " << SDL_GetError() << std::endl;
-    }
+    // Charger la police avec l'utilitaire
+    font = TextHelper::LoadFont("Roboto-SemiBold.ttf", 16);
 
     // Ajouter le label d'en-tête
     itemLabels.push_back(headerLabel);

@@ -9,6 +9,14 @@
  */
 namespace TextHelper {
     /**
+     * Cherche et charge une police en essayant plusieurs chemins
+     * @param fontName Nom du fichier de police
+     * @param ptsize Taille de la police en points
+     * @return Police chargée ou nullptr si échec
+     */
+    TTF_Font *LoadFont(const std::string &fontName, int ptsize);
+
+    /**
      * Fonction d'aide qui enveloppe TTF_RenderText_Solid pour s'adapter à la SDL3
      * @param font La police à utiliser
      * @param text Le texte à rendre

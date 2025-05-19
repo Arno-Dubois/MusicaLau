@@ -1,15 +1,13 @@
-
-
 #include "../../include/Model/Instrument.h"
 
-Instrument::Instrument(const std::string &name, int id)
+Model::Instrument::Instrument(const std::string &name, int id)
         : name(name), id(id) {
 }
 
-void Instrument::setName(const std::string &newName) {
-    name = newName;
+void Model::Instrument::setName(const std::string &newName) {
+    this->name = newName;
 }
 
-void Instrument::setId(int newId) {
-    id = newId;
+void Model::Instrument::setId(int newId) {
+    this->id = newId;
 }

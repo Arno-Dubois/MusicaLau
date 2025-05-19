@@ -1,4 +1,4 @@
-#include "../include/Model/Piano.h"
+#include "../../include/Model/Piano.h"
 #include <array> // For pitch names
 
 Piano::Piano(float x, float y, float width, float height, int octaves)
