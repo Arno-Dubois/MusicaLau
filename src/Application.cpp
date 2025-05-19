@@ -19,16 +19,16 @@ Application::~Application() {
 }
 
 void Application::initializeInstrumentMenu() {
-    // On utilise les mêmes valeurs que dans PianoAppController pour le positionnement
+    // On utilise des valeurs relatives aux dimensions de la fenêtre
     float toolbarY = 20.0f;
-    float buttonHeight = 90.0f;
-    float spacing = 30.0f;
+    float buttonHeight = windowHeight * 0.09f; // ~9% de la hauteur de la fenêtre
+    float spacing = windowHeight * 0.03f; // ~3% de la hauteur
 
-    // Position et dimensions exactes du rectangle bleu
-    float mainAreaX = 50.0f;
+    // Position et dimensions adaptatives du rectangle bleu
+    float mainAreaX = windowWidth * 0.035f; // ~3.5% de la largeur
     float mainAreaY = toolbarY + buttonHeight + spacing;
-    float mainAreaWidth = windowWidth - 100.0f;
-    float headerHeight = 50.0f;
+    float mainAreaWidth = windowWidth * 0.93f; // ~93% de la largeur
+    float headerHeight = windowHeight * 0.05f; // ~5% de la hauteur
 
     // Créer le menu déroulant avec le nom de l'instrument actif
     std::string headerLabel;
@@ -172,40 +172,58 @@ bool Application::run() {
                 float mouseX, mouseY;
                 SDL_GetMouseState(&mouseX, &mouseY);
 
-                // Vérifier d'abord les clics sur le menu déroulant
                 bool clickHandled = instrumentMenu->handleClick(mouseX, mouseY);
 
-                // Si le clic n'a pas été géré par le menu, le transmettre au contrôleur
                 if (!clickHandled && !instrumentMenu->isMenuOpen()) {
                     int buttonClicked = mainController->handleButtonClick(mouseX, mouseY);
 
                     if (PianoAppController *pianoController = dynamic_cast<PianoAppController *>(mainController)) {
-                        if (buttonClicked != -1) { // A toolbar button was clicked
+                        if (buttonClicked != -1) {
                             pianoController->processButtonAction(buttonClicked);
-                        } else { // No toolbar button clicked, assume it might be on the instrument itself
+                        } else {
                             pianoController->handlePianoKeyClick(mouseX, mouseY);
                         }
                     } else if (XylophoneAppController *xylophoneController = dynamic_cast<XylophoneAppController *>(mainController)) {
-                        // Similar logic for Xylophone: process toolbar or handle instrument click
                         if (buttonClicked != -1) {
                             xylophoneController->processButtonAction(buttonClicked);
                         } else {
-                            // TODO: xylophoneController->handleXyloBarClick(mouseX, mouseY); 
+                            xylophoneController->handleXylophoneKeyClick(mouseX, mouseY);
                         }
                     } else if (VideoGameAppController *videoGameController = dynamic_cast<VideoGameAppController *>(mainController)) {
-                        // Similar logic for VideoGame instrument
                         if (buttonClicked != -1) {
                             videoGameController->processButtonAction(buttonClicked);
                         } else {
-                            // TODO: videoGameController->handleGameInput(mouseX, mouseY); 
+                            // TODO: Implémenter cette méthode
+                            // videoGameController->handleGameInput(mouseX, mouseY);
                         }
                     }
                 }
             } else if (event.type == SDL_EVENT_MOUSE_MOTION) {
-                // Gérer l'effet de survol pour les éléments du menu
                 float mouseX, mouseY;
                 SDL_GetMouseState(&mouseX, &mouseY);
                 instrumentMenu->updateHoverState(mouseX, mouseY);
+
+                if (!instrumentMenu->isMenuOpen()) {
+                    if (PianoAppController *pianoController = dynamic_cast<PianoAppController *>(mainController)) {
+                        pianoController->handlePianoKeyHover(mouseX, mouseY);
+                    } else if (XylophoneAppController *xylophoneController = dynamic_cast<XylophoneAppController *>(mainController)) {
+                        xylophoneController->handleXylophoneKeyHover(mouseX, mouseY);
+                    }
+                    /* else if (VideoGameAppController *videoGameController = dynamic_cast<VideoGameAppController *>(mainController)) {
+                        videoGameController->handleVideoGameKeyHover(mouseX, mouseY);
+                    } */
+                }
+            } else if (event.type == SDL_EVENT_WINDOW_RESIZED) {
+                SDL_GetWindowSizeInPixels(window, &windowWidth, &windowHeight);
+
+                if (instrumentMenu) {
+                    delete instrumentMenu;
+                    initializeInstrumentMenu();
+                }
+
+                if (mainController) {
+                    setInstrument(currentInstrument);
+                }
             }
         }
 
