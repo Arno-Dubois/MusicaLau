@@ -1,0 +1,79 @@
+name: Create Release
+
+on:
+  push:
+    tags:
+      - 'v*' # Trigger on version tags like v1.0.0
+
+jobs:
+  build-and-release:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up MSVC
+        uses: microsoft/setup-msvc@v1
+
+      - name: Setup CMake
+        uses: jwlawson/actions-setup-cmake@v1.14
+        with:
+          cmake-version: '3.20' # Match your CMakeLists.txt version
+
+      - name: Create Build Directory
+        run: mkdir build
+        shell: bash
+
+      - name: Configure CMake
+        shell: cmd
+        run: |
+          cd build
+          cmake .. -G "Visual Studio 17 2022" -A x64
+
+      - name: Build Project
+        shell: cmd
+        run: |
+          cd build
+          cmake --build . --config Release
+
+      - name: Create Artifacts Directory
+        run: mkdir artifacts
+        shell: bash
+
+      - name: Copy Executable
+        run: copy build\bin\Release\MusicaLau.exe artifacts\MusicaLau.exe
+        shell: cmd
+
+      # Note: Your CMakeLists.txt copies DLLs to ${PROJECT_SOURCE_DIR}/bin
+      # Adjust these paths if your CMake output directory for DLLs is different
+      - name: Copy SDL3.dll
+        run: copy bin\SDL3.dll artifacts\SDL3.dll
+        shell: cmd
+
+      - name: Copy SDL3_ttf.dll
+        run: copy bin\SDL3_ttf.dll artifacts\SDL3_ttf.dll
+        shell: cmd
+
+      - name: Copy SDL3_image.dll
+        run: copy bin\SDL3_image.dll artifacts\SDL3_image.dll
+        shell: cmd
+
+      - name: Copy SDL2_mixer.dll (as SDL3_mixer.dll)
+        run: copy bin\SDL2_mixer.dll artifacts\SDL2_mixer.dll
+        shell: cmd
+
+      - name: Create Zip Archive
+        uses: papeloto/action-zip@v1
+        with:
+          files: artifacts/
+          dest: MusicaLau-Release.zip
+          overwrite: true
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: MusicaLau-Release.zip
+          # The GITHUB_TOKEN is automatically provided by GitHub Actions
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
