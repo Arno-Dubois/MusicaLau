@@ -12,39 +12,36 @@
 
 // Callback function for SDL_ShowOpenFileDialog
 static void FileDialogCallback(void *userdata, const char *const *filePaths, int numFiles) {
-    auto *controller = static_cast<Controller *>(userdata);
-    std::cout << *filePaths;
-    std::cout << numFiles;
-    std::cout << userdata;
-    if (controller && filePaths[0]) {
+    Controller *controller = static_cast<Controller *>(userdata);
+    if (controller && filePaths && filePaths[0]) {
         controller->importedFilePath = filePaths[0];
-        // Extract filename from path
         size_t lastSlash = controller->importedFilePath.find_last_of("/\\");
         if (lastSlash != std::string::npos) {
             controller->importedFileName = controller->importedFilePath.substr(lastSlash + 1);
         } else {
             controller->importedFileName = controller->importedFilePath;
         }
-
-        controller->currentSongEvents = parseMusicFile(controller->importedFilePath);
-        if (!controller->currentSongEvents.empty()) {
+        controller->currentSongEvents_for_playback = parseMusicFile(controller->importedFilePath);
+        if (!controller->currentSongEvents_for_playback.empty()) {
             controller->songLoaded = true;
-            std::cout << "Song loaded: " << controller->importedFileName << std::endl;
+            controller->songPlayRequested_ = false; // Reset play request status
+            std::cout << "Controller: Song loaded: " << controller->importedFileName << std::endl;
         } else {
             controller->songLoaded = false;
+            controller->songPlayRequested_ = false;
             controller->importedFileName.clear();
-            std::cerr << "Failed to parse song file: " << controller->importedFilePath << std::endl;
+            std::cerr << "Controller: Failed to parse song file: " << controller->importedFilePath << std::endl;
         }
     } else if (controller) {
-        std::cerr << "No file selected or error in file dialog." << std::endl;
+        std::cerr << "Controller: No file selected or error in file dialog." << std::endl;
         controller->songLoaded = false;
+        controller->songPlayRequested_ = false;
         controller->importedFileName.clear();
     }
 }
 
 Controller::Controller() : font(nullptr), audioEngine(nullptr), currentWindowWidth(0), currentWindowHeight(0),
-                           songLoaded(false), buttonView_(nullptr), stopSongPlayback_(false), isSongPlaying_(false),
-                           songPlaybackThread_() {
+                           songLoaded(false), buttonView_(nullptr), songPlayRequested_(false) {
     font = TextHelper::LoadFont("Roboto-SemiBold.ttf", 16);
     buttonView_ = new ButtonView();
     if (buttonView_) {
@@ -56,8 +53,7 @@ Controller::Controller() : font(nullptr), audioEngine(nullptr), currentWindowWid
 Controller::Controller(MusicApp::Audio::AudioEngine *audioE) : audioEngine(audioE), font(nullptr),
                                                                currentWindowWidth(0), currentWindowHeight(0),
                                                                songLoaded(false), buttonView_(nullptr),
-                                                               stopSongPlayback_(false), isSongPlaying_(false),
-                                                               songPlaybackThread_() {
+                                                               songPlayRequested_(false) {
     font = TextHelper::LoadFont("Roboto-SemiBold.ttf", 16);
     buttonView_ = new ButtonView();
     if (buttonView_) {
@@ -67,9 +63,6 @@ Controller::Controller(MusicApp::Audio::AudioEngine *audioE) : audioEngine(audio
 }
 
 Controller::~Controller() {
-    if (songPlaybackThread_.joinable()) {
-        songPlaybackThread_.join();
-    }
     if (font) {
         TTF_CloseFont(font);
         font = nullptr;
@@ -168,81 +161,31 @@ int Controller::handleButtonClick(float x, float y) {
 
 void Controller::handleImportSong() {
     SDL_DialogFileFilter filters[1] = {{"Text files", "txt"}};
-    // SDL_ShowOpenFileDialog takes a C-style function pointer, so we use the static callback
     SDL_ShowOpenFileDialog(FileDialogCallback, this, nullptr, filters, SDL_arraysize(filters), nullptr, false);
 }
 
-void Controller::handlePlaySong(const std::string &instrumentName) {
-    if (isSongPlaying_) {
-        std::cout << "Controller: Song is already playing. Stop the current song first." << std::endl;
-        return;
-    }
-    if (songLoaded && audioEngine) {
-        if (songPlaybackThread_.joinable()) {
-            songPlaybackThread_.join(); // Ensure previous thread is finished
-        }
-        stopSongPlayback_ = false; // Reset stop flag
-        // It's crucial to copy currentSongEvents if it might be modified, or ensure access is thread-safe.
-        // For now, we pass a copy to the thread.
-        std::vector<MusicalEvent> eventsCopy = currentSongEvents;
-        songPlaybackThread_ = std::thread(&Controller::songPlaybackLoop, this, instrumentName, eventsCopy);
+void Controller::handlePlaySongClicked(const std::string &instrumentName) {
+    if (songLoaded) {
+        currentInstrumentName_for_song_ = instrumentName;
+        songPlayRequested_ = true;
+        std::cout << "Controller: Play song requested for " << importedFileName << " with instrument " << instrumentName
+                << std::endl;
     } else {
-        std::cerr << "Controller: No song loaded or audio engine not available." << std::endl;
+        std::cerr << "Controller: No song loaded to play." << std::endl;
+        songPlayRequested_ = false;
     }
 }
 
-void Controller::songPlaybackLoop(std::string instrumentName, std::vector<MusicalEvent> eventsToPlay) {
-    isSongPlaying_ = true;
-    auto sdlAudioEngine = dynamic_cast<MusicApp::Audio::SDLAudioEngine *>(audioEngine);
-    if (!sdlAudioEngine) {
-        std::cerr << "Controller: Cannot play song, audio engine is not SDLAudioEngine." << std::endl;
-        isSongPlaying_ = false;
-        return;
-    }
-
-    for (const auto &event: eventsToPlay) {
-        if (stopSongPlayback_) {
-            break; // Exit loop if stop is requested
-        }
-
-        int delayMilliseconds = static_cast<int>(event.durationSeconds * 1000.0f);
-
-        if (event.pitchName != "0") {
-            MusicApp::Core::Note noteToPlay(event.pitchName);
-            sdlAudioEngine->playSound(instrumentName, noteToPlay, 1.0f); // Default velocity
-
-            if (delayMilliseconds > 0) {
-                SDL_Delay(delayMilliseconds); // This delay still blocks this thread, but not the main one
-            }
-            // Only stop the note if it was actually played (and not a silence that got through)
-            // And also only if we are not immediately exiting due to stopSongPlayback_
-            if (!stopSongPlayback_) {
-                sdlAudioEngine->stopSound(instrumentName, noteToPlay);
-            }
-        } else {
-            // Silence
-            if (delayMilliseconds > 0) {
-                SDL_Delay(delayMilliseconds);
-            }
-        }
-        if (!stopSongPlayback_) {
-            SDL_Delay(10); // Small delay between events
-        }
-    }
-    std::cout << "Song playback finished or stopped." << std::endl;
-    isSongPlaying_ = false;
-    stopSongPlayback_ = false; // Reset for next playback
+std::string Controller::getCurrentInstrumentForSong() const {
+    return currentInstrumentName_for_song_;
 }
 
-void Controller::stopCurrentlyPlayingSong() {
-    if (isSongPlaying_ && songPlaybackThread_.joinable()) {
-        stopSongPlayback_ = true; // Signal the thread to stop
-        songPlaybackThread_.join(); // Wait for the thread to finish
-        std::cout << "Controller: Song playback stopped by user." << std::endl;
-        // Resetting flags is handled at the end of songPlaybackLoop
-    } else {
-        std::cout << "Controller: No song is currently playing or thread not joinable." << std::endl;
-    }
+const std::vector<MusicalEvent> &Controller::getLoadedSongEvents() const {
+    return currentSongEvents_for_playback;
+}
+
+bool Controller::isSongReadyToPlay() const {
+    return songPlayRequested_;
 }
 
 std::string Controller::getImportedFileName() const {

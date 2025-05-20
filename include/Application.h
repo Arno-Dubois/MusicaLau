@@ -10,6 +10,7 @@
 #include "Controller/VideoGameAppController.h"
 #include "Utils/DropdownMenu.h"
 #include "Audio/SDLAudioEngine.h"
+#include "audio/SongPlayer.h"
 
 // Structure pour mapper les touches du clavier aux notes musicales
 struct KeyboardMapping {
@@ -30,6 +31,8 @@ private:
     SDL_Renderer *renderer;
     Controller *mainController;
     MusicApp::Audio::AudioEngine *audioEngine;
+    MusicApp::Audio::SDLAudioEngine *sdlAudioEngine;
+    MusicApp::Audio::SongPlayer *songPlayer;
     int windowWidth;
     int windowHeight;
     bool initialized;

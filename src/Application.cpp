@@ -14,7 +14,9 @@ Application::Application(int width, int height)
           currentInstrument(InstrumentType::PIANO),
           instrumentMenu(nullptr),
           currentPlayingNote(""),
-          isMouseButtonDown(false),
+isMouseButtonDown(false),
+sdlAudioEngine(nullptr), // Initialize SDLAudioEngine pointer
+songPlayer(nullptr),
           lastNotePlayTime(0) {
     // Initialiser le mapping clavier-notes
     initializeKeyboardMappings();
@@ -85,11 +87,33 @@ bool Application::initialize() {
         return false;
     }
 
-    audioEngine = new MusicApp::Audio::SDLAudioEngine();
-    if (!audioEngine->init()) {
-        SDL_Log("AudioEngine could not initialize!\n");
+    std::cout << "Application::initialize: About to create SDLAudioEngine." << std::endl;
+    sdlAudioEngine = new MusicApp::Audio::SDLAudioEngine();
+    std::cout << "Application::initialize: SDLAudioEngine created at address: " << sdlAudioEngine << std::endl;
+
+    if (!sdlAudioEngine) {
+        std::cerr << "Application::initialize FATAL ERROR: new SDLAudioEngine failed!" << std::endl;
         SDL_Quit();
         return false;
+    }
+    if (!sdlAudioEngine->init()) {
+        std::cerr << "Application::initialize FATAL ERROR: sdlAudioEngine->init() failed!" << std::endl; // Changed log
+        delete sdlAudioEngine; // Cleanup
+        sdlAudioEngine = nullptr;
+        SDL_Quit();
+        return false;
+    }
+    std::cout << "Application::initialize: sdlAudioEngine initialized successfully." << std::endl;
+    audioEngine = sdlAudioEngine;
+
+    std::cout << "Application::initialize: About to create SongPlayer. Passing sdlAudioEngine address: " << sdlAudioEngine << std::endl;
+    songPlayer = new MusicApp::Audio::SongPlayer(sdlAudioEngine);
+    std::cout << "Application::initialize: songPlayer created at address: " << songPlayer << std::endl;
+    if (!songPlayer) {
+        std::cerr << "Application::initialize FATAL ERROR: new SongPlayer failed (returned nullptr)!" << std::endl;
+        // Handle error appropriately
+    } else {
+        std::cout << "Application::initialize: SongPlayer successfully created." << std::endl;
     }
 
     window = SDL_CreateWindow("MusicaLau - Instrument Interface", windowWidth, windowHeight, SDL_WINDOW_RESIZABLE);
@@ -136,11 +160,6 @@ bool Application::initialize() {
 }
 
 void Application::setInstrument(InstrumentType instrument) {
-    // Stop any currently playing song before changing instruments
-    if (mainController) {
-        mainController->stopCurrentlyPlayingSong();
-    }
-
     // Nettoyer le contrôleur existant
     delete mainController;
 
@@ -198,21 +217,46 @@ bool Application::run() {
                     if (buttonClicked == 3) {
                         // "Import File" button
                         mainController->handleImportSong();
-                    } else if (buttonClicked == 4) {
-                        // "Play Song" button
-                        std::string instrumentName;
+                    } else if (buttonClicked == 4) { // "Play Song" button
+                        std::string currentInstrumentNameString;
                         switch (currentInstrument) {
-                            case InstrumentType::PIANO:
-                                instrumentName = "Piano";
-                                break;
-                            case InstrumentType::XYLOPHONE:
-                                instrumentName = "Xylophone";
-                                break;
-                            case InstrumentType::VIDEO_GAME:
-                                instrumentName = "8BitConsole";
-                                break;
+                            case InstrumentType::PIANO: currentInstrumentNameString = "Piano"; break;
+                            case InstrumentType::XYLOPHONE: currentInstrumentNameString = "Xylophone"; break;
+                            case InstrumentType::VIDEO_GAME: currentInstrumentNameString = "8BitConsole"; break;
                         }
-                        mainController->handlePlaySong(instrumentName);
+                        // Log before calling mainController methods
+                        std::cout << "Application::run: About to call mainController->handlePlaySongClicked. mainController pointer: " << mainController << std::endl;
+                        if (mainController) {
+                            mainController->handlePlaySongClicked(currentInstrumentNameString);
+                        } else {
+                            std::cerr << "Application::run ERROR: mainController is NULL before handlePlaySongClicked!" << std::endl;
+                        }
+
+                        // Log before checking conditions and calling songPlayer
+                        std::cout << "Application::run: About to check conditions for songPlayer->playSong." << std::endl;
+                        std::cout << "Application::run: songPlayer pointer: " << songPlayer << std::endl;
+                        if (mainController) {
+                             std::cout << "Application::run: mainController->isSongReadyToPlay(): " << mainController->isSongReadyToPlay() << std::endl;
+                        }
+
+
+                        if (songPlayer && mainController && mainController->isSongReadyToPlay()) {
+                           std::cout << "Application::run: Conditions MET. Calling songPlayer->playSong." << std::endl;
+                           std::cout << "Application::run: songPlayer pointer before call: " << songPlayer << std::endl;
+                           std::cout << "Application::run: mainController pointer for getters: " << mainController << std::endl;
+                           // Ensure events are valid before passing
+                           const auto& events = mainController->getLoadedSongEvents();
+                           const std::string& instrName = mainController->getCurrentInstrumentForSong();
+                           std::cout << "Application::run: Event count: " << events.size() << ", Instrument for song: " << instrName << std::endl;
+
+                           songPlayer->playSong(events, instrName);
+                           // Optionally: mainController->resetPlayRequestStatus();
+                        } else {
+                            std::cout << "Application::run: Conditions NOT MET for songPlayer->playSong." << std::endl;
+                            if (!songPlayer) std::cerr << "Application::run: songPlayer is NULL." << std::endl;
+                            if (!mainController) std::cerr << "Application::run: mainController is NULL." << std::endl;
+                            else if (!mainController->isSongReadyToPlay()) std::cerr << "Application::run: mainController->isSongReadyToPlay() is false." << std::endl;
+                        }
                     } else if (PianoAppController *pianoController = dynamic_cast<PianoAppController *>(
                         mainController)) {
                         if (buttonClicked != -1) {
@@ -228,7 +272,8 @@ bool Application::run() {
                                 lastNotePlayTime = SDL_GetTicks();
                             }
                         }
-                    } else if (XylophoneAppController *xylophoneController = dynamic_cast<XylophoneAppController *>(mainController)) {
+                    } else if (XylophoneAppController *xylophoneController = dynamic_cast<XylophoneAppController *>(
+                        mainController)) {
                         if (buttonClicked != -1) {
                             xylophoneController->processButtonAction(buttonClicked);
                         } else {
@@ -499,7 +544,7 @@ void Application::initializeKeyboardMappings() {
     keyboardMappings.push_back({SDLK_J, "B", 4});   // J -> Si
     keyboardMappings.push_back({SDLK_K, "C", 5});   // K -> Do (octave supérieure)
     keyboardMappings.push_back({SDLK_L, "D", 5});   // L -> Ré (octave supérieure)
-    keyboardMappings.push_back({SDLK_M, "E", 5});   // M -> Mi (octave supérieure)
+    keyboardMappings.push_back({SDLK_M, "E", 5}); // M -> Mi (octave supérieure)
 }
 
 void Application::handleKeyPress(SDL_Keycode key) {

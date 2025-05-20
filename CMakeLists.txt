@@ -41,6 +41,7 @@ set(LIB_SOURCES
         # Audio
         src/Audio/SDLAudioEngine.cpp
         src/Audio/MusicFileReader.cpp
+        src/Audio/SongPlayer.cpp
 
         # Instruments
         src/Instruments/SimpleSynthInstrument.cpp
@@ -94,6 +95,7 @@ set(LIB_HEADERS
         include/Audio/AudioEngine.h
         include/Audio/SDLAudioEngine.h
         include/Audio/MusicFileReader.h
+        include/Audio/SongPlayer.h
 
         # Instruments
         include/Instruments/SimpleSynthInstrument.h

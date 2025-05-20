@@ -44,20 +44,15 @@ protected:
     // Imported song data
     std::string importedFilePath;
     std::string importedFileName;
-    std::vector<MusicalEvent> currentSongEvents;
+    std::vector<MusicalEvent> currentSongEvents_for_playback;
     bool songLoaded;
 
     // Button View
     ButtonView *buttonView_; // Pointer to ButtonView
 
-    // Song playback threading
-    std::thread songPlaybackThread_;
-    std::atomic<bool> stopSongPlayback_;
-    std::atomic<bool> isSongPlaying_;
-
-private:
-    // Method to be run in the song playback thread
-    void songPlaybackLoop(std::string instrumentName, std::vector<MusicalEvent> eventsToPlay);
+    // Playback-related state (without threading logic)
+    std::string currentInstrumentName_for_song_;
+    bool songPlayRequested_;
 
 public:
     Controller();
@@ -74,19 +69,15 @@ public:
 
     virtual void render(SDL_Renderer *renderer, int windowWidth, int windowHeight) = 0;
 
-    // Nouvelles méthodes pour calculer les dimensions relatives
     float calculateRelativeWidth(int windowWidth, float percentage);
-
     float calculateRelativeHeight(int windowHeight, float percentage);
-
     void updateDimensions(int windowWidth, int windowHeight);
 
-    // Methods for song import and playback
     void handleImportSong();
-
-    void handlePlaySong(const std::string &instrumentName);
-
-    void stopCurrentlyPlayingSong();
+    void handlePlaySongClicked(const std::string &instrumentName);
+    std::string getCurrentInstrumentForSong() const;
+    const std::vector<MusicalEvent>& getLoadedSongEvents() const;
+    bool isSongReadyToPlay() const;
 
     std::string getImportedFileName() const;
 };
