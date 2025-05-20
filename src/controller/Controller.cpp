@@ -43,7 +43,8 @@ static void FileDialogCallback(void *userdata, const char *const *filePaths, int
 }
 
 Controller::Controller() : font(nullptr), audioEngine(nullptr), currentWindowWidth(0), currentWindowHeight(0),
-                           songLoaded(false), buttonView_(nullptr) {
+                           songLoaded(false), buttonView_(nullptr), stopSongPlayback_(false), isSongPlaying_(false),
+                           songPlaybackThread_() {
     font = TextHelper::LoadFont("Roboto-SemiBold.ttf", 16);
     buttonView_ = new ButtonView();
     if (buttonView_) {
@@ -54,7 +55,9 @@ Controller::Controller() : font(nullptr), audioEngine(nullptr), currentWindowWid
 
 Controller::Controller(MusicApp::Audio::AudioEngine *audioE) : audioEngine(audioE), font(nullptr),
                                                                currentWindowWidth(0), currentWindowHeight(0),
-                                                               songLoaded(false), buttonView_(nullptr) {
+                                                               songLoaded(false), buttonView_(nullptr),
+                                                               stopSongPlayback_(false), isSongPlaying_(false),
+                                                               songPlaybackThread_() {
     font = TextHelper::LoadFont("Roboto-SemiBold.ttf", 16);
     buttonView_ = new ButtonView();
     if (buttonView_) {
@@ -64,6 +67,9 @@ Controller::Controller(MusicApp::Audio::AudioEngine *audioE) : audioEngine(audio
 }
 
 Controller::~Controller() {
+    if (songPlaybackThread_.joinable()) {
+        songPlaybackThread_.join();
+    }
     if (font) {
         TTF_CloseFont(font);
         font = nullptr;
@@ -167,16 +173,75 @@ void Controller::handleImportSong() {
 }
 
 void Controller::handlePlaySong(const std::string &instrumentName) {
+    if (isSongPlaying_) {
+        std::cout << "Controller: Song is already playing. Stop the current song first." << std::endl;
+        return;
+    }
     if (songLoaded && audioEngine) {
-        auto sdlAudioEngine = dynamic_cast<MusicApp::Audio::SDLAudioEngine *>(audioEngine);
-        if (sdlAudioEngine) {
-            std::cout << "Playing song: " << importedFileName << " with instrument: " << instrumentName << std::endl;
-            playSong(*sdlAudioEngine, currentSongEvents, instrumentName);
-        } else {
-            std::cerr << "Cannot play song: Audio engine is not of type SDLAudioEngine." << std::endl;
+        if (songPlaybackThread_.joinable()) {
+            songPlaybackThread_.join(); // Ensure previous thread is finished
         }
+        stopSongPlayback_ = false; // Reset stop flag
+        // It's crucial to copy currentSongEvents if it might be modified, or ensure access is thread-safe.
+        // For now, we pass a copy to the thread.
+        std::vector<MusicalEvent> eventsCopy = currentSongEvents;
+        songPlaybackThread_ = std::thread(&Controller::songPlaybackLoop, this, instrumentName, eventsCopy);
     } else {
-        std::cerr << "No song loaded or audio engine not available." << std::endl;
+        std::cerr << "Controller: No song loaded or audio engine not available." << std::endl;
+    }
+}
+
+void Controller::songPlaybackLoop(std::string instrumentName, std::vector<MusicalEvent> eventsToPlay) {
+    isSongPlaying_ = true;
+    auto sdlAudioEngine = dynamic_cast<MusicApp::Audio::SDLAudioEngine *>(audioEngine);
+    if (!sdlAudioEngine) {
+        std::cerr << "Controller: Cannot play song, audio engine is not SDLAudioEngine." << std::endl;
+        isSongPlaying_ = false;
+        return;
+    }
+
+    for (const auto &event: eventsToPlay) {
+        if (stopSongPlayback_) {
+            break; // Exit loop if stop is requested
+        }
+
+        int delayMilliseconds = static_cast<int>(event.durationSeconds * 1000.0f);
+
+        if (event.pitchName != "0") {
+            MusicApp::Core::Note noteToPlay(event.pitchName);
+            sdlAudioEngine->playSound(instrumentName, noteToPlay, 1.0f); // Default velocity
+
+            if (delayMilliseconds > 0) {
+                SDL_Delay(delayMilliseconds); // This delay still blocks this thread, but not the main one
+            }
+            // Only stop the note if it was actually played (and not a silence that got through)
+            // And also only if we are not immediately exiting due to stopSongPlayback_
+            if (!stopSongPlayback_) {
+                sdlAudioEngine->stopSound(instrumentName, noteToPlay);
+            }
+        } else {
+            // Silence
+            if (delayMilliseconds > 0) {
+                SDL_Delay(delayMilliseconds);
+            }
+        }
+        if (!stopSongPlayback_) {
+            SDL_Delay(10); // Small delay between events
+        }
+    }
+    std::cout << "Song playback finished or stopped." << std::endl;
+    isSongPlaying_ = false;
+    stopSongPlayback_ = false; // Reset for next playback
+}
+
+void Controller::stopCurrentlyPlayingSong() {
+    if (isSongPlaying_ && songPlaybackThread_.joinable()) {
+        stopSongPlayback_ = true; // Signal the thread to stop
+        songPlaybackThread_.join(); // Wait for the thread to finish
+        std::cout << "Controller: Song playback stopped by user." << std::endl;
+        // Resetting flags is handled at the end of songPlaybackLoop
+    } else {
+        std::cout << "Controller: No song is currently playing or thread not joinable." << std::endl;
     }
 }
 

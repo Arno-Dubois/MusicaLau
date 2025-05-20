@@ -136,6 +136,11 @@ bool Application::initialize() {
 }
 
 void Application::setInstrument(InstrumentType instrument) {
+    // Stop any currently playing song before changing instruments
+    if (mainController) {
+        mainController->stopCurrentlyPlayingSong();
+    }
+
     // Nettoyer le contrôleur existant
     delete mainController;
 

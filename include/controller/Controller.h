@@ -5,6 +5,8 @@
 #include <vector>
 #include <string>
 #include <cmath>
+#include <thread>
+#include <atomic>
 #include "Button.h"
 #include "../View/View.h"
 #include "../Audio/MusicFileReader.h"
@@ -48,6 +50,15 @@ protected:
     // Button View
     ButtonView *buttonView_; // Pointer to ButtonView
 
+    // Song playback threading
+    std::thread songPlaybackThread_;
+    std::atomic<bool> stopSongPlayback_;
+    std::atomic<bool> isSongPlaying_;
+
+private:
+    // Method to be run in the song playback thread
+    void songPlaybackLoop(std::string instrumentName, std::vector<MusicalEvent> eventsToPlay);
+
 public:
     Controller();
 
@@ -74,6 +85,8 @@ public:
     void handleImportSong();
 
     void handlePlaySong(const std::string &instrumentName);
+
+    void stopCurrentlyPlayingSong();
 
     std::string getImportedFileName() const;
 };
