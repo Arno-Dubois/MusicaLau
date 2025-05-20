@@ -13,7 +13,15 @@
 // Callback function for SDL_ShowOpenFileDialog
 static void FileDialogCallback(void *userdata, const char *const *filePaths, int numFiles) {
     Controller *controller = static_cast<Controller *>(userdata);
-    if (controller && filePaths && filePaths[0]) {
+    if (!controller) return;
+
+    // If a new file is being imported, we should consider any currently playing song stopped
+    // from the perspective of the *new* song that's about to be loaded.
+    // The actual SongPlayer stop should ideally happen in Application before calling handleImportSong,
+    // or handleImportSong should signal Application to stop the SongPlayer.
+    // For now, let's assume a simple reset of controller's state.
+
+    if (filePaths && filePaths[0]) {
         controller->importedFilePath = filePaths[0];
         size_t lastSlash = controller->importedFilePath.find_last_of("/\\");
         if (lastSlash != std::string::npos) {
@@ -21,22 +29,31 @@ static void FileDialogCallback(void *userdata, const char *const *filePaths, int
         } else {
             controller->importedFileName = controller->importedFilePath;
         }
-        controller->currentSongEvents_for_playback = parseMusicFile(controller->importedFilePath);
-        if (!controller->currentSongEvents_for_playback.empty()) {
+
+        std::cout << "Controller: Attempting to load new song: " << controller->importedFileName << std::endl;
+
+        // Parse the new song file
+        std::vector<MusicalEvent> newSongEvents = parseMusicFile(controller->importedFilePath);
+
+        if (!newSongEvents.empty()) {
+            controller->currentSongEvents_for_playback = newSongEvents; // Replace old events
             controller->songLoaded = true;
-            controller->songPlayRequested_ = false; // Reset play request status
-            std::cout << "Controller: Song loaded: " << controller->importedFileName << std::endl;
+            controller->songPlayRequested_ = false; // A new song is loaded, so any previous play request is for the old song
+            std::cout << "Controller: New song loaded: " << controller->importedFileName
+                      << " with " << controller->currentSongEvents_for_playback.size() << " events." << std::endl;
         } else {
+            // Keep the old song loaded if the new one fails to parse? Or clear it?
+            // For now, let's say a failed import clears the current song.
             controller->songLoaded = false;
             controller->songPlayRequested_ = false;
             controller->importedFileName.clear();
-            std::cerr << "Controller: Failed to parse song file: " << controller->importedFilePath << std::endl;
+            controller->currentSongEvents_for_playback.clear();
+            std::cerr << "Controller: Failed to parse new song file: " << controller->importedFilePath << std::endl;
         }
-    } else if (controller) {
-        std::cerr << "Controller: No file selected or error in file dialog." << std::endl;
-        controller->songLoaded = false;
-        controller->songPlayRequested_ = false;
-        controller->importedFileName.clear();
+    } else {
+        std::cerr << "Controller: No file selected or error in file dialog during import." << std::endl;
+        // Optionally, you might not want to change the controller's state if no file was selected.
+        // If a song was already loaded, it would remain. For now, this doesn't change existing loaded song.
     }
 }
 

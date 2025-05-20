@@ -234,9 +234,18 @@ bool Application::run() {
                 if (!clickHandled && !instrumentMenu->isMenuOpen()) {
                     int buttonClicked = mainController->handleButtonClick(mouseX, mouseY);
 
-                    if (buttonClicked == 3) {
-                        // "Import File" button
-                        mainController->handleImportSong();
+                    if (buttonClicked == 3) { // "Import File" button
+                        std::cout << "Application: Import File button clicked." << std::endl;
+                        if (songPlayer && songPlayer->isPlaying()) {
+                            std::cout << "Application: Stopping currently playing song before new import." << std::endl;
+                            songPlayer->stopSong();
+                        }
+                        // It's also good practice to reset the controller's play request flag
+                        // as a new file will be loaded, making the previous request obsolete.
+                        if(mainController) {
+                            mainController->resetPlayRequestStatus(); // Ensure this method exists
+                        }
+                        mainController->handleImportSong(); // This will call the updated FileDialogCallback
                     } else if (buttonClicked == 4) { // Play/Pause Button (index 4)
                         if (songPlayer) {
                             if (songPlayer->isPlaying()) {
