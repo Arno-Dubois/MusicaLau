@@ -16,6 +16,8 @@ Application::Application(int width, int height)
           currentPlayingNote(""),
           isMouseButtonDown(false),
           lastNotePlayTime(0) {
+    // Initialiser le mapping clavier-notes
+    initializeKeyboardMappings();
 }
 
 Application::~Application() {
@@ -174,7 +176,11 @@ bool Application::run() {
             } else if (event.type == SDL_EVENT_KEY_DOWN) {
                 if (event.key.key == SDLK_ESCAPE) {
                     quit = true;
+                } else {
+                    handleKeyPress(event.key.key);
                 }
+            } else if (event.type == SDL_EVENT_KEY_UP) {
+                handleKeyRelease(event.key.key);
             } else if (event.type == SDL_EVENT_MOUSE_BUTTON_DOWN) {
                 float mouseX, mouseY;
                 SDL_GetMouseState(&mouseX, &mouseY);
@@ -431,4 +437,107 @@ void Application::cleanup() {
     TTF_Quit();
     SDL_Quit();
     initialized = false;
+}
+
+void Application::initializeKeyboardMappings() {
+    // Créer le mapping selon la disposition demandée
+    // Format: {code_touche, nom_note, octave}
+    keyboardMappings.clear(); // S'assurer que le vecteur est vide avant d'ajouter des éléments
+
+    // Ajouter toutes les correspondances touches/notes
+    keyboardMappings.push_back({SDLK_Q, "C", 4});   // Q -> Do
+    keyboardMappings.push_back({SDLK_Z, "C#", 4});  // Z -> Do#
+    keyboardMappings.push_back({SDLK_S, "D", 4});   // S -> Ré
+    keyboardMappings.push_back({SDLK_E, "D#", 4});  // E -> Ré#
+    keyboardMappings.push_back({SDLK_D, "E", 4});   // D -> Mi
+    keyboardMappings.push_back({SDLK_F, "F", 4});   // F -> Fa
+    keyboardMappings.push_back({SDLK_T, "F#", 4});  // T -> Fa#
+    keyboardMappings.push_back({SDLK_G, "G", 4});   // G -> Sol
+    keyboardMappings.push_back({SDLK_Y, "G#", 4});  // Y -> Sol#
+    keyboardMappings.push_back({SDLK_H, "A", 4});   // H -> La
+    keyboardMappings.push_back({SDLK_U, "A#", 4});  // U -> La#
+    keyboardMappings.push_back({SDLK_J, "B", 4});   // J -> Si
+    keyboardMappings.push_back({SDLK_K, "C", 5});   // K -> Do (octave supérieure)
+    keyboardMappings.push_back({SDLK_L, "D", 5});   // L -> Ré (octave supérieure)
+    keyboardMappings.push_back({SDLK_M, "E", 5});   // M -> Mi (octave supérieure)
+}
+
+void Application::handleKeyPress(SDL_Keycode key) {
+    std::string note = getNoteForKey(key);
+    if (!note.empty()) {
+        if (!keyboardNotesState[key]) {
+            keyboardNotesState[key] = true;
+
+            MusicApp::Core::Note musicNote(note);
+            float velocity = getVelocityForKey();
+
+            auto sdlAudioEngine = dynamic_cast<MusicApp::Audio::SDLAudioEngine *>(audioEngine);
+
+            switch (currentInstrument) {
+                case InstrumentType::PIANO:
+                    if (sdlAudioEngine) {
+                        sdlAudioEngine->playSound("Piano", musicNote, velocity);
+                    } else if (audioEngine) {
+                        audioEngine->playSound("Piano", musicNote);
+                    }
+                    break;
+
+                case InstrumentType::XYLOPHONE:
+                    if (sdlAudioEngine) {
+                        sdlAudioEngine->playSound("Xylophone", musicNote, velocity);
+                    } else if (audioEngine) {
+                        audioEngine->playSound("Xylophone", musicNote);
+                    }
+                    break;
+
+                case InstrumentType::VIDEO_GAME:
+                    if (sdlAudioEngine) {
+                        sdlAudioEngine->playSound("8BitConsole", musicNote, velocity);
+                    } else if (audioEngine) {
+                        audioEngine->playSound("8BitConsole", musicNote);
+                    }
+                    break;
+            }
+
+            SDL_Log("Note played via keyboard: %s, Instrument: %d", note.c_str(), static_cast<int>(currentInstrument));
+        }
+    }
+}
+
+void Application::handleKeyRelease(SDL_Keycode key) {
+    std::string note = getNoteForKey(key);
+    if (!note.empty()) {
+        keyboardNotesState[key] = false;
+
+        MusicApp::Core::Note musicNote(note);
+        auto sdlAudioEngine = dynamic_cast<MusicApp::Audio::SDLAudioEngine *>(audioEngine);
+        if (sdlAudioEngine) {
+            switch (currentInstrument) {
+                case InstrumentType::PIANO:
+                    sdlAudioEngine->stopSound("Piano", musicNote);
+                    break;
+                case InstrumentType::XYLOPHONE:
+                    sdlAudioEngine->stopSound("Xylophone", musicNote);
+                    break;
+                case InstrumentType::VIDEO_GAME:
+                    sdlAudioEngine->stopSound("8BitConsole", musicNote);
+                    break;
+            }
+
+            SDL_Log("Note stopped via keyboard: %s, Instrument: %d", note.c_str(), static_cast<int>(currentInstrument));
+        }
+    }
+}
+
+std::string Application::getNoteForKey(SDL_Keycode key) {
+    for (const auto &mapping: keyboardMappings) {
+        if (mapping.key == key) {
+            return mapping.note + std::to_string(mapping.octave);
+        }
+    }
+    return "";
+}
+
+float Application::getVelocityForKey() {
+    return 0.8f;
 }
