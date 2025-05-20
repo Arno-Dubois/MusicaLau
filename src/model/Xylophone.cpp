@@ -118,3 +118,17 @@ int Xylophone::getBarAt(float mouseX, float mouseY) const {
     }
     return -1; // Aucune lame trouvée
 }
+
+bool Xylophone::getBarInfoAt(float mouseX, float mouseY, int &barIndex, SDL_FRect &barRect) const {
+    for (int i = 0; i < xylophones.size(); i++) {
+        const auto &bar = xylophones[i];
+        if (mouseX >= bar.rect.x && mouseX <= (bar.rect.x + bar.rect.w) &&
+            mouseY >= bar.rect.y && mouseY <= (bar.rect.y + bar.rect.h)) {
+            barIndex = i;
+            barRect = bar.rect;
+            return true;
+        }
+    }
+    barIndex = -1;
+    return false; // Aucune lame trouvée
+}

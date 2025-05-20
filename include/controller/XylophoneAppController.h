@@ -23,5 +23,8 @@ public:
 
     void handleXylophoneKeyHover(float mouseX, float mouseY);
 
+    // Accesseur pour le xylophone
+    Xylophone *getXylophone() const { return xylophone; }
+
     void render(SDL_Renderer *renderer, int windowWidth, int windowHeight) override;
 };

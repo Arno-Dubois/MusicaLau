@@ -45,6 +45,9 @@ public:
     // Obtenir l'index de la lame à une position donnée
     int getBarAt(float mouseX, float mouseY) const;
 
+    // Obtenir l'index de la lame et son rectangle à une position donnée
+    bool getBarInfoAt(float mouseX, float mouseY, int &barIndex, SDL_FRect &barRect) const;
+
     // Accéder aux lames pour le rendu
     const std::vector<XylophoneBar> &getXylophoneBars() const { return xylophones; }
 

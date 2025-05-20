@@ -17,5 +17,11 @@ public:
 
     void processButtonAction(int buttonIndex);
 
+    void handleVideoGameKeyClick(float mouseX, float mouseY);
+
+    void handleVideoGameKeyHover(float mouseX, float mouseY);
+
+    VideoGame *getVideoGame() const { return videoGame; }
+
     void render(SDL_Renderer *renderer, int windowWidth, int windowHeight) override;
 };
