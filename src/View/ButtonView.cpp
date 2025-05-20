@@ -1,6 +1,7 @@
 #include "../../include/View/ButtonView.h"
 #include "../../include/utils/TextHelper.h" // For TextHelper functions
 #include <iostream> // For std::cer
+#define _USE_MATH_DEFINES
 #include <cmath>
 
 ButtonView::ButtonView() : font_(nullptr) {
