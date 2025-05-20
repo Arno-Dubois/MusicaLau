@@ -1,5 +1,7 @@
 # MusicaLau - Générateur de Musique Interactif
 
+![Logo de MusicaLau](https://github.com/Arno-Dubois/MusicaLau/blob/MergingBranch/image.png)
+
 ## Description
 
 Une application de bureau permettant aux utilisateurs de jouer virtuellement de divers instruments de musique,
