@@ -202,14 +202,66 @@ bool Application::run() {
                         if (buttonClicked != -1) {
                             xylophoneController->processButtonAction(buttonClicked);
                         } else {
+                            int barIndex = xylophoneController->getXylophone()->getBarAt(mouseX, mouseY);
+                            if (barIndex != -1) {
+                                // Convertir l'index en note
+                                std::string noteName;
+                                switch (barIndex) {
+                                    case 0:
+                                        noteName = "C4";
+                                        break;
+                                    case 1:
+                                        noteName = "D4";
+                                        break;
+                                    case 2:
+                                        noteName = "E4";
+                                        break;
+                                    case 3:
+                                        noteName = "F4";
+                                        break;
+                                    case 4:
+                                        noteName = "G4";
+                                        break;
+                                    case 5:
+                                        noteName = "A4";
+                                        break;
+                                    case 6:
+                                        noteName = "B4";
+                                        break;
+                                    case 7:
+                                        noteName = "C5";
+                                        break;
+                                    default:
+                                        if (barIndex == 8) noteName = "D5";
+                                        else if (barIndex == 9) noteName = "E5";
+                                        else if (barIndex == 10) noteName = "F5";
+                                        else if (barIndex == 11) noteName = "G5";
+                                        else noteName = "C4";
+                                        break;
+                                }
+
+                                // Stocker les informations de la note jouée
+                                currentPlayingNote = noteName;
+                                isMouseButtonDown = true;
+                                lastNotePlayTime = SDL_GetTicks();
+                            }
+
+                            // Appeler la méthode de gestion du clic
                             xylophoneController->handleXylophoneKeyClick(mouseX, mouseY);
                         }
                     } else if (VideoGameAppController *videoGameController = dynamic_cast<VideoGameAppController *>(mainController)) {
                         if (buttonClicked != -1) {
                             videoGameController->processButtonAction(buttonClicked);
                         } else {
-                            // TODO: Implémenter cette méthode
-                            // videoGameController->handleGameInput(mouseX, mouseY);
+                            videoGameController->handleVideoGameKeyClick(mouseX, mouseY);
+
+                            // Stocker l'information de la note actuellement jouée
+                            std::string noteName = videoGameController->getVideoGame()->getNoteAt(mouseX, mouseY);
+                            if (!noteName.empty()) {
+                                currentPlayingNote = noteName;
+                                isMouseButtonDown = true;
+                                lastNotePlayTime = SDL_GetTicks();
+                            }
                         }
                     }
                 }
@@ -223,22 +275,78 @@ bool Application::run() {
                         pianoController->handlePianoKeyHover(mouseX, mouseY);
                     } else if (XylophoneAppController *xylophoneController = dynamic_cast<XylophoneAppController *>(mainController)) {
                         xylophoneController->handleXylophoneKeyHover(mouseX, mouseY);
-                    }
-                    /* else if (VideoGameAppController *videoGameController = dynamic_cast<VideoGameAppController *>(mainController)) {
+                    } else if (VideoGameAppController *videoGameController = dynamic_cast<VideoGameAppController *>(mainController)) {
                         videoGameController->handleVideoGameKeyHover(mouseX, mouseY);
-                    } */
+                    }
                 }
             } else if (event.type == SDL_EVENT_MOUSE_BUTTON_UP) {
-                if (PianoAppController *pianoController = dynamic_cast<PianoAppController *>(mainController)) {
-                    float mouseX, mouseY;
-                    SDL_GetMouseState(&mouseX, &mouseY);
+                float mouseX, mouseY;
+                SDL_GetMouseState(&mouseX, &mouseY);
 
+                if (PianoAppController *pianoController = dynamic_cast<PianoAppController *>(mainController)) {
                     std::string pitchName = pianoController->getPiano()->getPitchAt(mouseX, mouseY);
                     if (!pitchName.empty()) {
                         MusicApp::Core::Note note(pitchName);
                         MusicApp::Audio::SDLAudioEngine *engine = dynamic_cast<MusicApp::Audio::SDLAudioEngine *>(audioEngine);
                         if (engine) {
                             engine->stopSound("Piano", note);
+                            currentPlayingNote = "";
+                            isMouseButtonDown = false;
+                        }
+                    }
+                } else if (XylophoneAppController *xylophoneController = dynamic_cast<XylophoneAppController *>(mainController)) {
+                    int barIndex = xylophoneController->getXylophone()->getBarAt(mouseX, mouseY);
+                    if (barIndex != -1) {
+                        std::string noteName;
+                        switch (barIndex) {
+                            case 0:
+                                noteName = "C4";
+                                break;
+                            case 1:
+                                noteName = "D4";
+                                break;
+                            case 2:
+                                noteName = "E4";
+                                break;
+                            case 3:
+                                noteName = "F4";
+                                break;
+                            case 4:
+                                noteName = "G4";
+                                break;
+                            case 5:
+                                noteName = "A4";
+                                break;
+                            case 6:
+                                noteName = "B4";
+                                break;
+                            case 7:
+                                noteName = "C5";
+                                break;
+                            default:
+                                if (barIndex == 8) noteName = "D5";
+                                else if (barIndex == 9) noteName = "E5";
+                                else if (barIndex == 10) noteName = "F5";
+                                else if (barIndex == 11) noteName = "G5";
+                                else noteName = "C4";
+                                break;
+                        }
+
+                        MusicApp::Core::Note note(noteName);
+                        MusicApp::Audio::SDLAudioEngine *engine = dynamic_cast<MusicApp::Audio::SDLAudioEngine *>(audioEngine);
+                        if (engine) {
+                            engine->stopSound("Xylophone", note);
+                            currentPlayingNote = "";
+                            isMouseButtonDown = false;
+                        }
+                    }
+                } else if (VideoGameAppController *videoGameController = dynamic_cast<VideoGameAppController *>(mainController)) {
+                    std::string noteName = videoGameController->getVideoGame()->getNoteAt(mouseX, mouseY);
+                    if (!noteName.empty()) {
+                        MusicApp::Core::Note note(noteName);
+                        MusicApp::Audio::SDLAudioEngine *engine = dynamic_cast<MusicApp::Audio::SDLAudioEngine *>(audioEngine);
+                        if (engine) {
+                            engine->stopSound("8BitConsole", note);
                             currentPlayingNote = "";
                             isMouseButtonDown = false;
                         }
@@ -258,37 +366,37 @@ bool Application::run() {
             }
         }
 
-        // Mettre à jour les sons toutes les 100ms
         Uint32 currentTime = SDL_GetTicks();
         if (currentTime - lastUpdateTime > 100) {
             lastUpdateTime = currentTime;
 
-            // Rejouer la note actuelle si le bouton de la souris est toujours enfoncé
-            if (isMouseButtonDown && !currentPlayingNote.empty() &&
-                (currentTime - lastNotePlayTime >= 450)) { // Rejouer légèrement avant la fin de la note
+            if (isMouseButtonDown && !currentPlayingNote.empty() && (currentTime - lastNotePlayTime >= 450)) {
                 if (PianoAppController *pianoController = dynamic_cast<PianoAppController *>(mainController)) {
                     MusicApp::Core::Note note(currentPlayingNote);
                     audioEngine->playSound("Piano", note);
                     lastNotePlayTime = currentTime;
+                } else if (XylophoneAppController *xylophoneController = dynamic_cast<XylophoneAppController *>(mainController)) {
+                    MusicApp::Core::Note note(currentPlayingNote);
+                    audioEngine->playSound("Xylophone", note);
+                    lastNotePlayTime = currentTime;
+                } else if (VideoGameAppController *videoGameController = dynamic_cast<VideoGameAppController *>(mainController)) {
+                    MusicApp::Core::Note note(currentPlayingNote);
+                    audioEngine->playSound("8BitConsole", note);
+                    lastNotePlayTime = currentTime;
                 }
             }
 
-            // Nettoyer les notes qui jouent depuis trop longtemps (2 secondes maximum)
             MusicApp::Audio::SDLAudioEngine *engine = dynamic_cast<MusicApp::Audio::SDLAudioEngine *>(audioEngine);
             if (engine) {
-                engine->cleanupLongPlayingNotes(1000); // Réduire à 1 seconde pour plus de sécurité
+                engine->cleanupLongPlayingNotes(1000);
             }
         }
 
-        // Effacer l'écran
         SDL_SetRenderDrawColor(renderer, 32, 32, 32, 255);
         SDL_RenderClear(renderer);
 
-        // Rendre l'interface utilisateur et l'instrument actif
         mainController->render(renderer, windowWidth, windowHeight);
-        // Rendre le menu déroulant
         instrumentMenu->render(renderer);
-        // Présenter le rendu
         SDL_RenderPresent(renderer);
         SDL_Delay(16);
     }
