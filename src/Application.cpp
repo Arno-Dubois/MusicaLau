@@ -75,6 +75,8 @@ void Application::initializeInstrumentMenu() {
 }
 
 bool Application::initialize() {
+    std::cout << "Application::initialize: START" << std::endl; // <-- ADD THIS
+
     if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS | SDL_INIT_AUDIO) < 0) {
         SDL_Log("SDL could not initialize! SDL_Error: %s\n", SDL_GetError());
         return false;
@@ -116,47 +118,60 @@ bool Application::initialize() {
         std::cout << "Application::initialize: SongPlayer successfully created." << std::endl;
     }
 
+    std::cout << "Application::initialize: Creating window..." << std::endl; // <-- ADD THIS
     window = SDL_CreateWindow("MusicaLau - Instrument Interface", windowWidth, windowHeight, SDL_WINDOW_RESIZABLE);
     if (!window) {
-        SDL_Log("Window could not be created! SDL_Error: %s\n", SDL_GetError());
-        SDL_Quit();
+        std::cerr << "Application::initialize FATAL ERROR: Window could not be created! SDL_Error: " << SDL_GetError() << std::endl; // <-- ADD ERROR LOG
+        SDL_Quit(); // Or cleanup audioEngine, songPlayer first
         return false;
     }
+    std::cout << "Application::initialize: Window created." << std::endl; // <-- ADD THIS
 
+    std::cout << "Application::initialize: Creating renderer..." << std::endl; // <-- ADD THIS
     renderer = SDL_CreateRenderer(window, NULL);
     if (!renderer) {
-        SDL_Log("Renderer could not be created! SDL_Error: %s\n", SDL_GetError());
+        std::cerr << "Application::initialize FATAL ERROR: Renderer could not be created! SDL_Error: " << SDL_GetError() << std::endl; // <-- ADD ERROR LOG
         SDL_DestroyWindow(window);
+        // Cleanup other resources like audioEngine, songPlayer
         SDL_Quit();
         return false;
     }
+    std::cout << "Application::initialize: Renderer created." << std::endl; // <-- ADD THIS
 
-    // Initialiser le menu déroulant
+    std::cout << "Application::initialize: Initializing instrument menu..." << std::endl; // <-- ADD THIS
     try {
         initializeInstrumentMenu();
         if (!instrumentMenu) {
-            SDL_Log("Failed to initialize instrument menu!");
+            std::cerr << "Application::initialize FATAL ERROR: Failed to initialize instrument menu (instrumentMenu is null)!" << std::endl; // <-- ADD ERROR LOG
+            // Cleanup
             return false;
         }
     } catch (const std::exception &e) {
-        SDL_Log("Exception during menu initialization: %s", e.what());
+        std::cerr << "Application::initialize FATAL ERROR: Exception during menu initialization: " << e.what() << std::endl; // <-- ADD ERROR LOG
+        // Cleanup
         return false;
     }
+    std::cout << "Application::initialize: Instrument menu initialized." << std::endl; // <-- ADD THIS
 
-    // Créer le contrôleur par défaut (Piano)
+    std::cout << "Application::initialize: Setting initial instrument..." << std::endl; // <-- ADD THIS
     try {
-        setInstrument(currentInstrument);
+        setInstrument(currentInstrument); // This creates the mainController
         if (!mainController) {
-            SDL_Log("Failed to create main controller!");
+            std::cerr << "Application::initialize FATAL ERROR: Failed to create main controller (mainController is null after setInstrument)!" << std::endl; // <-- ADD ERROR LOG
+            // Cleanup
             return false;
         }
     } catch (const std::exception &e) {
-        SDL_Log("Exception during controller creation: %s", e.what());
+        std::cerr << "Application::initialize FATAL ERROR: Exception during controller creation: " << e.what() << std::endl; // <-- ADD ERROR LOG
+        // Cleanup
         return false;
     }
+    std::cout << "Application::initialize: Initial instrument set. mainController address: " << mainController << std::endl; // <-- ADD THIS
 
     initialized = true;
+    std::cout << "Application::initialize: FINISHED successfully." << std::endl; // <-- ADD THIS
     return true;
+
 }
 
 void Application::setInstrument(InstrumentType instrument) {
@@ -180,11 +195,16 @@ void Application::setInstrument(InstrumentType instrument) {
 }
 
 bool Application::run() {
+    std::cout << "Application::run: START" << std::endl; // <-- ADD THIS
     if (!initialized) {
+        std::cout << "Application::run: Not initialized, calling initialize()." << std::endl; // <-- ADD THIS
         if (!initialize()) {
+            std::cerr << "Application::run: Initialization failed. Exiting run()." << std::endl; // <-- ADD THIS
             return false;
         }
     }
+    std::cout << "Application::run: Entering main loop." << std::endl; // <-- ADD THIS
+
 
     bool quit = false;
     SDL_Event event;
@@ -479,19 +499,34 @@ bool Application::run() {
             }
         }
 
+
         SDL_SetRenderDrawColor(renderer, 32, 32, 32, 255);
         SDL_RenderClear(renderer);
 
-        bool isPlaying = false;
+        bool isPlayingActiveState = false;
+        bool isPausedState = false;
         if (songPlayer) {
-            isPlaying = songPlayer->isPlaying();
+            isPlayingActiveState = songPlayer->isPlaying();
+            isPausedState = songPlayer->isPaused();
         }
-        mainController->render(renderer, windowWidth, windowHeight, isPlaying);
-        instrumentMenu->render(renderer);
+
+        if (mainController) { // <-- ADD THIS NULL CHECK
+            mainController->render(renderer, windowWidth, windowHeight, isPlayingActiveState, isPausedState);
+        } else {
+            std::cerr << "Application::run WARNING: mainController is NULL in render loop!" << std::endl; // <-- Log if null
+        }
+
+        if (instrumentMenu) { // <-- ADD THIS NULL CHECK
+            instrumentMenu->render(renderer);
+        } else {
+            std::cerr << "Application::run WARNING: instrumentMenu is NULL in render loop!" << std::endl; // <-- Log if null
+        }
+
+        std::cout << "Application::run: Presenting renderer." << std::endl; // <-- ADD THIS (can be noisy, remove after debug)
         SDL_RenderPresent(renderer);
         SDL_Delay(16);
     }
-
+    std::cout << "Application::run: Exited main loop." << std::endl; // <-- ADD THIS
     return true;
 }
 
@@ -502,11 +537,18 @@ void Application::cleanup() {
     delete instrumentMenu;
     instrumentMenu = nullptr;
 
+    if (songPlayer) {
+        songPlayer->stopSong();
+        delete songPlayer;
+        songPlayer = nullptr;
+    }
+
     // Shutdown and delete AudioEngine
-    if (audioEngine) {
+    if (audioEngine) { // This is now sdlAudioEngine
         audioEngine->shutdown();
         delete audioEngine;
         audioEngine = nullptr;
+        sdlAudioEngine = nullptr;
     }
 
     if (renderer) {

@@ -23,7 +23,7 @@ bool ButtonView::initialize(TTF_Font* font) {
 // (These will be moved from Controller.cpp)
 
 void ButtonView::renderButtons(SDL_Renderer *renderer, const std::vector<Button> &buttons,
-                               bool isSongCurrentlyPlaying) {
+                               bool isSongPlayingActive, bool isSongPaused) {
     for (size_t i = 0; i < buttons.size(); i++) {
         const auto &button = buttons[i];
         // Fond du bouton
@@ -71,20 +71,21 @@ void ButtonView::renderButtons(SDL_Renderer *renderer, const std::vector<Button>
                 renderSmallText(renderer, centerX, textY, "Add", {255, 255, 255, 255});
                 break;
             }
-            case 3: // Import File
-            {
+            case 3: {
                 drawFileIcon(renderer, centerX, iconY, 30, {255, 255, 255, 255});
                 renderSmallText(renderer, centerX, textY, "Import", {255, 255, 255, 255});
                 break;
             }
-            case 4: // Play Song / Pause Song button (index 4)
-            {
-                if (isSongCurrentlyPlaying) {
-                    // Draw Pause Icon
-                    drawPauseIcon(renderer, centerX, iconY, 20, {200, 200, 200, 255});
-                    renderSmallText(renderer, centerX, textY, "Pause", {255, 255, 255, 255});
+            case 4: {
+                if (isSongPlayingActive) {
+                    if (isSongPaused) {
+                        drawPlayIcon(renderer, centerX, iconY, 20, {200, 200, 200, 255});
+                        renderSmallText(renderer, centerX, textY, "Resume", {255, 255, 255, 255});
+                    } else {
+                        drawPauseIcon(renderer, centerX, iconY, 20, {200, 200, 200, 255});
+                        renderSmallText(renderer, centerX, textY, "Pause", {255, 255, 255, 255});
+                    }
                 } else {
-                    // Draw Play Icon
                     drawPlayIcon(renderer, centerX, iconY, 20, {200, 200, 200, 255});
                     renderSmallText(renderer, centerX, textY, "Play", {255, 255, 255, 255});
                 }

@@ -4,7 +4,7 @@
 #include <SDL3/SDL_ttf.h>
 #include <vector>
 #include <string>
-#include <cmath> // For M_PI
+#include <cmath>
 #include "../../include/Controller/Button.h" 
 
 class ButtonView {
@@ -14,7 +14,8 @@ public:
 
     bool initialize(TTF_Font *font);
 
-    void renderButtons(SDL_Renderer *renderer, const std::vector<Button> &buttons, bool isSongCurrentlyPlaying);
+    void renderButtons(SDL_Renderer *renderer, const std::vector<Button> &buttons, bool isSongPlayingActive,
+                       bool isSongPaused);
 
     // Utility functions for drawing, moved from Controller
     void renderTextCentered(SDL_Renderer *renderer, float centerX, float centerY, const std::string &text,

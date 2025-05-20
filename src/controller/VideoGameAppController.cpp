@@ -91,8 +91,7 @@ void VideoGameAppController::processButtonAction(int buttonIndex) {
     }
 }
 
-void VideoGameAppController::render(SDL_Renderer *renderer, int windowWidth, int windowHeight, bool isSongCurrentlyPlaying) {
-    // Mettre à jour les dimensions des boutons et éléments UI en fonction des dimensions de la fenêtre
+void VideoGameAppController::render(SDL_Renderer *renderer, int windowWidth, int windowHeight, bool isSongPlayingActive, bool isSongPaused) {
     updateDimensions(windowWidth, windowHeight);
 
     // Dessiner la surface de travail (background)
@@ -109,8 +108,8 @@ void VideoGameAppController::render(SDL_Renderer *renderer, int windowWidth, int
 
     // Dessiner les boutons
     if (buttonView_) {
-        // Pass the isSongCurrentlyPlaying state received from Application
-        buttonView_->renderButtons(renderer, buttons, isSongCurrentlyPlaying);
+        // Pass both states to ButtonView
+        buttonView_->renderButtons(renderer, buttons, isSongPlayingActive, isSongPaused);
     }
 
     // Dimensions pour l'interface principale - utiliser des proportions relatives
