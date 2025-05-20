@@ -1,6 +1,7 @@
 #include "../../include/controller/XylophoneAppController.h"
 #include "../../include/model/Xylophone.h"
 #include "../../include/view/XylophoneView.h"
+#include "../../include/View/ButtonView.h"
 #include "../../include/core/Note.h"
 #include "../../include/audio/AudioEngine.h"
 #include "../../include/audio/SDLAudioEngine.h"
@@ -159,7 +160,9 @@ void XylophoneAppController::render(SDL_Renderer *renderer, int windowWidth, int
     SDL_RenderFillRect(renderer, &topBar);
 
     // Dessiner les boutons
-    Controller::renderButtons(renderer, buttons);
+    if (buttonView_) {
+        buttonView_->renderButtons(renderer, buttons);
+    }
 
     // Dimensions pour l'interface principale - utiliser des proportions relatives
     float mainAreaX = calculateRelativeWidth(windowWidth, 0.035f);  // ~3.5% de la largeur

@@ -190,7 +190,26 @@ bool Application::run() {
                 if (!clickHandled && !instrumentMenu->isMenuOpen()) {
                     int buttonClicked = mainController->handleButtonClick(mouseX, mouseY);
 
-                    if (PianoAppController *pianoController = dynamic_cast<PianoAppController *>(mainController)) {
+                    if (buttonClicked == 3) {
+                        // "Import File" button
+                        mainController->handleImportSong();
+                    } else if (buttonClicked == 4) {
+                        // "Play Song" button
+                        std::string instrumentName;
+                        switch (currentInstrument) {
+                            case InstrumentType::PIANO:
+                                instrumentName = "Piano";
+                                break;
+                            case InstrumentType::XYLOPHONE:
+                                instrumentName = "Xylophone";
+                                break;
+                            case InstrumentType::VIDEO_GAME:
+                                instrumentName = "8BitConsole";
+                                break;
+                        }
+                        mainController->handlePlaySong(instrumentName);
+                    } else if (PianoAppController *pianoController = dynamic_cast<PianoAppController *>(
+                        mainController)) {
                         if (buttonClicked != -1) {
                             pianoController->processButtonAction(buttonClicked);
                         } else {
@@ -237,12 +256,20 @@ bool Application::run() {
                                     case 7:
                                         noteName = "C5";
                                         break;
+                                    case 8:
+                                        noteName = "D5";
+                                        break;
+                                    case 9:
+                                        noteName = "E5";
+                                        break;
+                                    case 10:
+                                        noteName = "F5";
+                                        break;
+                                    case 11:
+                                        noteName = "G5";
+                                        break;
                                     default:
-                                        if (barIndex == 8) noteName = "D5";
-                                        else if (barIndex == 9) noteName = "E5";
-                                        else if (barIndex == 10) noteName = "F5";
-                                        else if (barIndex == 11) noteName = "G5";
-                                        else noteName = "C4";
+                                        noteName = "C4";
                                         break;
                                 }
 
@@ -329,12 +356,20 @@ bool Application::run() {
                             case 7:
                                 noteName = "C5";
                                 break;
+                            case 8:
+                                noteName = "D5";
+                                break;
+                            case 9:
+                                noteName = "E5";
+                                break;
+                            case 10:
+                                noteName = "F5";
+                                break;
+                            case 11:
+                                noteName = "G5";
+                                break;
                             default:
-                                if (barIndex == 8) noteName = "D5";
-                                else if (barIndex == 9) noteName = "E5";
-                                else if (barIndex == 10) noteName = "F5";
-                                else if (barIndex == 11) noteName = "G5";
-                                else noteName = "C4";
+                                noteName = "C4";
                                 break;
                         }
 

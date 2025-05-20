@@ -4,13 +4,6 @@
 #include <vector>
 #include <string>
 
-struct Button {
-    SDL_FRect rect;
-    SDL_Color color;
-    std::string name;
-    SDL_Texture *icon;  // Pour ajouter des icônes plus tard si nécessaire
-};
-
 class View {
 protected:
     // Couleurs communes

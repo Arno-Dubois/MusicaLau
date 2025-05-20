@@ -1,6 +1,7 @@
 #include "../../include/controller/PianoAppController.h"
 #include "../../include/model/Piano.h"
 #include "../../include/view/PianoView.h"
+#include "../../include/View/ButtonView.h"
 
 PianoAppController::PianoAppController(int windowWidth, int windowHeight, MusicApp::Audio::AudioEngine *audioE)
         : Controller(audioE) {
@@ -82,7 +83,9 @@ void PianoAppController::render(SDL_Renderer *renderer, int windowWidth, int win
     SDL_RenderFillRect(renderer, &topBar);
 
     // Dessiner les boutons
-    Controller::renderButtons(renderer, buttons);
+    if (buttonView_) {
+        buttonView_->renderButtons(renderer, buttons);
+    }
 
     // Dimensions pour l'interface principale - utiliser des proportions relatives
     float mainAreaX = calculateRelativeWidth(windowWidth, 0.035f);  // ~3.5% de la largeur

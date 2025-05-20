@@ -5,15 +5,61 @@
 #include "../../include/Controller/Controller.h"
 #include "../../include/utils/TextHelper.h"
 #include <iostream>
+#include <SDL3/SDL_dialog.h>
+#include "../../include/Audio/MusicFileReader.h"
+#include "../../include/Audio/SDLAudioEngine.h"
+#include "../../include/View/ButtonView.h"
 
-Controller::Controller() : font(nullptr), audioEngine(nullptr), currentWindowWidth(0), currentWindowHeight(0) {
+// Callback function for SDL_ShowOpenFileDialog
+static void FileDialogCallback(void *userdata, const char *const *filePaths, int numFiles) {
+    auto *controller = static_cast<Controller *>(userdata);
+    std::cout << *filePaths;
+    std::cout << numFiles;
+    std::cout << userdata;
+    if (controller && filePaths[0]) {
+        controller->importedFilePath = filePaths[0];
+        // Extract filename from path
+        size_t lastSlash = controller->importedFilePath.find_last_of("/\\");
+        if (lastSlash != std::string::npos) {
+            controller->importedFileName = controller->importedFilePath.substr(lastSlash + 1);
+        } else {
+            controller->importedFileName = controller->importedFilePath;
+        }
+
+        controller->currentSongEvents = parseMusicFile(controller->importedFilePath);
+        if (!controller->currentSongEvents.empty()) {
+            controller->songLoaded = true;
+            std::cout << "Song loaded: " << controller->importedFileName << std::endl;
+        } else {
+            controller->songLoaded = false;
+            controller->importedFileName.clear();
+            std::cerr << "Failed to parse song file: " << controller->importedFilePath << std::endl;
+        }
+    } else if (controller) {
+        std::cerr << "No file selected or error in file dialog." << std::endl;
+        controller->songLoaded = false;
+        controller->importedFileName.clear();
+    }
+}
+
+Controller::Controller() : font(nullptr), audioEngine(nullptr), currentWindowWidth(0), currentWindowHeight(0),
+                           songLoaded(false), buttonView_(nullptr) {
     font = TextHelper::LoadFont("Roboto-SemiBold.ttf", 16);
+    buttonView_ = new ButtonView();
+    if (buttonView_) {
+        buttonView_->initialize(font);
+    }
     initializeButtons();
 }
 
 Controller::Controller(MusicApp::Audio::AudioEngine *audioE) : audioEngine(audioE), font(nullptr),
-                                                               currentWindowWidth(0), currentWindowHeight(0) {
+                                                               currentWindowWidth(0), currentWindowHeight(0),
+                                                               songLoaded(false), buttonView_(nullptr) {
     font = TextHelper::LoadFont("Roboto-SemiBold.ttf", 16);
+    buttonView_ = new ButtonView();
+    if (buttonView_) {
+        buttonView_->initialize(font);
+    }
     initializeButtons();
 }
 
@@ -22,6 +68,8 @@ Controller::~Controller() {
         TTF_CloseFont(font);
         font = nullptr;
     }
+    delete buttonView_;
+    buttonView_ = nullptr;
 }
 
 void Controller::initializeButtons() {
@@ -36,24 +84,20 @@ void Controller::initializeButtons() {
             "Finish Recording"
     };
 
-    // Vider la liste de boutons existants
     buttons.clear();
 
-    // Calculer le nombre de boutons à afficher en fonction de l'espace disponible
-    // et des valeurs calculées dans updateDimensions
     float availableWidth = currentWindowWidth * 0.95f;
-    int maxButtonsToShow = 8; // Par défaut
+    int maxButtonsToShow = 8;
 
     if (currentWindowWidth > 0) {
         float requiredSpace = 8 * buttonWidth + 7 * buttonSpacing;
         if (requiredSpace > availableWidth) {
             int spacePerButton = static_cast<int>(buttonWidth + buttonSpacing);
             maxButtonsToShow = spacePerButton > 0 ? static_cast<int>(availableWidth / spacePerButton) : 3;
-            maxButtonsToShow = std::max(3, std::min(8, maxButtonsToShow)); // Entre 3 et 8 boutons
+            maxButtonsToShow = std::max(3, std::min(8, maxButtonsToShow));
         }
     }
 
-    // Créer les boutons avec les dimensions calculées
     SDL_Color darkGray = {46, 46, 46, 255};
     for (int i = 0; i < maxButtonsToShow; i++) {
         Button btn;
@@ -65,56 +109,44 @@ void Controller::initializeButtons() {
     }
 }
 
-// Calcule une largeur relative à la largeur de la fenêtre
 float Controller::calculateRelativeWidth(int windowWidth, float percentage) {
     return windowWidth * percentage;
 }
 
-// Calcule une hauteur relative à la hauteur de la fenêtre
 float Controller::calculateRelativeHeight(int windowHeight, float percentage) {
     return windowHeight * percentage;
 }
 
-// Met à jour les dimensions des éléments UI en fonction des dimensions de la fenêtre
 void Controller::updateDimensions(int windowWidth, int windowHeight) {
     currentWindowWidth = windowWidth;
     currentWindowHeight = windowHeight;
 
-    // Calculer combien de boutons peuvent tenir dans la fenêtre avec un espacement raisonnable
-    int maxButtonsCount = 8; // Maximum de 8 boutons
+    int maxButtonsCount = 8;
+    float availableWidth = windowWidth * 0.95f;
+    float minButtonWidth = 90.0f;
+    float idealButtonSpacing = windowWidth * 0.02f;
 
-    // Calcul de l'espacement et de la largeur des boutons
-    float availableWidth = windowWidth * 0.95f; // 95% de la largeur disponible pour les boutons
-    float minButtonWidth = 90.0f; // Largeur minimale d'un bouton pour qu'il reste lisible
-    float idealButtonSpacing = windowWidth * 0.02f; // 2% de la largeur
-
-    // Trouver le bon nombre de boutons qui peuvent tenir dans la largeur disponible
     int visibleButtonCount = maxButtonsCount;
     buttonWidth = minButtonWidth;
 
-    // Ajuster les dimensions pour que les boutons tiennent dans la largeur disponible
-    while (visibleButtonCount > 3) { // Au moins 3 boutons doivent être visibles
+    while (visibleButtonCount > 3) {
         float requiredSpace = visibleButtonCount * buttonWidth + (visibleButtonCount - 1) * idealButtonSpacing;
 
         if (requiredSpace <= availableWidth) {
-            // Tous les boutons tiennent, augmenter leur largeur proportionnellement
             buttonWidth = std::min(150.0f, (availableWidth - (visibleButtonCount - 1) * idealButtonSpacing) /
                                            visibleButtonCount);
             break;
         }
 
-        // Si tous les boutons ne tiennent pas, réduire leur nombre
         visibleButtonCount--;
     }
 
-    // Définir les autres dimensions UI
-    buttonHeight = calculateRelativeHeight(windowHeight, 0.088f); // ~8.8% de la hauteur
+    buttonHeight = calculateRelativeHeight(windowHeight, 0.088f);
     buttonSpacing = idealButtonSpacing;
-    toolbarY = calculateRelativeHeight(windowHeight, 0.02f); // 2% de la hauteur
+    toolbarY = calculateRelativeHeight(windowHeight, 0.02f);
     startX = (windowWidth - (visibleButtonCount * buttonWidth + (visibleButtonCount - 1) * buttonSpacing)) /
-             2; // Centrer horizontalement
+             2;
 
-    // Recalculer la position des boutons
     initializeButtons();
 }
 
@@ -128,350 +160,26 @@ int Controller::handleButtonClick(float x, float y) {
     return -1;  // Aucun bouton cliqué
 }
 
-void Controller::renderButtons(SDL_Renderer *renderer, const std::vector<Button> &buttons) {
-    for (size_t i = 0; i < buttons.size(); i++) {
-        const auto &button = buttons[i];
-        // Fond du bouton
-        SDL_SetRenderDrawColor(renderer, button.color.r, button.color.g, button.color.b, button.color.a);
-        SDL_RenderFillRect(renderer, &button.rect);
+void Controller::handleImportSong() {
+    SDL_DialogFileFilter filters[1] = {{"Text files", "txt"}};
+    // SDL_ShowOpenFileDialog takes a C-style function pointer, so we use the static callback
+    SDL_ShowOpenFileDialog(FileDialogCallback, this, nullptr, filters, SDL_arraysize(filters), nullptr, false);
+}
 
-        // Dessiner les bordures du bouton
-        SDL_SetRenderDrawColor(renderer, 30, 30, 30, 255); // Bordure légèrement plus sombre
-        SDL_RenderRect(renderer, &button.rect);
-
-        // Calculer le centre du bouton pour positionner les icônes
-        float centerX = button.rect.x + button.rect.w / 2;
-        float centerY = button.rect.y + button.rect.h / 2;
-
-        // Calculer la position du texte (plus proche du bas)
-        float textY = button.rect.y + button.rect.h - 15;
-        // Calculer la position des icônes (plus haute pour laisser de la place au texte)
-        float iconY = centerY - 10;
-
-        // Dessiner l'icône ou le texte en fonction de l'index du bouton
-        switch (i) {
-            case 0: // Select
-            {
-                // Dessiner le texte "Select" centré dans le bouton
-                renderTextCentered(renderer, centerX, centerY, button.name, {255, 255, 255, 255});
-                break;
-            }
-
-            case 1: // Remove Octave (-)
-            {
-                // Dessiner un symbole minus
-                SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-                SDL_FRect minus = {centerX - 15, iconY - 2, 30, 4};
-                SDL_RenderFillRect(renderer, &minus);
-
-                // Texte descriptif en bas du bouton avec une couleur plus claire
-                renderSmallText(renderer, centerX, textY, "Remove", {255, 255, 255, 255});
-                break;
-            }
-
-            case 2: // Add Octave (+)
-            {
-                // Dessiner un symbole plus (+)
-                SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-                // Ligne horizontale
-                SDL_FRect plusH = {centerX - 15, iconY - 2, 30, 4};
-                SDL_RenderFillRect(renderer, &plusH);
-                // Ligne verticale
-                SDL_FRect plusV = {centerX - 2, iconY - 15, 4, 30};
-                SDL_RenderFillRect(renderer, &plusV);
-
-                // Texte descriptif en bas du bouton avec une couleur plus claire
-                renderSmallText(renderer, centerX, textY, "Add", {255, 255, 255, 255});
-                break;
-            }
-
-            case 3: // Import File
-            {
-                // Dessiner une icône de fichier
-                drawFileIcon(renderer, centerX, iconY, 30, {255, 255, 255, 255});
-
-                // Texte descriptif en bas du bouton avec une couleur plus claire
-                renderSmallText(renderer, centerX, textY, "Import", {255, 255, 255, 255});
-                break;
-            }
-
-            case 4: // Play Song
-            {
-                // Dessiner un triangle de lecture (blanc)
-                drawPlayIcon(renderer, centerX, iconY, 20, {200, 200, 200, 255});
-
-                // Texte descriptif en bas du bouton avec une couleur plus claire
-                renderSmallText(renderer, centerX, textY, "Play", {255, 255, 255, 255});
-                break;
-            }
-
-            case 5: // Start Recording
-            {
-                // Dessiner un triangle de lecture (rouge)
-                drawPlayIcon(renderer, centerX, iconY, 20, {255, 50, 50, 255});
-
-                // Texte descriptif en bas du bouton avec une couleur plus claire
-                renderSmallText(renderer, centerX, textY, "Record", {255, 255, 255, 255});
-                break;
-            }
-
-            case 6: // Export
-            {
-                // Dessiner une flèche vers le haut
-                drawUpArrow(renderer, centerX, iconY, 20, {255, 50, 50, 255});
-
-                // Texte descriptif en bas du bouton avec une couleur plus claire
-                renderSmallText(renderer, centerX, textY, "Export", {255, 255, 255, 255});
-                break;
-            }
-
-            case 7: // Finish Recording
-            {
-                // Dessiner un cercle avec un carré à l'intérieur
-                drawStopIcon(renderer, centerX, iconY, 20, {255, 50, 50, 255});
-
-                // Texte descriptif en bas du bouton avec une couleur plus claire
-                renderSmallText(renderer, centerX, textY, "Stop", {255, 255, 255, 255});
-                break;
-            }
+void Controller::handlePlaySong(const std::string &instrumentName) {
+    if (songLoaded && audioEngine) {
+        auto sdlAudioEngine = dynamic_cast<MusicApp::Audio::SDLAudioEngine *>(audioEngine);
+        if (sdlAudioEngine) {
+            std::cout << "Playing song: " << importedFileName << " with instrument: " << instrumentName << std::endl;
+            playSong(*sdlAudioEngine, currentSongEvents, instrumentName);
+        } else {
+            std::cerr << "Cannot play song: Audio engine is not of type SDLAudioEngine." << std::endl;
         }
+    } else {
+        std::cerr << "No song loaded or audio engine not available." << std::endl;
     }
 }
 
-// Fonction utilitaire pour dessiner un texte centré avec SDL_ttf
-void Controller::renderTextCentered(SDL_Renderer *renderer, float centerX, float centerY, const std::string &text,
-                                    SDL_Color color) {
-    if (!font || !renderer || text.empty()) return;
-
-    // Créer une surface de texte
-    SDL_Surface *textSurface = TextHelper::RenderTextSolid(font, text, color);
-    if (!textSurface) {
-        std::cerr << "Erreur lors du rendu du texte : " << SDL_GetError() << std::endl;
-        return;
-    }
-
-    // Créer une texture à partir de la surface
-    SDL_Texture *textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
-    SDL_DestroySurface(textSurface);
-
-    if (!textTexture) {
-        std::cerr << "Erreur lors de la création de la texture : " << SDL_GetError() << std::endl;
-        return;
-    }
-
-    // Obtenir les dimensions de la texture
-    float textWidth, textHeight;
-    SDL_GetTextureSize(textTexture, &textWidth, &textHeight);
-
-    // Positionner le texte centré
-    SDL_FRect renderQuad = {
-            centerX - textWidth / 2.0f,
-            centerY - textHeight / 2.0f,
-            textWidth,
-            textHeight
-    };
-
-    SDL_RenderTexture(renderer, textTexture, NULL, &renderQuad);
-    SDL_DestroyTexture(textTexture);
-}
-
-void Controller::renderSmallText(SDL_Renderer *renderer, float centerX, float centerY, const std::string &text,
-                                 SDL_Color color) {
-    if (!font || !renderer || text.empty()) return;
-
-    TTF_Font *smallFont = TextHelper::LoadFont("Roboto-SemiBold.ttf", 14);
-
-    if (!smallFont) {
-        renderTextCentered(renderer, centerX, centerY, text, color);
-        return;
-    }
-
-    SDL_Surface *textSurface = TextHelper::RenderTextSolid(smallFont, text, color);
-    TTF_CloseFont(smallFont);
-
-    if (!textSurface) {
-        std::cerr << "Erreur lors du rendu du texte : " << SDL_GetError() << std::endl;
-        return;
-    }
-
-    // Créer une texture à partir de la surface
-    SDL_Texture *textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
-    SDL_DestroySurface(textSurface);
-
-    if (!textTexture) {
-        std::cerr << "Erreur lors de la création de la texture : " << SDL_GetError() << std::endl;
-        return;
-    }
-
-    // Obtenir les dimensions de la texture
-    float textWidth, textHeight;
-    SDL_GetTextureSize(textTexture, &textWidth, &textHeight);
-
-    // Positionner le texte centré
-    SDL_FRect renderQuad = {
-            centerX - textWidth / 2.0f,
-            centerY - textHeight / 2.0f,
-            textWidth,
-            textHeight
-    };
-
-    // Afficher la texture
-    SDL_RenderTexture(renderer, textTexture, NULL, &renderQuad);
-    SDL_DestroyTexture(textTexture);
-}
-
-// Fonction pour dessiner une icône de fichier
-void Controller::drawFileIcon(SDL_Renderer *renderer, float centerX, float centerY, float size, SDL_Color color) {
-    SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
-
-    // Rectangle principal du document
-    SDL_FRect docRect = {centerX - size / 2, centerY - size / 2, size, size};
-    SDL_RenderRect(renderer, &docRect);
-
-    // Coin plié
-    float foldSize = size / 4;
-    SDL_FPoint fold[] = {
-            {centerX + size / 2 - foldSize, centerY - size / 2},               // Coin supérieur droit moins fold
-            {centerX + size / 2,            centerY - size / 2 + foldSize},               // Coin droit du pli
-            {centerX + size / 2 - foldSize, centerY - size / 2 + foldSize}     // Coin gauche du pli
-    };
-
-    // Dessiner les lignes du pli
-    for (int i = 0; i < 2; i++) {
-        SDL_RenderLine(renderer, fold[i].x, fold[i].y, fold[i + 1].x, fold[i + 1].y);
-    }
-
-    // Ligne du pli vers le coin du document
-    SDL_RenderLine(renderer, fold[0].x, fold[0].y, fold[2].x, fold[2].y);
-
-    // Ajouter un + dans le document
-    float plusSize = size / 3;
-    SDL_FRect plusH = {centerX - plusSize / 2, centerY, plusSize, size / 10};
-    SDL_FRect plusV = {centerX - size / 20, centerY - plusSize / 2, size / 10, plusSize};
-    SDL_RenderFillRect(renderer, &plusH);
-    SDL_RenderFillRect(renderer, &plusV);
-}
-
-// Fonction pour dessiner une icône de lecture (triangle)
-void Controller::drawPlayIcon(SDL_Renderer *renderer, float centerX, float centerY, float size, SDL_Color color) {
-    SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
-
-    // Coordonnées du triangle (pointe vers la droite)
-    // Créer un triangle plus large et plus court que précédemment
-    SDL_FPoint triangle[3];
-    float halfHeight = size / 2;
-    float width = size * 0.9f; // Triangle un peu plus large
-
-    triangle[0] = {centerX - width / 3, centerY - halfHeight}; // Sommet supérieur gauche
-    triangle[1] = {centerX + width * 2 / 3, centerY};            // Sommet droit (pointe)
-    triangle[2] = {centerX - width / 3, centerY + halfHeight}; // Sommet inférieur gauche
-
-    // Remplir le triangle avec une méthode plus précise
-    float minY = triangle[0].y;
-    float maxY = triangle[2].y;
-
-    for (float y = minY; y <= maxY; y += 0.5f) { // On utilise un pas plus petit pour plus de précision
-        // Calcul de la limite gauche (toujours au même x car c'est un triangle)
-        float leftX = triangle[0].x;
-
-        // Calcul de la limite droite en interpolant entre le sommet et la pointe
-        float progress = (y - minY) / (maxY - minY); // 0 à 1
-        float rightX;
-
-        // Si on est dans la moitié supérieure
-        if (progress <= 0.5f) {
-            float normalizedProgress = progress * 2; // 0 à 1 pour la partie supérieure
-            rightX = triangle[0].x + normalizedProgress * (triangle[1].x - triangle[0].x);
-        }
-            // Si on est dans la moitié inférieure
-        else {
-            float normalizedProgress = (progress - 0.5f) * 2; // 0 à 1 pour la partie inférieure
-            rightX = triangle[1].x - normalizedProgress * (triangle[1].x - triangle[2].x);
-        }
-
-        SDL_RenderLine(renderer, leftX, y, rightX, y);
-    }
-
-    // Dessiner le contour du triangle
-    for (int i = 0; i < 3; i++) {
-        int next = (i + 1) % 3;
-        SDL_RenderLine(renderer, triangle[i].x, triangle[i].y, triangle[next].x, triangle[next].y);
-    }
-}
-
-// Fonction pour dessiner une flèche vers le haut
-void Controller::drawUpArrow(SDL_Renderer *renderer, float centerX, float centerY, float size, SDL_Color color) {
-    SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
-
-    // Dessiner la flèche avec un remplissage
-    SDL_FPoint arrow[] = {
-            {centerX,            centerY - size / 2},                  // Pointe de la flèche
-            {centerX - size / 3, centerY - size / 6},       // Coin gauche
-            {centerX - size / 6, centerY - size / 6},       // Intérieur gauche
-            {centerX - size / 6, centerY + size / 2},       // Bas gauche
-            {centerX + size / 6, centerY + size / 2},       // Bas droit
-            {centerX + size / 6, centerY - size / 6},       // Intérieur droit
-            {centerX + size / 3, centerY - size / 6}        // Coin droit
-    };
-
-    // Remplir l'intérieur de la flèche
-    for (float y = arrow[0].y; y <= arrow[3].y; y += 1.0f) {
-        float left = centerX - size / 6;
-        float right = centerX + size / 6;
-
-        // Pour la partie triangulaire (pointe de la flèche)
-        if (y < arrow[1].y) {
-            float t = (y - arrow[0].y) / (arrow[1].y - arrow[0].y);
-            left = centerX - t * size / 3;
-            right = centerX + t * size / 3;
-        }
-
-        SDL_RenderLine(renderer, left, y, right, y);
-    }
-
-    // Dessiner les contours de la flèche
-    for (int i = 0; i < 7; i++) {
-        int next = (i + 1) % 7;
-        SDL_RenderLine(renderer, arrow[i].x, arrow[i].y, arrow[next].x, arrow[next].y);
-    }
-}
-
-// Fonction pour dessiner une icône d'arrêt (cercle avec carré intérieur)
-void Controller::drawStopIcon(SDL_Renderer *renderer, float centerX, float centerY, float size, SDL_Color color) {
-    SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
-
-    // Approximation d'un cercle par un octogone avec remplissage
-    const int numPoints = 32;
-    SDL_FPoint circle[numPoints];
-
-    for (int i = 0; i < numPoints; i++) {
-        float angle = i * 2 * M_PI / numPoints;
-        circle[i].x = centerX + size / 2 * cos(angle);
-        circle[i].y = centerY + size / 2 * sin(angle);
-    }
-
-    // Remplir l'intérieur du cercle
-    for (float y = centerY - size / 2; y <= centerY + size / 2; y += 1.0f) {
-        float dy = y - centerY;
-        float dx = sqrt((size / 2) * (size / 2) - dy * dy);
-
-        // Cercle: (x - cx)² + (y - cy)² = r²
-        SDL_RenderLine(renderer, centerX - dx, y, centerX + dx, y);
-    }
-
-    // Dessiner le contour du cercle
-    for (int i = 0; i < numPoints; i++) {
-        int next = (i + 1) % numPoints;
-        SDL_RenderLine(renderer, circle[i].x, circle[i].y, circle[next].x, circle[next].y);
-    }
-
-    // Dessiner le carré à l'intérieur
-    float squareSize = size / 3;
-    SDL_FRect square = {
-            centerX - squareSize / 2,
-            centerY - squareSize / 2,
-            squareSize,
-            squareSize
-    };
-    SDL_RenderFillRect(renderer, &square);
+std::string Controller::getImportedFileName() const {
+    return importedFileName;
 }

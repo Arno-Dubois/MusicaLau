@@ -2,3 +2,6 @@ cmake-build-debug
 MusicaLau.vpp.bak_*
 .idea
 bin/MusicaLau.exe
+bin/MusicaLau.exe
+star_wars.txt
+SL3 migration.txt

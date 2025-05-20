@@ -27,6 +27,7 @@ set(LIB_SOURCES
         src/View/XylophoneView.cpp
         src/View/VideoGameView.cpp
         src/View/ConsoleView.cpp
+        src/View/ButtonView.cpp
 
         # Controllers
         src/Controller/Controller.cpp
@@ -39,6 +40,7 @@ set(LIB_SOURCES
 
         # Audio
         src/Audio/SDLAudioEngine.cpp
+        src/Audio/MusicFileReader.cpp
 
         # Instruments
         src/Instruments/SimpleSynthInstrument.cpp
@@ -77,6 +79,7 @@ set(LIB_HEADERS
         include/View/XylophoneView.h
         include/View/VideoGameView.h
         include/View/ConsoleView.h
+        include/View/ButtonView.h
 
         # Controllers
         include/Controller/Controller.h
@@ -90,6 +93,7 @@ set(LIB_HEADERS
         # Audio
         include/Audio/AudioEngine.h
         include/Audio/SDLAudioEngine.h
+        include/Audio/MusicFileReader.h
 
         # Instruments
         include/Instruments/SimpleSynthInstrument.h

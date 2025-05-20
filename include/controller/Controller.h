@@ -4,8 +4,15 @@
 #include <SDL3/SDL_ttf.h>
 #include <vector>
 #include <string>
-#include <cmath> // Pour M_PI
+#include <cmath>
+#include "Button.h"
 #include "../View/View.h"
+#include "../Audio/MusicFileReader.h"
+
+class ButtonView;
+
+// Forward declaration for the callback
+static void FileDialogCallback(void *userdata, const char *const *filePaths, int numFiles);
 
 namespace MusicApp {
     namespace Audio {
@@ -32,6 +39,15 @@ protected:
     // Audio engine
     MusicApp::Audio::AudioEngine *audioEngine;
 
+    // Imported song data
+    std::string importedFilePath;
+    std::string importedFileName;
+    std::vector<MusicalEvent> currentSongEvents;
+    bool songLoaded;
+
+    // Button View
+    ButtonView *buttonView_; // Pointer to ButtonView
+
 public:
     Controller();
 
@@ -39,28 +55,13 @@ public:
 
     virtual ~Controller();
 
+    friend void FileDialogCallback(void *userdata, const char *const *filePaths, int numFiles);
+
     void initializeButtons();
 
     int handleButtonClick(float x, float y);
 
     virtual void render(SDL_Renderer *renderer, int windowWidth, int windowHeight) = 0;
-
-    void renderButtons(SDL_Renderer *renderer, const std::vector<Button> &buttons);
-
-    // Fonctions utilitaires pour dessiner les icônes
-    void
-    renderTextCentered(SDL_Renderer *renderer, float centerX, float centerY, const std::string &text, SDL_Color color);
-
-    void
-    renderSmallText(SDL_Renderer *renderer, float centerX, float centerY, const std::string &text, SDL_Color color);
-
-    void drawFileIcon(SDL_Renderer *renderer, float centerX, float centerY, float size, SDL_Color color);
-
-    void drawPlayIcon(SDL_Renderer *renderer, float centerX, float centerY, float size, SDL_Color color);
-
-    void drawUpArrow(SDL_Renderer *renderer, float centerX, float centerY, float size, SDL_Color color);
-
-    void drawStopIcon(SDL_Renderer *renderer, float centerX, float centerY, float size, SDL_Color color);
 
     // Nouvelles méthodes pour calculer les dimensions relatives
     float calculateRelativeWidth(int windowWidth, float percentage);
@@ -68,4 +69,11 @@ public:
     float calculateRelativeHeight(int windowHeight, float percentage);
 
     void updateDimensions(int windowWidth, int windowHeight);
+
+    // Methods for song import and playback
+    void handleImportSong();
+
+    void handlePlaySong(const std::string &instrumentName);
+
+    std::string getImportedFileName() const;
 };

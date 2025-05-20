@@ -3,8 +3,7 @@
 
 #include <string> // For pitch name, or use int for MIDI value
 
-namespace MusicApp {
-namespace Core {
+namespace MusicApp::Core {
 
 /**
  * @brief Represents a musical note.
@@ -26,7 +25,7 @@ struct Note {
     // explicit Note(int mValue) : midiValue(mValue) {}
 };
 
-} // namespace Core
-} // namespace MusicApp
+} // namespace MusicApp::Core
+
 
 #endif // MUSICAPP_CORE_NOTE_H
