@@ -3,5 +3,8 @@ MusicaLau.vpp.bak_*
 .idea
 bin/MusicaLau.exe
 bin/MusicaLau.exe
+<<<<<<< Updated upstream
 star_wars.txt
+=======
+>>>>>>> Stashed changes
 SL3 migration.txt
