@@ -13,8 +13,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up MSVC
-        uses: microsoft/setup-msvc@v1
+      - name: Set up MSBuild (includes MSVC)
+        uses: microsoft/setup-msbuild@v2
 
       - name: Setup CMake
         uses: jwlawson/actions-setup-cmake@v1.14
