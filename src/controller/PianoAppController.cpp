@@ -66,7 +66,8 @@ void PianoAppController::handlePianoKeyHover(float mouseX, float mouseY) {
     piano->updateHoveredKey(mouseX, mouseY);
 }
 
-void PianoAppController::render(SDL_Renderer *renderer, int windowWidth, int windowHeight) {
+void PianoAppController::render(SDL_Renderer *renderer, int windowWidth, int windowHeight,
+                                bool isSongCurrentlyPlaying) {
     // Mettre à jour les dimensions des boutons et éléments UI en fonction des dimensions de la fenêtre
     updateDimensions(windowWidth, windowHeight);
 
@@ -84,7 +85,8 @@ void PianoAppController::render(SDL_Renderer *renderer, int windowWidth, int win
 
     // Dessiner les boutons
     if (buttonView_) {
-        buttonView_->renderButtons(renderer, buttons);
+        // Pass the isSongCurrentlyPlaying state received from Application
+        buttonView_->renderButtons(renderer, buttons, isSongCurrentlyPlaying);
     }
 
     // Dimensions pour l'interface principale - utiliser des proportions relatives

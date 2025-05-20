@@ -188,6 +188,15 @@ bool Controller::isSongReadyToPlay() const {
     return songPlayRequested_;
 }
 
+bool Controller::getSongLoaded() const {
+    return songLoaded;
+}
+
+void Controller::resetPlayRequestStatus() {
+    songPlayRequested_ = false;
+    std::cout << "Controller: Song play request status reset." << std::endl;
+}
+
 std::string Controller::getImportedFileName() const {
     return importedFileName;
 }

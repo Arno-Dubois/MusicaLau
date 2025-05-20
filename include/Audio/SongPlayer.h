@@ -25,7 +25,9 @@ namespace MusicApp {
             // Stops the currently playing song, if any.
             void stopSong();
 
+            void togglePause();
             bool isPlaying() const;
+            bool isPaused() const;
 
         private:
             void playbackLoop(); // The function that will run in the playback thread
@@ -37,6 +39,7 @@ namespace MusicApp {
             std::thread playbackThread_;
             std::atomic<bool> stopPlaybackSignal_;
             std::atomic<bool> isCurrentlyPlaying_;
+            std::atomic<bool> isPaused_;
         };
 
     } // namespace Audio

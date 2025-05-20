@@ -26,5 +26,5 @@ public:
     // Accesseur pour le piano
     Piano *getPiano() const { return piano; }
 
-    void render(SDL_Renderer *renderer, int windowWidth, int windowHeight) override;
+    void render(SDL_Renderer *renderer, int windowWidth, int windowHeight, bool isSongCurrentlyPlaying) override;
 };

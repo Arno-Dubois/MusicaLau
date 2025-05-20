@@ -67,7 +67,7 @@ public:
 
     int handleButtonClick(float x, float y);
 
-    virtual void render(SDL_Renderer *renderer, int windowWidth, int windowHeight) = 0;
+    virtual void render(SDL_Renderer *renderer, int windowWidth, int windowHeight, bool isSongCurrentlyPlaying) = 0;
 
     float calculateRelativeWidth(int windowWidth, float percentage);
     float calculateRelativeHeight(int windowHeight, float percentage);
@@ -80,4 +80,8 @@ public:
     bool isSongReadyToPlay() const;
 
     std::string getImportedFileName() const;
+
+    bool getSongLoaded() const;
+
+    void resetPlayRequestStatus();
 };

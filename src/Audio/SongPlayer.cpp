@@ -2,16 +2,18 @@
 
 namespace MusicApp {
     namespace Audio {
-
-        SongPlayer::SongPlayer(MusicApp::Audio::SDLAudioEngine* audioEngine) // Parameter is SDLAudioEngine*
-            : audioEngine_(audioEngine), // This should store the passed audioEngine
+        SongPlayer::SongPlayer(MusicApp::Audio::SDLAudioEngine *audioEngine)
+            : audioEngine_(audioEngine),
               stopPlaybackSignal_(false),
-              isCurrentlyPlaying_(false) {
+              isCurrentlyPlaying_(false),
+              isPaused_(false) {
             std::cout << "SongPlayer CONSTRUCTOR: Entered." << std::endl;
-            std::cout << "SongPlayer CONSTRUCTOR: audioEngine parameter (received) address: " << audioEngine << std::endl; // Log received address
-            std::cout << "SongPlayer CONSTRUCTOR: this->audioEngine_ (stored member) address: " << this->audioEngine_ << std::endl; // Log stored address
+            std::cout << "SongPlayer CONSTRUCTOR: audioEngine parameter (received) address: " << audioEngine <<
+                    std::endl;
+            std::cout << "SongPlayer CONSTRUCTOR: this->audioEngine_ (stored member) address: " << this->audioEngine_ <<
+                    std::endl;
 
-            if (!this->audioEngine_) { // Check the member
+            if (!this->audioEngine_) {
                 std::cerr << "SongPlayer CONSTRUCTOR ERROR: Stored audioEngine_ is null after assignment!" << std::endl;
             } else {
                 std::cout << "SongPlayer CONSTRUCTOR: Stored audioEngine_ seems valid (not null)." << std::endl;
@@ -71,15 +73,33 @@ namespace MusicApp {
             if (isCurrentlyPlaying_ && playbackThread_.joinable()) {
                 std::cout << "SongPlayer: Signaling playback thread to stop..." << std::endl;
                 stopPlaybackSignal_ = true;
-                playbackThread_.join(); // Wait for the thread to finish
+                playbackThread_.join();
                 std::cout << "SongPlayer: Playback thread stopped." << std::endl;
             }
-            isCurrentlyPlaying_ = false; // Ensure this is reset even if thread wasn't joinable for some reason
-            stopPlaybackSignal_ = false; // Reset signal for next play
+            isCurrentlyPlaying_ = false;
+            stopPlaybackSignal_ = false;
+            isPaused_ = false;
         }
 
         bool SongPlayer::isPlaying() const {
             return isCurrentlyPlaying_;
+        }
+
+        bool SongPlayer::isPaused() const {
+            return isPaused_.load();
+        }
+
+        void SongPlayer::togglePause() {
+            if (!isCurrentlyPlaying_.load()) {
+                std::cout << "SongPlayer: Cannot toggle pause, no song is playing." << std::endl;
+                return;
+            }
+            isPaused_ = !isPaused_.load();
+            if (isPaused_.load()) {
+                std::cout << "SongPlayer: Playback PAUSED." << std::endl;
+            } else {
+                std::cout << "SongPlayer: Playback RESUMED." << std::endl;
+            }
         }
 
         void SongPlayer::playbackLoop() {
@@ -94,6 +114,11 @@ namespace MusicApp {
             for (size_t i = 0; i < currentSongEvents_.size(); ++i) {
                 const auto& event = currentSongEvents_[i];
                 std::cout << "SongPlayer: Processing event " << i << ": Note '" << event.pitchName << "', Duration " << event.durationSeconds << std::endl;
+
+                while (isPaused_.load()) {
+                    if (stopPlaybackSignal_) break;
+                    SDL_Delay(50);
+                }
 
                 if (stopPlaybackSignal_) {
                     std::cout << "SongPlayer: Stop signal received in playback loop (before processing event " << i << ")." << std::endl;
@@ -148,7 +173,8 @@ namespace MusicApp {
                 std::cout << "SongPlayer: Playback loop finished naturally." << std::endl;
             }
             isCurrentlyPlaying_ = false;
-            // stopPlaybackSignal_ is reset by stopSong() or at the start of playSong()
+            stopPlaybackSignal_ = false;
+            isPaused_ = false;
         }
 
     } // namespace Audio

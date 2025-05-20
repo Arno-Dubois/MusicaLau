@@ -23,5 +23,5 @@ public:
 
     VideoGame *getVideoGame() const { return videoGame; }
 
-    void render(SDL_Renderer *renderer, int windowWidth, int windowHeight) override;
+    void render(SDL_Renderer *renderer, int windowWidth, int windowHeight, bool isSongCurrentlyPlaying) override;
 };

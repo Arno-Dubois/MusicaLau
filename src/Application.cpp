@@ -217,45 +217,41 @@ bool Application::run() {
                     if (buttonClicked == 3) {
                         // "Import File" button
                         mainController->handleImportSong();
-                    } else if (buttonClicked == 4) { // "Play Song" button
-                        std::string currentInstrumentNameString;
-                        switch (currentInstrument) {
-                            case InstrumentType::PIANO: currentInstrumentNameString = "Piano"; break;
-                            case InstrumentType::XYLOPHONE: currentInstrumentNameString = "Xylophone"; break;
-                            case InstrumentType::VIDEO_GAME: currentInstrumentNameString = "8BitConsole"; break;
-                        }
-                        // Log before calling mainController methods
-                        std::cout << "Application::run: About to call mainController->handlePlaySongClicked. mainController pointer: " << mainController << std::endl;
-                        if (mainController) {
-                            mainController->handlePlaySongClicked(currentInstrumentNameString);
-                        } else {
-                            std::cerr << "Application::run ERROR: mainController is NULL before handlePlaySongClicked!" << std::endl;
-                        }
-
-                        // Log before checking conditions and calling songPlayer
-                        std::cout << "Application::run: About to check conditions for songPlayer->playSong." << std::endl;
-                        std::cout << "Application::run: songPlayer pointer: " << songPlayer << std::endl;
-                        if (mainController) {
-                             std::cout << "Application::run: mainController->isSongReadyToPlay(): " << mainController->isSongReadyToPlay() << std::endl;
-                        }
-
-
-                        if (songPlayer && mainController && mainController->isSongReadyToPlay()) {
-                           std::cout << "Application::run: Conditions MET. Calling songPlayer->playSong." << std::endl;
-                           std::cout << "Application::run: songPlayer pointer before call: " << songPlayer << std::endl;
-                           std::cout << "Application::run: mainController pointer for getters: " << mainController << std::endl;
-                           // Ensure events are valid before passing
-                           const auto& events = mainController->getLoadedSongEvents();
-                           const std::string& instrName = mainController->getCurrentInstrumentForSong();
-                           std::cout << "Application::run: Event count: " << events.size() << ", Instrument for song: " << instrName << std::endl;
-
-                           songPlayer->playSong(events, instrName);
-                           // Optionally: mainController->resetPlayRequestStatus();
-                        } else {
-                            std::cout << "Application::run: Conditions NOT MET for songPlayer->playSong." << std::endl;
-                            if (!songPlayer) std::cerr << "Application::run: songPlayer is NULL." << std::endl;
-                            if (!mainController) std::cerr << "Application::run: mainController is NULL." << std::endl;
-                            else if (!mainController->isSongReadyToPlay()) std::cerr << "Application::run: mainController->isSongReadyToPlay() is false." << std::endl;
+                    } else if (buttonClicked == 4) { // Play/Pause Button (index 4)
+                        if (songPlayer) {
+                            if (songPlayer->isPlaying()) {
+                                // If song is playing, a click on this button means toggle pause
+                                songPlayer->togglePause();
+                            } else if (mainController && mainController->isSongReadyToPlay()) {
+                                // If no song is playing but one is loaded and ready, play it
+                                std::string instrumentForSong = mainController->getCurrentInstrumentForSong();
+                                if (instrumentForSong.empty() && mainController->getSongLoaded()) {
+                                    // If instrument wasn't set by a previous play click, get current
+                                    switch (currentInstrument) {
+                                        case InstrumentType::PIANO: instrumentForSong = "Piano"; break;
+                                        case InstrumentType::XYLOPHONE: instrumentForSong = "Xylophone"; break;
+                                        case InstrumentType::VIDEO_GAME: instrumentForSong = "8BitConsole"; break;
+                                    }
+                                     // Storing it in controller as if "play" was just clicked for the first time for this song
+                                    mainController->handlePlaySongClicked(instrumentForSong);
+                                }
+                                songPlayer->playSong(mainController->getLoadedSongEvents(), instrumentForSong);
+                                //mainController->resetPlayRequestStatus();
+                                // Optionally: mainController->resetPlayRequestStatus();
+                            } else if (mainController && mainController->getSongLoaded()) {
+                                // Song is loaded, but play wasn't "clicked" yet to set instrument.
+                                // Treat this as the first "play" click.
+                                std::string instrumentForSong;
+                                 switch (currentInstrument) {
+                                    case InstrumentType::PIANO: instrumentForSong = "Piano"; break;
+                                    case InstrumentType::XYLOPHONE: instrumentForSong = "Xylophone"; break;
+                                    case InstrumentType::VIDEO_GAME: instrumentForSong = "8BitConsole"; break;
+                                }
+                                mainController->handlePlaySongClicked(instrumentForSong);
+                                songPlayer->playSong(mainController->getLoadedSongEvents(), instrumentForSong);
+                            } else {
+                                std::cout << "Application: Play button clicked, but no song loaded or ready." << std::endl;
+                            }
                         }
                     } else if (PianoAppController *pianoController = dynamic_cast<PianoAppController *>(
                         mainController)) {
@@ -486,7 +482,11 @@ bool Application::run() {
         SDL_SetRenderDrawColor(renderer, 32, 32, 32, 255);
         SDL_RenderClear(renderer);
 
-        mainController->render(renderer, windowWidth, windowHeight);
+        bool isPlaying = false;
+        if (songPlayer) {
+            isPlaying = songPlayer->isPlaying();
+        }
+        mainController->render(renderer, windowWidth, windowHeight, isPlaying);
         instrumentMenu->render(renderer);
         SDL_RenderPresent(renderer);
         SDL_Delay(16);

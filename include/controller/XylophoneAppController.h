@@ -26,5 +26,5 @@ public:
     // Accesseur pour le xylophone
     Xylophone *getXylophone() const { return xylophone; }
 
-    void render(SDL_Renderer *renderer, int windowWidth, int windowHeight) override;
+    void render(SDL_Renderer *renderer, int windowWidth, int windowHeight, bool isSongCurrentlyPlaying) override;
 };

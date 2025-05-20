@@ -22,7 +22,8 @@ bool ButtonView::initialize(TTF_Font* font) {
 // Implementation of renderButtons and drawing utility functions
 // (These will be moved from Controller.cpp)
 
-void ButtonView::renderButtons(SDL_Renderer *renderer, const std::vector<Button> &buttons) {
+void ButtonView::renderButtons(SDL_Renderer *renderer, const std::vector<Button> &buttons,
+                               bool isSongCurrentlyPlaying) {
     for (size_t i = 0; i < buttons.size(); i++) {
         const auto &button = buttons[i];
         // Fond du bouton
@@ -76,10 +77,17 @@ void ButtonView::renderButtons(SDL_Renderer *renderer, const std::vector<Button>
                 renderSmallText(renderer, centerX, textY, "Import", {255, 255, 255, 255});
                 break;
             }
-            case 4: // Play Song
+            case 4: // Play Song / Pause Song button (index 4)
             {
-                drawPlayIcon(renderer, centerX, iconY, 20, {200, 200, 200, 255});
-                renderSmallText(renderer, centerX, textY, "Play", {255, 255, 255, 255});
+                if (isSongCurrentlyPlaying) {
+                    // Draw Pause Icon
+                    drawPauseIcon(renderer, centerX, iconY, 20, {200, 200, 200, 255});
+                    renderSmallText(renderer, centerX, textY, "Pause", {255, 255, 255, 255});
+                } else {
+                    // Draw Play Icon
+                    drawPlayIcon(renderer, centerX, iconY, 20, {200, 200, 200, 255});
+                    renderSmallText(renderer, centerX, textY, "Play", {255, 255, 255, 255});
+                }
                 break;
             }
             case 5: // Start Recording
@@ -283,4 +291,19 @@ void ButtonView::drawStopIcon(SDL_Renderer *renderer, float centerX, float cente
             squareSize
     };
     SDL_RenderFillRect(renderer, &square);
+}
+
+void ButtonView::drawPauseIcon(SDL_Renderer *renderer, float centerX, float centerY, float size, SDL_Color color) {
+    SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
+    float barWidth = size / 4; // Width of each bar of the pause icon
+    float barHeight = size; // Height of each bar
+    float spacing = size / 5; // Spacing between the two bars
+
+    // Left bar
+    SDL_FRect leftBar = {centerX - spacing / 2 - barWidth, centerY - barHeight / 2, barWidth, barHeight};
+    SDL_RenderFillRect(renderer, &leftBar);
+
+    // Right bar
+    SDL_FRect rightBar = {centerX + spacing / 2, centerY - barHeight / 2, barWidth, barHeight};
+    SDL_RenderFillRect(renderer, &rightBar);
 }
