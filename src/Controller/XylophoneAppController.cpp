@@ -150,19 +150,6 @@ void XylophoneAppController::handleXylophoneKeyHover(float mouseX,
   if (!xylophone) {
     return;
   }
-
-  // Mise à jour de l'état de survol des lames du xylophone
-  bool updated = xylophone->updateHoveredBar(mouseX, mouseY);
-
-  // On pourrait ajouter ici du feedback audio léger au survol si nécessaire
-  // Par exemple, jouer une note très douce ou afficher le nom de la note
-
-  // Pour le mode de débogage:
-  // if (updated && xylophone->getBarAt(mouseX, mouseY) != -1) {
-  //     int barIndex = xylophone->getBarAt(mouseX, mouseY);
-  //     SDL_LogDebug(SDL_LOG_CATEGORY_APPLICATION, "Xylophone bar hovered: %d",
-  //     barIndex);
-  // }
 }
 
 void XylophoneAppController::render(SDL_Renderer *renderer, int windowWidth,

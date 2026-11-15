@@ -1,5 +1,6 @@
 #include "View/ConsoleView.h"
 #include "Core/Note.h"
+#include "Utils/Log.h"
 #include <iostream>
 #include <limits> // Required for std::numeric_limits
 #include <string>
@@ -18,7 +19,7 @@ void ConsoleView::displayMenu() const {
   MUSICALAU_LOG("2. Play Note");
   MUSICALAU_LOG("3. List Available Instruments");
   MUSICALAU_LOG("0. Exit");
-            MUSICALAU_LOG("Enter your choice: ";
+  MUSICALAU_LOG("Enter your choice: ");
 }
 
 void ConsoleView::selectInstrument() {
@@ -34,33 +35,34 @@ void ConsoleView::selectInstrument() {
     std::cout << i + 1 << ". " << instrumentNames[i] << std::endl;
   }
   MUSICALAU_LOG("0. Cancel");
-            MUSICALAU_LOG("Enter number of instrument to select: ";
+  MUSICALAU_LOG("Enter number of instrument to select: ");
 
-            int choiceNum;
-            std::cin >> choiceNum;
+  int choiceNum;
+  std::cin >> choiceNum;
 
-            if (std::cin.fail()) {
+  if (std::cin.fail()) {
     std::cin.clear(); // Clear error flags
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(),
                     '\n'); // Discard invalid input
     MUSICALAU_LOG("Invalid input. Please enter a number.");
     return;
-            }
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // consume newline
+  }
+  std::cin.ignore(std::numeric_limits<std::streamsize>::max(),
+                  '\n'); // consume newline
 
-            if (choiceNum > 0 && static_cast<size_t>(choiceNum) <= instrumentNames.size()) {
+  if (choiceNum > 0 &&
+      static_cast<size_t>(choiceNum) <= instrumentNames.size()) {
     if (controller_.selectInstrument(instrumentNames[choiceNum - 1])) {
       MUSICALAU_LOG("Instrument '" << instrumentNames[choiceNum - 1]
                                    << "' selected.");
     } else {
       MUSICALAU_LOG("Failed to select instrument.");
-      Should ideally not happen if listed
     }
-            } else if (choiceNum == 0) {
+  } else if (choiceNum == 0) {
     MUSICALAU_LOG("Instrument selection cancelled.");
-            } else {
+  } else {
     MUSICALAU_LOG("Invalid instrument number.");
-            }
+  }
 }
 
 void ConsoleView::playNote() {

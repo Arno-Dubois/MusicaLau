@@ -84,7 +84,6 @@ void DropdownMenu::render(SDL_Renderer *renderer) {
   // Positionnement et dimensions pour l'indicateur de menu déroulant
   float triangleSize = headerRect.h * 0.3f;
   float indicatorX = headerRect.x + headerRect.w - triangleSize * 3;
-  float indicatorY = headerRect.y + (headerRect.h - triangleSize) / 2;
 
   // Dessiner un petit cercle pour le fond de l'indicateur
   float circleSize = triangleSize * 2.0f;

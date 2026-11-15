@@ -1,7 +1,7 @@
 #include "Controller/PianoAppController.h"
 #include "Model/Piano.h"
 #include "View/ButtonView.h"
-#include "view/PianoView.h"
+#include "View/PianoView.h"
 
 PianoAppController::PianoAppController(int windowWidth, int windowHeight,
                                        MusicApp::Audio::AudioEngine *audioE)

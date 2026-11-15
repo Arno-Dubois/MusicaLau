@@ -266,12 +266,10 @@ bool Application::run() {
           int buttonClicked = mainController->handleButtonClick(mouseX, mouseY);
 
           if (buttonClicked == 3) { // "Import File" button
-            MUSICALAU_LOG("Application: Import File button clicked."
-                      << std::endl;
+            MUSICALAU_LOG("Application: Import File button clicked.");
             if (songPlayer && songPlayer->isPlaying()) {
               MUSICALAU_LOG("Application: Stopping currently playing song "
-                           "before new import."
-                        << std::endl;
+                            "before new import.");
               songPlayer->stopSong();
             }
             // It's also good practice to reset the controller's play request
@@ -336,8 +334,7 @@ bool Application::run() {
                                      instrumentForSong);
               } else {
                 MUSICALAU_LOG("Application: Play button clicked, but no song "
-                             "loaded or ready."
-                          << std::endl;
+                              "loaded or ready.");
               }
             }
           } else if (PianoAppController *pianoController =
