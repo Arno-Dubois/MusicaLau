@@ -1,26 +1,62 @@
 cmake_minimum_required(VERSION 3.20)
-project(MusicaLau VERSION 1.0)
+project(MusicaLau VERSION 1.0 LANGUAGES C CXX)
 
-# Spécifier la version du C++
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
 
-# Répertoires d'inclusion
-include_directories(${PROJECT_SOURCE_DIR}/include)
-include_directories(${PROJECT_SOURCE_DIR}/include/SDL3)
-include_directories(${PROJECT_SOURCE_DIR})
+# Put the executable (and, on Windows, the SDL DLLs) in one folder
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+foreach (cfg Debug Release RelWithDebInfo MinSizeRel)
+    string(TOUPPER ${cfg} CFG)
+    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_${CFG} ${CMAKE_BINARY_DIR}/bin)
+endforeach ()
 
-# Définir les sources pour la bibliothèque (sans utiliser GLOB_RECURSE pour un meilleur contrôle)
-set(LIB_SOURCES
-        # Models
+# ---------------------------------------------------------------------------
+# Dependencies: use SDL3 / SDL3_ttf from the system if available,
+# otherwise download and build them automatically.
+# ---------------------------------------------------------------------------
+option(MUSICALAU_FETCH_SDL "Download SDL3 and SDL3_ttf if not found on the system" ON)
+
+find_package(SDL3 CONFIG QUIET)
+find_package(SDL3_ttf CONFIG QUIET)
+
+if (NOT (SDL3_FOUND AND SDL3_ttf_FOUND))
+    if (NOT MUSICALAU_FETCH_SDL)
+        message(FATAL_ERROR "SDL3 / SDL3_ttf not found. Install them or enable MUSICALAU_FETCH_SDL.")
+    endif ()
+    message(STATUS "SDL3 / SDL3_ttf not found on the system, fetching them")
+    include(FetchContent)
+    set(SDL_SHARED ON CACHE BOOL "" FORCE)
+    set(SDL_STATIC OFF CACHE BOOL "" FORCE)
+    set(SDL_TEST_LIBRARY OFF CACHE BOOL "" FORCE)
+    set(SDLTTF_VENDORED ON CACHE BOOL "" FORCE)
+    set(SDLTTF_SAMPLES OFF CACHE BOOL "" FORCE)
+    FetchContent_Declare(SDL3
+            GIT_REPOSITORY https://github.com/libsdl-org/SDL.git
+            GIT_TAG release-3.2.10
+            GIT_SHALLOW TRUE)
+    FetchContent_Declare(SDL3_ttf
+            GIT_REPOSITORY https://github.com/libsdl-org/SDL_ttf.git
+            GIT_TAG release-3.2.2
+            GIT_SHALLOW TRUE)
+    FetchContent_MakeAvailable(SDL3 SDL3_ttf)
+endif ()
+
+# ---------------------------------------------------------------------------
+# Application
+# ---------------------------------------------------------------------------
+add_executable(MusicaLau
+        src/main.cpp
+        src/Application.cpp
+
+        # Model
         src/Model/Instrument.cpp
         src/Model/Piano.cpp
         src/Model/Xylophone.cpp
         src/Model/VideoGame.cpp
-        src/Model/Score.cpp
-        src/Model/Note.cpp
 
-        # Views
+        # View
         src/View/View.cpp
         src/View/InstrumentSelectionView.cpp
         src/View/PianoView.cpp
@@ -29,10 +65,9 @@ set(LIB_SOURCES
         src/View/ConsoleView.cpp
         src/View/ButtonView.cpp
 
-        # Controllers
+        # Controller
         src/Controller/Controller.cpp
         src/Controller/InstrumentController.cpp
-        src/Controller/ScoreController.cpp
         src/Controller/PianoAppController.cpp
         src/Controller/XylophoneAppController.cpp
         src/Controller/VideoGameAppController.cpp
@@ -49,135 +84,37 @@ set(LIB_SOURCES
         src/Instruments/GuitarInstrument.cpp
         src/Instruments/XylophoneInstrument.cpp
 
-        # Application
-        src/Application.cpp
-
         # Utils
-        src/utils/AudioGenerator.cpp
-        src/utils/FileManager.cpp
-        src/utils/RandomMelodyGenerator.cpp
-        src/utils/audio_utils.cpp
-        src/utils/file_utils.cpp
-        src/utils/DropdownMenu.cpp
-        src/utils/TextHelper.cpp
-        devfile.cpp
+        src/Utils/DropdownMenu.cpp
+        src/Utils/TextHelper.cpp
 )
 
-# Définir les en-têtes (headers) pour une meilleure visibilité dans l'IDE
-set(LIB_HEADERS
-        # Models
-        include/Model/Instrument.h
-        include/Model/Piano.h
-        include/Model/Xylophone.h
-        include/Model/VideoGame.h
-        include/Model/Score.h
-        include/Model/Note.h
+target_include_directories(MusicaLau PRIVATE ${PROJECT_SOURCE_DIR}/include)
+target_link_libraries(MusicaLau PRIVATE SDL3_ttf::SDL3_ttf SDL3::SDL3)
 
-        # Views
-        include/View/View.h
-        include/View/InstrumentSelectionView.h
-        include/View/PianoView.h
-        include/View/XylophoneView.h
-        include/View/VideoGameView.h
-        include/View/ConsoleView.h
-        include/View/ButtonView.h
+option(MUSICALAU_DEBUG "Print debug traces to the console" OFF)
+if (MUSICALAU_DEBUG)
+    target_compile_definitions(MusicaLau PRIVATE MUSICALAU_DEBUG)
+endif ()
 
-        # Controllers
-        include/Controller/Controller.h
-        include/Controller/InstrumentController.h
-        include/Controller/ScoreController.h
-        include/Controller/PianoAppController.h
-        include/Controller/XylophoneAppController.h
-        include/Controller/VideoGameAppController.h
-        include/Controller/MusicController.h
-
-        # Audio
-        include/Audio/AudioEngine.h
-        include/Audio/SDLAudioEngine.h
-        include/Audio/MusicFileReader.h
-        include/Audio/SongPlayer.h
-
-        # Instruments
-        include/Instruments/SimpleSynthInstrument.h
-        include/Instruments/PianoInstrument.h
-        include/Instruments/GuitarInstrument.h
-        include/Instruments/XylophoneInstrument.h
-
-        # Application
-        include/Application.h
-
-        # Utils
-        include/utils/AudioGenerator.h
-        include/utils/FileManager.h
-        include/utils/RandomMelodyGenerator.h
-        include/utils/audio_utils.h
-        include/utils/file_utils.h
-        include/utils/DropdownMenu.h
-        include/utils/TextHelper.h
-
-        #Core
-        include/Core/Note.h
-        include/Core/Instrument.h
-)
-
-# Ajouter les bibliothèques SDL3
-set(SDL3_LIBS
-        ${PROJECT_SOURCE_DIR}/lib/libSDL3.dll.a
-        ${PROJECT_SOURCE_DIR}/lib/libSDL3_ttf.dll.a
-        ${PROJECT_SOURCE_DIR}/lib/libSDL3_image.dll.a
-        ${PROJECT_SOURCE_DIR}/lib/libSDL2_mixer.dll.a
-)
-
-# Définir des options de préprocesseur pour SDL_mixer
-add_compile_definitions(SDL_MIXER_INCLUDED=1)
-
-# Création de la bibliothèque
-add_library(MusicaLauLib ${LIB_SOURCES} ${LIB_HEADERS})
-
-# Spécifier des flags de compilation supplémentaires si nécessaire
 if (CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
-    target_compile_options(MusicaLauLib PRIVATE -Wno-deprecated-declarations)
+    target_compile_options(MusicaLau PRIVATE -Wall -Wextra)
+elseif (MSVC)
+    target_compile_options(MusicaLau PRIVATE /W3 /utf-8)
+    target_compile_definitions(MusicaLau PRIVATE _USE_MATH_DEFINES)
 endif ()
 
-# Compilation de l'exécutable principal
-add_executable(MusicaLau src/main.cpp)
-target_link_libraries(MusicaLau MusicaLauLib ${SDL3_LIBS})
+# Copy fonts and example songs next to the executable
+add_custom_command(TARGET MusicaLau POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_directory
+        ${PROJECT_SOURCE_DIR}/assets $<TARGET_FILE_DIR:MusicaLau>/assets
+        COMMAND ${CMAKE_COMMAND} -E copy_directory
+        ${PROJECT_SOURCE_DIR}/songs $<TARGET_FILE_DIR:MusicaLau>/songs)
 
-# Configuration des tests
-if (EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/tests/CMakeLists.txt)
-    add_subdirectory(tests)
-else ()
-    # Créer un répertoire de tests vide si besoin
-    file(MAKE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/tests)
-
-    # Créer un CMakeLists.txt simple pour les tests
-    file(WRITE ${CMAKE_CURRENT_SOURCE_DIR}/tests/CMakeLists.txt
-            "# Tests Configuration\n\n# Ajoutez vos tests ici\n")
-
-    add_subdirectory(tests)
+# On Windows, copy the SDL DLLs next to the executable
+if (WIN32)
+    add_custom_command(TARGET MusicaLau POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different
+            $<TARGET_RUNTIME_DLLS:MusicaLau> $<TARGET_FILE_DIR:MusicaLau>
+            COMMAND_EXPAND_LISTS)
 endif ()
-
-# Création des répertoires d'assets s'ils n'existent pas
-file(MAKE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/assets)
-file(MAKE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/assets/sounds)
-file(MAKE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/assets/scores)
-
-# Copier les ressources dans le répertoire de sortie
-file(COPY ${PROJECT_SOURCE_DIR}/assets DESTINATION ${CMAKE_BINARY_DIR})
-
-# Copier les DLLs SDL3 dans le répertoire de sortie
-file(COPY ${PROJECT_SOURCE_DIR}/lib/SDL3.dll DESTINATION ${PROJECT_SOURCE_DIR}/bin)
-file(COPY ${PROJECT_SOURCE_DIR}/lib/SDL3_ttf.dll DESTINATION ${PROJECT_SOURCE_DIR}/bin)
-file(COPY ${PROJECT_SOURCE_DIR}/lib/SDL3_image.dll DESTINATION ${PROJECT_SOURCE_DIR}/bin)
-# Pour SDL_mixer, nous utilisons la version SDL2 en la copiant directement
-file(COPY ${PROJECT_SOURCE_DIR}/lib/SDL2_mixer.dll DESTINATION ${PROJECT_SOURCE_DIR}/bin)
-message(STATUS "Note: SDL2_mixer.dll est utilisé comme SDL3_mixer.dll")
-
-# Définir la sortie de l'exécutable
-set_target_properties(MusicaLau PROPERTIES
-        RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/bin
-)
-
-# Messages de statut de configuration
-message(STATUS "Project '${PROJECT_NAME}' configured with C++${CMAKE_CXX_STANDARD}")
-message(STATUS "Build type: ${CMAKE_BUILD_TYPE}")

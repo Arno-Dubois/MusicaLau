@@ -1,12 +1,12 @@
 #ifndef MUSICAPP_VIEW_CONSOLEVIEW_H
 #define MUSICAPP_VIEW_CONSOLEVIEW_H
 
-#include "../Controller/MusicController.h" // To interact with the controller
-#include "../Core/Note.h"                 // For creating Note objects
+#include "Controller/MusicController.h" // To interact with the controller
+#include "Core/Note.h"                  // For creating Note objects
 #include <iostream>
+#include <limits> // Required for std::numeric_limits
 #include <string>
 #include <vector>
-#include <limits> // Required for std::numeric_limits
 
 namespace MusicApp {
 namespace View {
@@ -18,37 +18,37 @@ namespace View {
  */
 class ConsoleView {
 public:
-    /**
-     * @brief Constructs a ConsoleView.
-     *
-     * @param controller A reference to the MusicController.
-     */
-    explicit ConsoleView(Controller::MusicController& controller);
+  /**
+   * @brief Constructs a ConsoleView.
+   *
+   * @param controller A reference to the MusicController.
+   */
+  explicit ConsoleView(Controller::MusicController &controller);
 
-    /**
-     * @brief Starts the main interaction loop for the console view.
-     *
-     * Displays a menu and processes user input.
-     */
-    void run();
+  /**
+   * @brief Starts the main interaction loop for the console view.
+   *
+   * Displays a menu and processes user input.
+   */
+  void run();
 
 private:
-    /**
-     * @brief Displays the main menu options to the user.
-     */
-    void displayMenu() const;
+  /**
+   * @brief Displays the main menu options to the user.
+   */
+  void displayMenu() const;
 
-    /**
-     * @brief Prompts the user to select an instrument.
-     */
-    void selectInstrument();
+  /**
+   * @brief Prompts the user to select an instrument.
+   */
+  void selectInstrument();
 
-    /**
-     * @brief Prompts the user to enter a note and plays it.
-     */
-    void playNote();
+  /**
+   * @brief Prompts the user to enter a note and plays it.
+   */
+  void playNote();
 
-    Controller::MusicController& controller_; // Reference to the controller
+  Controller::MusicController &controller_; // Reference to the controller
 };
 
 } // namespace View

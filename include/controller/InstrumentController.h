@@ -1,21 +1,21 @@
 #pragma once
 
+#include "Model/Instrument.h"
 #include <SDL3/SDL.h>
-#include "../Model/Instrument.h"
 #include <string>
 
 class InstrumentController {
 protected:
-    Model::Instrument *instrument;
+  Model::Instrument *instrument;
 
 public:
-    InstrumentController(Model::Instrument *instrument);
+  InstrumentController(Model::Instrument *instrument);
 
-    virtual ~InstrumentController();
+  virtual ~InstrumentController();
 
-    std::string getInstrumentName() const;
+  std::string getInstrumentName() const;
 
-    void setInstrumentName(const std::string &name);
+  void setInstrumentName(const std::string &name);
 
-    virtual void render(SDL_Renderer *renderer) = 0;
+  virtual void render(SDL_Renderer *renderer) = 0;
 };

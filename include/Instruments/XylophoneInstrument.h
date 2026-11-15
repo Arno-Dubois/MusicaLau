@@ -1,8 +1,8 @@
 #ifndef MUSICAPP_INSTRUMENTS_XYLOPHONEINSTRUMENT_H
 #define MUSICAPP_INSTRUMENTS_XYLOPHONEINSTRUMENT_H
 
-#include "../Core/Instrument.h"
-#include "../Audio/AudioEngine.h" // For AudioEngine parameter in playNote
+#include "Audio/AudioEngine.h" // For AudioEngine parameter in playNote
+#include "Core/Instrument.h"
 #include <string>
 
 namespace MusicApp {
@@ -16,10 +16,11 @@ namespace Instruments {
  */
 class XylophoneInstrument : public Core::Instrument {
 public:
-    XylophoneInstrument();
-    ~XylophoneInstrument() override = default;
+  XylophoneInstrument();
+  ~XylophoneInstrument() override = default;
 
-    void playNote(const Core::Note& note, Audio::AudioEngine& audioEngine) const override;
+  void playNote(const Core::Note &note,
+                Audio::AudioEngine &audioEngine) const override;
 };
 
 } // namespace Instruments

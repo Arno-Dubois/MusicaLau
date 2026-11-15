@@ -1,8 +1,8 @@
 #ifndef MUSICAPP_INSTRUMENTS_GUITARINSTRUMENT_H
 #define MUSICAPP_INSTRUMENTS_GUITARINSTRUMENT_H
 
-#include "../Core/Instrument.h"
-#include "../Audio/AudioEngine.h" // For AudioEngine parameter in playNote
+#include "Audio/AudioEngine.h" // For AudioEngine parameter in playNote
+#include "Core/Instrument.h"
 #include <string>
 
 namespace MusicApp {
@@ -16,11 +16,11 @@ namespace Instruments {
  */
 class GuitarInstrument : public Core::Instrument {
 public:
-    GuitarInstrument();
-    ~GuitarInstrument() override = default;
+  GuitarInstrument();
+  ~GuitarInstrument() override = default;
 
-
-    void playNote(const Core::Note& note, Audio::AudioEngine& audioEngine) const override;
+  void playNote(const Core::Note &note,
+                Audio::AudioEngine &audioEngine) const override;
 };
 } // namespace Instruments
 } // namespace MusicApp

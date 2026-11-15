@@ -1,10 +1,18 @@
-cmake-build-debug
-MusicaLau.vpp.bak_*
-.idea
-bin/MusicaLau.exe
-bin/MusicaLau.exe
-<<<<<<< Updated upstream
-star_wars.txt
-=======
->>>>>>> Stashed changes
-SL3 migration.txt
+# Build output
+build/
+cmake-build-*/
+out/
+bin/
+
+# IDEs
+.idea/
+.vscode/
+.vs/
+*.user
+
+# Visual Paradigm backups
+*.vpp.bak_*
+
+# OS
+.DS_Store
+Thumbs.db

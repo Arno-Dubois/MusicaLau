@@ -1,88 +1,90 @@
 #pragma once
 
+#include "Audio/MusicFileReader.h"
+#include "Controller/Button.h"
+#include "View/View.h"
 #include <SDL3/SDL.h>
-#include <SDL3/SDL_ttf.h>
-#include <vector>
-#include <string>
-#include <cmath>
-#include <thread>
+#include <SDL3_ttf/SDL_ttf.h>
 #include <atomic>
-#include "Button.h"
-#include "../View/View.h"
-#include "../Audio/MusicFileReader.h"
+#include <cmath>
+#include <string>
+#include <thread>
+#include <vector>
 
 class ButtonView;
 
 // Forward declaration for the callback
-static void FileDialogCallback(void *userdata, const char *const *filePaths, int numFiles);
+static void FileDialogCallback(void *userdata, const char *const *filePaths,
+                               int numFiles);
 
 namespace MusicApp {
-    namespace Audio {
-        class AudioEngine;
-    }
+namespace Audio {
+class AudioEngine;
 }
+} // namespace MusicApp
 
 class Controller {
 protected:
-    std::vector<Button> buttons;
-    TTF_Font *font;
+  std::vector<Button> buttons;
+  TTF_Font *font;
 
-    // UI parameters
-    float buttonWidth = 121.0f;
-    float buttonHeight = 90.0f;
-    float buttonSpacing = 50.0f;
-    float toolbarY = 20.0f;
-    float startX = 63.0f;
+  // UI parameters
+  float buttonWidth = 121.0f;
+  float buttonHeight = 90.0f;
+  float buttonSpacing = 50.0f;
+  float toolbarY = 20.0f;
+  float startX = 63.0f;
 
-    // Suivi des dimensions actuelles de la fenêtre
-    int currentWindowWidth;
-    int currentWindowHeight;
+  // Suivi des dimensions actuelles de la fenêtre
+  int currentWindowWidth;
+  int currentWindowHeight;
 
-    // Audio engine
-    MusicApp::Audio::AudioEngine *audioEngine;
+  // Audio engine
+  MusicApp::Audio::AudioEngine *audioEngine;
 
-    // Imported song data
-    std::string importedFilePath;
-    std::string importedFileName;
-    std::vector<MusicalEvent> currentSongEvents_for_playback;
-    bool songLoaded;
+  // Imported song data
+  std::string importedFilePath;
+  std::string importedFileName;
+  std::vector<MusicalEvent> currentSongEvents_for_playback;
+  bool songLoaded;
 
-    // Button View
-    ButtonView *buttonView_; // Pointer to ButtonView
+  // Button View
+  ButtonView *buttonView_; // Pointer to ButtonView
 
-    // Playback-related state (without threading logic)
-    std::string currentInstrumentName_for_song_;
-    bool songPlayRequested_;
+  // Playback-related state (without threading logic)
+  std::string currentInstrumentName_for_song_;
+  bool songPlayRequested_;
 
 public:
-    Controller();
+  Controller();
 
-    Controller(MusicApp::Audio::AudioEngine *audioE);
+  Controller(MusicApp::Audio::AudioEngine *audioE);
 
-    virtual ~Controller();
+  virtual ~Controller();
 
-    friend void FileDialogCallback(void *userdata, const char *const *filePaths, int numFiles);
+  friend void FileDialogCallback(void *userdata, const char *const *filePaths,
+                                 int numFiles);
 
-    void initializeButtons();
+  void initializeButtons();
 
-    int handleButtonClick(float x, float y);
+  int handleButtonClick(float x, float y);
 
-    virtual void render(SDL_Renderer *renderer, int windowWidth, int windowHeight, bool isSongPlayingActive,
-                        bool isSongPaused) = 0;
+  virtual void render(SDL_Renderer *renderer, int windowWidth, int windowHeight,
+                      bool isSongPlayingActive, bool isSongPaused) = 0;
 
-    float calculateRelativeWidth(int windowWidth, float percentage);
-    float calculateRelativeHeight(int windowHeight, float percentage);
-    void updateDimensions(int windowWidth, int windowHeight);
+  float calculateRelativeWidth(int windowWidth, float percentage);
+  float calculateRelativeHeight(int windowHeight, float percentage);
+  void updateDimensions(int windowWidth, int windowHeight);
 
-    void handleImportSong();
-    void handlePlaySongClicked(const std::string &instrumentName);
-    std::string getCurrentInstrumentForSong() const;
-    const std::vector<MusicalEvent>& getLoadedSongEvents() const;
-    bool isSongReadyToPlay() const;
+  void handleImportSong();
+  void handlePlaySongClicked(const std::string &instrumentName);
+  std::string getCurrentInstrumentForSong() const;
+  const std::vector<MusicalEvent> &getLoadedSongEvents() const;
+  bool isSongReadyToPlay() const;
 
-    std::string getImportedFileName() const;
+  std::string getImportedFileName() const;
 
-    bool getSongLoaded() const;
+  bool getSongLoaded() const;
 
-    void resetPlayRequestStatus();
+  void resetPlayRequestStatus();
 };
